@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
+    StatsClass mystats;
+    Input myinput;
+
 	// Use this for initialization
 	void Start () {
 		
