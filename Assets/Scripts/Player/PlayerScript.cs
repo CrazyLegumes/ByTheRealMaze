@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
     [SerializeField]
     public StatsClass mystats;
+    [SerializeField]
+    
 
     Input myinput;
 

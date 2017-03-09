@@ -24,35 +24,54 @@ public class PlayerMoveState : GameState {
        
         switch (gameController.moveinput1)
         {
-            case GameStateMachine.Inputs.movedown:
+            case GameStateMachine.Inputs.Down:
                 destination = P1.transform.position + new Vector3(0, 0, -1);
                 break;
 
-            case GameStateMachine.Inputs.moveleft:
+            case GameStateMachine.Inputs.Left:
                 destination = P1.transform.position + new Vector3(-1, 0, 0);
                 break;
 
-            case GameStateMachine.Inputs.moveright:
+            case GameStateMachine.Inputs.Right:
                destination = P1.transform.position + new Vector3(1, 0, 0);
                 break;
 
-            case GameStateMachine.Inputs.moveup:
+            case GameStateMachine.Inputs.Up:
                 destination = P1.transform.position + new Vector3(0, 0, 1);
                 break;
-            case GameStateMachine.Inputs.none:
+            case GameStateMachine.Inputs.None:
                 break;
         }
-        Debug.DrawRay(P1.transform.position, destination, Color.red,4);
-        yield return new WaitForSeconds(2);
+        
         
 
-        while (P1.transform.position != destination)
+        /*
+                Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.forward, Color.red, 3);
+                Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.left, Color.red, 3);
+                Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.right, Color.red, 3);
+                Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.back, Color.red, 3);
+                */
+
+        Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
+        if (Physics.Linecast(P1.transform.position, destination,out hit))
         {
-            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
-            yield return null;
+            Debug.Log(hit.transform.name);
+            Debug.Log("Hit Cant Move");
+            gameController.ChangeState<InputState>();
+            yield break;
         }
-        yield return new WaitForSeconds(1);
+
+
+
+
+        while(P1.transform.position != destination)
+        {
+            yield return null;
+            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
+        }
+        yield return new WaitForSeconds(.5f);
         gameController.ChangeState<InputState>();
+
     }
     // Use this for initialization
     void Start () {

@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameStateMachine : StateMachine {
 
     public enum Inputs
     {
-        none,
-        moveleft,
-        moveright,
-        moveup,
-        movedown,
+        None,
+        Left,
+        Right,
+        Up,
+        Down,
         switchitem,
         useitem
     }
@@ -19,8 +21,13 @@ public class GameStateMachine : StateMachine {
     public static  GameStateMachine instance;
     public Inputs moveinput1;
     public Inputs actioninput1;
+    public float currentTimer;
+    public Slider timer;
+    public Text input;
+    
 
 
+   
     //StateMachine for The Game Could be used for menues or not.
 
     void Awake()
@@ -35,7 +42,11 @@ public class GameStateMachine : StateMachine {
     }
  
 
-
+    void Update()
+    {
+        timer.value = currentTimer;
+        input.text = moveinput1.ToString();
+    }
 
 
 

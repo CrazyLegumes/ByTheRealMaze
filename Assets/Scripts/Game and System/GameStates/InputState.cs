@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputState : GameState {
-    float currentTimer;
+   
     bool counting = false;
     bool timesUp;
 
     public override void Enter()
     {
         base.Enter();
-        currentTimer = 0f;
+        gameController.currentTimer = gameController.timeStep;
         timesUp = false;
         counting = true; //start the timer
-        gameController.moveinput1 = GameStateMachine.Inputs.none;
+        gameController.moveinput1 = GameStateMachine.Inputs.None;
         
     }
 
@@ -27,11 +27,11 @@ public class InputState : GameState {
     {
         if (counting)
         {
-            currentTimer += Time.deltaTime;
+            gameController.currentTimer -= Time.deltaTime;
             //Debug.Log(currentTimer);
           
             GrabMoveInput();
-            if (currentTimer >= gameController.timeStep)
+            if (gameController.currentTimer <= 0)
                 timesUp = true;
         }
         if (timesUp)
@@ -50,23 +50,23 @@ public class InputState : GameState {
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                Debug.Log("UP");
-                gameController.moveinput1 = GameStateMachine.Inputs.moveup;
+               
+                gameController.moveinput1 = GameStateMachine.Inputs.Up;
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                Debug.Log("DOWN");
-                gameController.moveinput1 = GameStateMachine.Inputs.movedown;
+               
+                gameController.moveinput1 = GameStateMachine.Inputs.Down;
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                Debug.Log("RIGHT");
-                gameController.moveinput1 = GameStateMachine.Inputs.moveright;
+                
+                gameController.moveinput1 = GameStateMachine.Inputs.Right;
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log("LEFT");
-                gameController.moveinput1 = GameStateMachine.Inputs.moveleft;
+                
+                gameController.moveinput1 = GameStateMachine.Inputs.Left;
             }
         }
     }
