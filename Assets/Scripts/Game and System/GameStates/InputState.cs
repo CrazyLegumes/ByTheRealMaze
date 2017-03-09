@@ -13,6 +13,7 @@ public class InputState : GameState {
         currentTimer = 0f;
         timesUp = false;
         counting = true; //start the timer
+        gameController.moveinput1 = GameStateMachine.Inputs.none;
         
     }
 
@@ -27,7 +28,9 @@ public class InputState : GameState {
         if (counting)
         {
             currentTimer += Time.deltaTime;
-            GrabInput();
+            //Debug.Log(currentTimer);
+          
+            GrabMoveInput();
             if (currentTimer >= gameController.timeStep)
                 timesUp = true;
         }
@@ -38,12 +41,34 @@ public class InputState : GameState {
 
     void BeginChange()
     {
-       // gameController.ChangeState<MoveState>();
+        gameController.ChangeState<PlayerMoveState>();
     }
 
-    void GrabInput()
+    void GrabMoveInput()
     {
-        Input.
+        if (!timesUp)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Debug.Log("UP");
+                gameController.moveinput1 = GameStateMachine.Inputs.moveup;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Debug.Log("DOWN");
+                gameController.moveinput1 = GameStateMachine.Inputs.movedown;
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Debug.Log("RIGHT");
+                gameController.moveinput1 = GameStateMachine.Inputs.moveright;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Debug.Log("LEFT");
+                gameController.moveinput1 = GameStateMachine.Inputs.moveleft;
+            }
+        }
     }
 
 }

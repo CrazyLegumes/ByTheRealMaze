@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameState : State {
-
+    
 
     protected GameStateMachine gameController;
-    PlayerScript player1;
+
+    protected PlayerScript P1; 
+    
 
 
     protected virtual void Awake()
     {
         gameController = GameStateMachine.instance;
+        P1 = gameController.player1.GetComponent<PlayerScript>();
     }
 	// Use this for initialization
 	void Start () {
