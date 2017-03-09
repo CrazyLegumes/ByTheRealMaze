@@ -6,6 +6,7 @@ public abstract class State : MonoBehaviour {
     public virtual void Enter()
     {
         AddListeners();
+        
     }
 
     public virtual void Exit()
