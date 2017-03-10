@@ -4,16 +4,16 @@ using UnityEngine;
 
 [System.Serializable]
 public class BaseEnemy : MonoBehaviour {
-    public enum Enemytype
-    {
-        small,
-        medium,
-        large,
-        boss
-    }
+    //public enum Enemytype
+    //{
+    //    small,
+    //    medium,
+    //    large,
+    //    boss
+    //}
     
     StatsClass stats;
-    Enemytype type;
+    //Enemytype type;
     string enemyName;
     
     public StatsClass Stats
@@ -29,18 +29,18 @@ public class BaseEnemy : MonoBehaviour {
         }
     }
 
-    public Enemytype Type
-    {
-        get
-        {
-            return type;
-        }
+    //public Enemytype Type
+    //{
+    //    get
+    //    {
+    //        return typ;e
+    //    }
 
-        set
-        {
-            type = value;
-        }
-    }
+    //    set
+    //    {
+    //        type = value;
+    //    }
+    //}
 
     public string EnemyName
     {

@@ -20,11 +20,16 @@ public class InputState : GameState {
     public override void Exit()
     {
         base.Exit();
+        gameController.currentTimer = gameController.timeStep;
         counting = false;
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            P1.activeItem = !P1.activeItem;
+        }
         if (counting)
         {
             gameController.currentTimer -= Time.deltaTime;
@@ -41,7 +46,9 @@ public class InputState : GameState {
 
     void BeginChange()
     {
+        timesUp = false;
         gameController.ChangeState<PlayerMoveState>();
+        Debug.Log(gameController.currstate);
     }
 
     void GrabMoveInput()
@@ -67,6 +74,11 @@ public class InputState : GameState {
             {
                 
                 gameController.moveinput1 = GameStateMachine.Inputs.Left;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                gameController.moveinput1 = GameStateMachine.Inputs.useitem;
             }
         }
     }
