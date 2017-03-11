@@ -13,7 +13,7 @@ public class GameStateMachine : StateMachine {
         Right,
         Up,
         Down,
-        switchitem,
+        
         useitem
     }
     public float timeStep;
@@ -24,6 +24,10 @@ public class GameStateMachine : StateMachine {
     public float currentTimer;
     public Slider timer;
     public Text input;
+    public string currstate;
+    public List<BaseEnemy> enemyList;
+    public List<GameObject> wallList;
+    
     
 
 
@@ -46,6 +50,7 @@ public class GameStateMachine : StateMachine {
     {
         timer.value = currentTimer;
         input.text = moveinput1.ToString();
+        currstate = _currentState.ToString();
     }
 
 
