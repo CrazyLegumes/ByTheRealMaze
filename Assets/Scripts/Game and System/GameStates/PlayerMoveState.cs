@@ -25,19 +25,19 @@ public class PlayerMoveState : GameState {
         switch (gameController.moveinput1)
         {
             case GameStateMachine.Inputs.Down:
-                destination = P1.transform.position + new Vector3(0, 0, -1);
+                destination = P1.transform.position + new Vector3(0, 0, -2);
                 break;
 
             case GameStateMachine.Inputs.Left:
-                destination = P1.transform.position + new Vector3(-1, 0, 0);
+                destination = P1.transform.position + new Vector3(-2, 0, 0);
                 break;
 
             case GameStateMachine.Inputs.Right:
-               destination = P1.transform.position + new Vector3(1, 0, 0);
+               destination = P1.transform.position + new Vector3(2, 0, 0);
                 break;
 
             case GameStateMachine.Inputs.Up:
-                destination = P1.transform.position + new Vector3(0, 0, 1);
+                destination = P1.transform.position + new Vector3(0, 0, 2);
                 break;
             case GameStateMachine.Inputs.None:
                 break;
