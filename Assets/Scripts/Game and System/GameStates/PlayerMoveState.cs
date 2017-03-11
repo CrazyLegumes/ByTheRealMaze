@@ -87,6 +87,7 @@ public class PlayerMoveState : GameState {
             yield return null;
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
         }
+        //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
         yield return new WaitForSeconds(.5f);
         gameController.ChangeState<EnemyMoveState>();
         Debug.Log(gameController.currstate);
