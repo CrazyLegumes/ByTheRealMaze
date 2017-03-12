@@ -57,7 +57,7 @@ public class LightingShadows : MonoBehaviour
         }
         DrawRays();
 
-        Debug.Log(hitObjs.Count);
+        //Debug.Log(hitObjs.Count);
         yield break;
 
     }

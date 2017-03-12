@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class DummyEnemy : BaseEnemy {
 
-    public override void Move()
+    public override IEnumerator Move()
     {
-        base.Move();
+        StartCoroutine(base.Move());    //if player not seen
+        yield return null;
     }
     // Use this for initialization
     void Start () {
-        Stats.Health = 1;
+        windup = 1;
+        //Stats.Health = 1;
 	}
 	
 	// Update is called once per frame
