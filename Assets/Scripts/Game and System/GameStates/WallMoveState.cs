@@ -6,9 +6,10 @@ public class WallMoveState : GameState {
 
     public override void Enter()
     {
-        int count = gameController.wallList.Count;
-        int i = Random.Range(0, count);
-        int j = Random.Range(0, count);
+        foreach(MovableWalls a in gameController.movableWalls)
+        {
+            StartCoroutine(a.MoveWall());
+        }
 
         StartCoroutine(init());
     }

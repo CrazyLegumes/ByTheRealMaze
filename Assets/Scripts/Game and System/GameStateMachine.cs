@@ -26,8 +26,7 @@ public class GameStateMachine : StateMachine {
     public Text input;
     public string currstate;
     public List<BaseEnemy> enemyList;
-    public List<GameObject> wallList;
-
+    public List<MovableWalls> movableWalls;
     public static int enemyCount = 0;
     
     
@@ -43,6 +42,13 @@ public class GameStateMachine : StateMachine {
         else
         {
             instance = this;
+        }
+        foreach(GameObject a in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            if(a.GetComponent<MovableWalls>() != null)
+            {
+                movableWalls.Add(a.GetComponent<MovableWalls>());
+            }
         }
         ChangeState<InputState>();
     }
