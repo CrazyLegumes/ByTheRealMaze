@@ -19,7 +19,7 @@ public class PlayerMoveState : GameState {
     IEnumerator MovePlayer1()
     {
         Vector3 destination = P1.transform.position;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
        
@@ -88,7 +88,7 @@ public class PlayerMoveState : GameState {
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
-        yield return new WaitForSeconds(.5f);
+        //yield return new WaitForSeconds(.5f);
         gameController.ChangeState<EnemyMoveState>();
         Debug.Log(gameController.currstate);
 

@@ -15,7 +15,7 @@ public class WallMoveState : GameState {
 
     IEnumerator init()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
         gameController.ChangeState<InputState>();
         Debug.Log(gameController.currstate);
     }

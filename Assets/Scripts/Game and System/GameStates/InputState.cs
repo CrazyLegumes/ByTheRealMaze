@@ -20,7 +20,7 @@ public class InputState : GameState {
     public override void Exit()
     {
         base.Exit();
-        gameController.currentTimer = gameController.timeStep;
+        gameController.currentTimer = 0;
         counting = false;
     }
 
