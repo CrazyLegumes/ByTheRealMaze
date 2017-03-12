@@ -27,6 +27,8 @@ public class GameStateMachine : StateMachine {
     public string currstate;
     public List<BaseEnemy> enemyList;
     public List<GameObject> wallList;
+
+    public static int enemyCount = 0;
     
     
 
@@ -42,7 +44,14 @@ public class GameStateMachine : StateMachine {
         {
             instance = this;
         }
+
+        foreach (BaseEnemy a in enemyList)
+        {
+            a.initialize();
+        }
+
         ChangeState<InputState>();
+
     }
  
 
