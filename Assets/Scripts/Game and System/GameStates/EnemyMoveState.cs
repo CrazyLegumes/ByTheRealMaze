@@ -10,7 +10,28 @@ public class EnemyMoveState : GameState {
         GameStateMachine.enemyCount = 0;
         foreach(BaseEnemy a in gameController.enemyList)
         {
-            StartCoroutine(a.Move());
+            if (a.inAttack)
+            {
+                a.ChooseAttack();
+                continue;
+            }
+
+            a.playerScan();
+
+            if (a.playerInAttackRange) //or winding up
+            {
+                a.ChooseAttack();
+            }
+            else if (a.seenPlayer || (a.chasing  && !a.locReached))
+            {
+                
+                StartCoroutine(a.Chase());
+            }
+            else
+            {
+                StartCoroutine(a.Move());
+            }
+            
         }
          
         StartCoroutine(init());

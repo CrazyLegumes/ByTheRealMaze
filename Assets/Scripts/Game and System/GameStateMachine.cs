@@ -44,7 +44,14 @@ public class GameStateMachine : StateMachine {
         {
             instance = this;
         }
+
+        foreach (BaseEnemy a in enemyList)
+        {
+            a.initialize();
+        }
+
         ChangeState<InputState>();
+
     }
  
 

@@ -49,13 +49,13 @@ public class LightingShadows : MonoBehaviour
             
             
 
-            Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 100f);
+            //Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 100f);
             
 
 
 
         }
-        DrawRays();
+        //DrawRays();
 
         //Debug.Log(hitObjs.Count);
         yield break;
