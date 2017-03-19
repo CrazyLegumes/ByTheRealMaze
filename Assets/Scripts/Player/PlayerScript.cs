@@ -9,12 +9,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     public StatsClass mystats;
 
+    [SerializeField]
+    public PlayerUI myUi;
 
 
 
 
 
-   public bool activeItem = true;
+
+    public bool activeItem = true;
 
 
     public BaseItem Item1;
@@ -24,7 +27,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     int itemCount = 0;
 
-    
+
 
 
 
@@ -39,10 +42,10 @@ public class PlayerScript : MonoBehaviour
             {
                 Item1 = col.GetComponent<BaseItem>();
 
-                
-                
+
+
             }
-            else if(itemCount == 1)
+            else if (itemCount == 1)
             {
                 Item2 = col.GetComponent<BaseItem>();
             }
@@ -52,10 +55,10 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-    }    
+    }
 
 
-    void Start()
+    void Awake()
     {
         activeItem = true;
         mystats = new StatsClass();
@@ -69,7 +72,7 @@ public class PlayerScript : MonoBehaviour
         mystats.Strength = 1;
         mystats.Defense = 1;
         mystats.Movespeed = 1;
-        mystats.Health = mystats.Maxhealth = 5;
+        mystats.Health = mystats.Maxhealth = 17;
         mystats.SightRange = 10;
         mystats.Dead = false;
     }
@@ -78,7 +81,29 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         if (activeItem) { }
+        if (mystats.Damaged)
+        {
+            mystats.Damaged = false;
+            StartCoroutine(CameraShake());
+        }
 
 
     }
+
+    IEnumerator CameraShake()
+    {
+        float shakeTimer = .3f;
+        float shakeStrength = .2f;
+        while (shakeTimer >= 0)
+        {
+            yield return null;
+            Camera.main.transform.localPosition = new Vector3(Random.insideUnitSphere.x * shakeStrength, 19, Random.insideUnitSphere.z * shakeStrength);
+            shakeTimer -= Time.deltaTime;
+        }
+        Camera.main.transform.localPosition = new Vector3(0, 19, 0);
+        yield break;
+    }
+
+
+
 }
