@@ -30,7 +30,7 @@ public class BaseEnemy : MonoBehaviour
     public bool playerInAttackRange;
     public Vector3 playerLoc;
     public LayerMask HitMask;
-
+    public string attackDirection = null;
     private int turnsWaiting = 0;
 
     public virtual void initialize()
@@ -90,7 +90,8 @@ public class BaseEnemy : MonoBehaviour
 
 
 
-    // Possible Max of 6 actions and move. //Or can be set for each enemy instead of defining them here 
+    // Possible Max of 6 actions and move. 
+    //Or can be set for each enemy instead of defining them here 
     public virtual IEnumerator Move()
     {
 
@@ -179,6 +180,8 @@ public class BaseEnemy : MonoBehaviour
         GameStateMachine.enemyCount++;
     }
 
+
+    //for chasing
     public virtual void playerScan()
     {
         RaycastHit playerHit;
@@ -192,12 +195,25 @@ public class BaseEnemy : MonoBehaviour
             Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 5f);
 
             if (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)), out playerHit, attackRange))
-                if (playerHit.transform.gameObject.tag == "Player")
+                if (playerHit.transform.gameObject.tag == "Player" && angle % 90 == 0)
                 {
                     playerLoc = playerHit.transform.position;
                     locReached = false;
                     //Debug.Log("PLAYER IN ATTACK RANGE");
                     playerInAttackRange = true;
+
+                    //determines what direction the enemy is in
+                    if (angle <= 45 || angle >= 315)
+                        attackDirection = "up";
+                    else if (angle <= 135)
+                        attackDirection = "right";
+                    else if (angle <= 225)
+                        attackDirection = "down";
+                    else if (angle <= 315)
+                        attackDirection = "left";
+
+
+
                     seenPlayer = true;
 
                     break;
@@ -328,7 +344,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     public virtual void Act1()
-    {        //1 Turn Windup 1 Space hit
+    {        //1 Space in front hit 1 dmg
 
         inAttack = true;
 
@@ -351,7 +367,7 @@ public class BaseEnemy : MonoBehaviour
         {
             foreach (Vector3 a in attackArray)
             {
-                Debug.Log("Doot");
+                //Debug.Log("Doot");
 
                 Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
                 foreach (Collider x in hitobjects)
@@ -383,8 +399,236 @@ public class BaseEnemy : MonoBehaviour
             turnsWaiting = 0;
         }
     }
-    public virtual void Act2() { }
-    public virtual void Act3() { }
-    public virtual void Act4() { }
+    public virtual void Act2()
+    {
+        //"T" attack 1 dmg
+        inAttack = true;
+        if(attackDirection == "up")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
+            attackArray[1] = new Vector3(transform.position.x,  0.05f, transform.position.z + 2);
+            attackArray[2] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z + 2);
+            attackArray[3] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z + 2);
+        }
+        else if(attackDirection == "right")
+        {
+            attackArray[0] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z);
+            attackArray[2] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z + 1);
+            attackArray[3] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z - 1);
+        }
+        else if(attackDirection == "down")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 1);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z - 2);
+            attackArray[2] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z - 2);
+            attackArray[3] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z - 2);
+        }
+        else if(attackDirection == "left")
+        {
+            attackArray[0] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z);
+            attackArray[2] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z + 1);
+            attackArray[3] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z - 1);
+        }
+        if (turnsWaiting == 0)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Debug.Log("WARNING");
+                GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
+                b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
+                    b.transform.localScale.y / transform.localScale.y,
+                    b.transform.localScale.z / transform.localScale.z);
+                b.transform.position = new Vector3(b.transform.position.x, 0.05f, b.transform.position.z);
+            }
+            turnsWaiting++;
+        }
+        else if (turnsWaiting == windup)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        if (dmg <= 0)
+                            dmg = 1;
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+                }
+            }
+        
+            foreach (Transform child in transform)
+            {
+                if(child.gameObject.tag == "Warning")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            Debug.Log("Attack 2");
+            inAttack = false;
+            locReached = true;
+            turnsWaiting = 0;
+        }
+
+        
+    }
+    public virtual void Act3()
+    {
+        //2 in front
+        inAttack = true;
+        if (attackDirection == "up")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z + 2);
+        }
+        else if (attackDirection == "right")
+        {
+            attackArray[0] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z);
+        }
+        else if (attackDirection == "down")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 1);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z - 2);
+        }
+        else if (attackDirection == "left")
+        {
+            attackArray[0] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z);
+        }
+
+        if (turnsWaiting == 0)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Debug.Log("WARNING");
+                GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
+                b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
+                    b.transform.localScale.y / transform.localScale.y,
+                    b.transform.localScale.z / transform.localScale.z);
+                b.transform.position = new Vector3(b.transform.position.x, 0.05f, b.transform.position.z);
+            }
+            turnsWaiting++;
+        }
+        else if (turnsWaiting == windup)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        if (dmg <= 0)
+                            dmg = 1;
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+                }
+            }
+
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.tag == "Warning")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            Debug.Log("Attack 2");
+            inAttack = false;
+            locReached = true;
+            turnsWaiting = 0;
+        }
+    }
+    public virtual void Act4()
+    {
+        //charge attack, 4 tiles in front, 4 dmg
+        inAttack = true;
+        if (attackDirection == "up")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z + 2);
+            attackArray[2] = new Vector3(transform.position.x, 0.05f, transform.position.z + 3);
+            attackArray[3] = new Vector3(transform.position.x, 0.05f, transform.position.z + 4);
+        }
+        else if (attackDirection == "right")
+        {
+            attackArray[0] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z);
+            attackArray[2] = new Vector3(transform.position.x + 3, 0.05f, transform.position.z);
+            attackArray[3] = new Vector3(transform.position.x + 4, 0.05f, transform.position.z);
+        }
+        else if (attackDirection == "down")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 1);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z - 2);
+            attackArray[2] = new Vector3(transform.position.x, 0.05f, transform.position.z - 3);
+            attackArray[3] = new Vector3(transform.position.x, 0.05f, transform.position.z - 4);
+        }
+        else if (attackDirection == "left")
+        {
+            attackArray[0] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z);
+            attackArray[1] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z);
+            attackArray[2] = new Vector3(transform.position.x - 3, 0.05f, transform.position.z);
+            attackArray[3] = new Vector3(transform.position.x - 4, 0.05f, transform.position.z);
+        }
+        if (turnsWaiting == 0)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Debug.Log("WARNING");
+                GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
+                b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
+                    b.transform.localScale.y / transform.localScale.y,
+                    b.transform.localScale.z / transform.localScale.z);
+                b.transform.position = new Vector3(b.transform.position.x, 0.05f, b.transform.position.z);
+            }
+            turnsWaiting++;
+        }
+        else if (turnsWaiting == windup)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        Debug.Log("enemy str" + stats.Strength);
+                        Debug.Log("player def" + x.GetComponent<PlayerScript>().mystats.Defense);
+
+                        if (dmg <= 0)
+                            dmg = 1;
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+                }
+            }
+
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.tag == "Warning")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            Debug.Log("Attack 2");
+            inAttack = false;
+            locReached = true;
+            turnsWaiting = 0;
+        }
+
+
+    }
     public virtual void Act5() { }
 }

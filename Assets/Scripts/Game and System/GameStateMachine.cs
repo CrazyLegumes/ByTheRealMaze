@@ -67,6 +67,16 @@ public class GameStateMachine : StateMachine {
         currstate = _currentState.ToString();
     }
 
+    void Start()
+    {
+        foreach (BaseEnemy a in enemyList)
+        {
+            a.initialize();
+        }
+
+        ChangeState<InputState>();
+    }
+
 
 
 
