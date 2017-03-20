@@ -2,34 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeEnemy : BaseEnemy {
-    
+public class RangedAttack : BaseEnemy {
+
+
     public override IEnumerator Move()
     {
         StartCoroutine(base.Move());    //if player not seen
         yield return null;
     }
+
     public override void ChooseAttack()
     {
-        base.Act4();
+        base.Act5();
         GameStateMachine.enemyCount++;
     }
     public override void InitStats()
     {
         stats = new StatsClass();
-        stats.Strength = 5;
+        stats.Strength = 2;
     }
+
 
     void Start () {
         windup = 1;
         InitStats();
-        attackSize = 4; 
-        attackRange = 4;
+        attackSize = 1;
+        attackRange = 3;
         visionRange = 6;
         base.initialize();
     }
 	
-
+	// Update is called once per frame
 	void Update () {
 		
 	}

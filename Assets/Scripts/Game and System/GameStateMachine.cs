@@ -50,13 +50,6 @@ public class GameStateMachine : StateMachine {
                 movableWalls.Add(a.GetComponent<MovableWalls>());
         }
 
-        foreach (BaseEnemy a in enemyList)
-        {
-            a.initialize();
-        }
-
-        ChangeState<InputState>();
-
     }
  
 

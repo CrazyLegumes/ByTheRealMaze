@@ -24,8 +24,9 @@ public class TEnemy : BaseEnemy {
     void Start () {
         windup = 1;
         InitStats();
-        attackSize = 4; // this is 4 because its the 'T attack'
+        attackSize = 4; // this is 4 because its the 'T attack' which is four spaces
         attackRange = 2;
+        base.initialize();
 	}
 	
 	// Update is called once per frame

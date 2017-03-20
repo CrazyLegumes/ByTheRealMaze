@@ -25,6 +25,7 @@ public class LongReachEnemy : BaseEnemy {
         InitStats();
         attackSize = 2;
         attackRange = 2;
+        base.initialize();
 	}
 	
 	void Update () {

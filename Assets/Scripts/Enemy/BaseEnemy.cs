@@ -6,23 +6,15 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
 
-    //public enum Enemytype
-    //{
-    //    small,
-    //    medium,
-    //    large,
-    //    boss
-    //}
 
     protected StatsClass stats;
-    //Enemytype type;
     protected string enemyName;
     protected GameObject attackWarning;
     protected int windup = 1;
-    protected int attackSize = 1;
+    public int attackSize = 1;
     protected float visionRange = 3;
-    protected float attackRange = 1;
-    protected Vector3[] attackArray;
+    public float attackRange = 1;
+    public Vector3[] attackArray;
     public bool seenPlayer;
     public bool locReached;
     public bool chasing;
@@ -52,19 +44,6 @@ public class BaseEnemy : MonoBehaviour
             stats = value;
         }
     }
-
-    //public Enemytype Type
-    //{
-    //    get
-    //    {
-    //        return typ;e
-    //    }
-
-    //    set
-    //    {
-    //        type = value;
-    //    }
-    //}
 
     public string EnemyName
     {
@@ -103,25 +82,25 @@ public class BaseEnemy : MonoBehaviour
         if (Physics.Linecast(transform.position, transform.position + Vector3.forward, out RC))
             if (RC.transform.gameObject.tag == "Wall")
             {
-                Debug.Log("wall above");
+                //Debug.Log("wall above");
                 up = false;
             }
         if (Physics.Linecast(transform.position, transform.position + Vector3.back, out RC))
             if (RC.transform.gameObject.tag == "Wall")
             {
-                Debug.Log("wall below");
+                //Debug.Log("wall below");
                 down = false;
             }
         if (Physics.Linecast(transform.position, transform.position + Vector3.right, out RC))
             if (RC.transform.gameObject.tag == "Wall")
             {
-                Debug.Log("wall right");
+                //Debug.Log("wall right");
                 right = false;
             }
         if (Physics.Linecast(transform.position, transform.position + Vector3.left, out RC))
             if (RC.transform.gameObject.tag == "Wall")
             {
-                Debug.Log("wall left");
+                //Debug.Log("wall left");
                 left = false;
             }
 
@@ -179,7 +158,6 @@ public class BaseEnemy : MonoBehaviour
 
         GameStateMachine.enemyCount++;
     }
-
 
     //for chasing
     public virtual void playerScan()
@@ -403,28 +381,28 @@ public class BaseEnemy : MonoBehaviour
     {
         //"T" attack 1 dmg
         inAttack = true;
-        if(attackDirection == "up")
+        if (attackDirection == "up")
         {
             attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
-            attackArray[1] = new Vector3(transform.position.x,  0.05f, transform.position.z + 2);
+            attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z + 2);
             attackArray[2] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z + 2);
             attackArray[3] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z + 2);
         }
-        else if(attackDirection == "right")
+        else if (attackDirection == "right")
         {
             attackArray[0] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z);
             attackArray[1] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z);
             attackArray[2] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z + 1);
             attackArray[3] = new Vector3(transform.position.x + 2, 0.05f, transform.position.z - 1);
         }
-        else if(attackDirection == "down")
+        else if (attackDirection == "down")
         {
             attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 1);
             attackArray[1] = new Vector3(transform.position.x, 0.05f, transform.position.z - 2);
             attackArray[2] = new Vector3(transform.position.x + 1, 0.05f, transform.position.z - 2);
             attackArray[3] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z - 2);
         }
-        else if(attackDirection == "left")
+        else if (attackDirection == "left")
         {
             attackArray[0] = new Vector3(transform.position.x - 1, 0.05f, transform.position.z);
             attackArray[1] = new Vector3(transform.position.x - 2, 0.05f, transform.position.z);
@@ -461,10 +439,10 @@ public class BaseEnemy : MonoBehaviour
                     }
                 }
             }
-        
+
             foreach (Transform child in transform)
             {
-                if(child.gameObject.tag == "Warning")
+                if (child.gameObject.tag == "Warning")
                 {
                     Destroy(child.gameObject);
                 }
@@ -476,7 +454,7 @@ public class BaseEnemy : MonoBehaviour
             turnsWaiting = 0;
         }
 
-        
+
     }
     public virtual void Act3()
     {
@@ -630,5 +608,73 @@ public class BaseEnemy : MonoBehaviour
 
 
     }
-    public virtual void Act5() { }
+    public virtual void Act5()
+    {
+        //ranged attack
+        inAttack = true;
+        if (attackDirection == "up")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 3);
+        }
+        else if (attackDirection == "right")
+        {
+            attackArray[0] = new Vector3(transform.position.x + 3, 0.05f, transform.position.z);
+        }
+        else if (attackDirection == "down")
+        {
+            attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 3);
+        }
+        else if (attackDirection == "left")
+        {
+            attackArray[0] = new Vector3(transform.position.x - 3, 0.05f, transform.position.z);
+
+        }
+        if (turnsWaiting == 0)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Debug.Log("WARNING");
+                GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
+                b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
+                    b.transform.localScale.y / transform.localScale.y,
+                    b.transform.localScale.z / transform.localScale.z);
+                b.transform.position = new Vector3(b.transform.position.x, 0.05f, b.transform.position.z);
+            }
+            turnsWaiting++;
+        }
+        else if (turnsWaiting == windup)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        Debug.Log("enemy str" + stats.Strength);
+                        Debug.Log("player def" + x.GetComponent<PlayerScript>().mystats.Defense);
+
+                        if (dmg <= 0)
+                            dmg = 1;
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+                }
+            }
+
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.tag == "Warning")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            Debug.Log("Attack 2");
+            inAttack = false;
+            locReached = true;
+            turnsWaiting = 0;
+        }
+    }
 }
