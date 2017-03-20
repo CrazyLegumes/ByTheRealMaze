@@ -93,14 +93,15 @@ public class PlayerScript : MonoBehaviour
     IEnumerator CameraShake()
     {
         float shakeTimer = .3f;
-        float shakeStrength = .2f;
+        float shakeStrength = 1f;
+        Vector3 prevPos = Camera.main.transform.localPosition;
         while (shakeTimer >= 0)
         {
             yield return null;
-            Camera.main.transform.localPosition = new Vector3(Random.insideUnitSphere.x * shakeStrength, 19, Random.insideUnitSphere.z * shakeStrength);
+            Camera.main.transform.localPosition = new Vector3(prevPos.x  + Random.insideUnitSphere.x * shakeStrength, prevPos.y, prevPos.z + Random.insideUnitSphere.z * shakeStrength);
             shakeTimer -= Time.deltaTime;
         }
-        Camera.main.transform.localPosition = new Vector3(0, 19, 0);
+        Camera.main.transform.localPosition = prevPos;
         yield break;
     }
 

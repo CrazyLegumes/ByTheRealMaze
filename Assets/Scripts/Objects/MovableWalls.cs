@@ -44,7 +44,7 @@ public class MovableWalls : MonoBehaviour
                     
                     }
                       
-                    dest = transform.position + Vector3.up;
+                    dest = transform.position + Vector3.up + new Vector3(0, .5f, 0);
                     while (transform.position != dest)
                     {
                         yield return null;
@@ -53,7 +53,7 @@ public class MovableWalls : MonoBehaviour
                 }
                 else
                 {
-                    dest = transform.position + Vector3.down;
+                    dest = transform.position + Vector3.down + new Vector3(0, -.5f, 0);
                     while (transform.position != dest)
                     {
                         yield return null;
