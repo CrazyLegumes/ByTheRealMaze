@@ -73,13 +73,13 @@ public class PlayerUI : MonoBehaviour
             Debug.Log(healthArray[i].GetComponent<RectTransform>().anchoredPosition);
             healthArray[i].GetComponent<Graphic>().enabled = true;
             count++;
-            if (count >= 5)
+            if (count >= 6)
             {
-                x = 0;
-                y += 100;
+                y = 0;
+                x -= 100;
                 count = 0;
             }
-            x = count * 100;
+            y = -count * 100;
         }
     }
 }

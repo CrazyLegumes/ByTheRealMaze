@@ -72,7 +72,7 @@ public class PlayerScript : MonoBehaviour
         mystats.Strength = 1;
         mystats.Defense = 1;
         mystats.Movespeed = 1;
-        mystats.Health = mystats.Maxhealth = 17;
+        mystats.Health = mystats.Maxhealth = 12;
         mystats.SightRange = 10;
         mystats.Dead = false;
     }

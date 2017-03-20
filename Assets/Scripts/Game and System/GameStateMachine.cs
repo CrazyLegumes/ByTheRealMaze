@@ -23,6 +23,7 @@ public class GameStateMachine : StateMachine {
     public Inputs actioninput1;
     public float currentTimer;
     public Slider timer;
+    public Image Timer2;
     public Text input;
     public string currstate;
     public List<BaseEnemy> enemyList;
@@ -65,6 +66,7 @@ public class GameStateMachine : StateMachine {
         timer.value = currentTimer;
         input.text = moveinput1.ToString();
         currstate = _currentState.ToString();
+        //Timer2.fillAmount = currentTimer / timeStep;
     }
 
 
