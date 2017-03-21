@@ -9,12 +9,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     public StatsClass mystats;
 
+    [SerializeField]
+    public PlayerUI myUi;
+
+
+    EquipItem[] Equipment= new EquipItem[5];
 
 
 
-
-
-   public bool activeItem = true;
+    public bool activeItem = true;
 
 
     public BaseItem Item1;
@@ -24,7 +27,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     int itemCount = 0;
 
-    
+
 
 
 
@@ -34,15 +37,25 @@ public class PlayerScript : MonoBehaviour
     {
         if (col.tag == "Item")
         {
+            BaseItem hit = col.gameObject.GetComponent<BaseItem>();
+            switch (hit.Type)
+            {
+                case BaseItem.Itemtype.equip:
+                    EquipItem(hit.GetComponent<EquipItem>());
+                    break;
+
+                case BaseItem.Itemtype.use:
+                    break;
+            }
             Debug.Log("Hit");
             if (itemCount == 0)
             {
                 Item1 = col.GetComponent<BaseItem>();
 
-                
-                
+
+
             }
-            else if(itemCount == 1)
+            else if (itemCount == 1)
             {
                 Item2 = col.GetComponent<BaseItem>();
             }
@@ -52,15 +65,16 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-    }    
+    }
 
 
-    void Start()
+    void Awake()
     {
         activeItem = true;
         mystats = new StatsClass();
         InitBaseStats();
         itemCount = 0;
+        
 
     }
 
@@ -69,7 +83,7 @@ public class PlayerScript : MonoBehaviour
         mystats.Strength = 1;
         mystats.Defense = 1;
         mystats.Movespeed = 1;
-        mystats.Health = mystats.Maxhealth = 5;
+        mystats.Health = mystats.Maxhealth = 40;
         mystats.SightRange = 10;
         mystats.Dead = false;
     }
@@ -78,7 +92,35 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         if (activeItem) { }
+        if (mystats.Damaged)
+        {
+            mystats.Damaged = false;
+            StartCoroutine(CameraShake());
+        }
 
 
     }
+
+    IEnumerator CameraShake()
+    {
+        float shakeTimer = .3f;
+        float shakeStrength = 1f;
+        Vector3 prevPos = Camera.main.transform.localPosition;
+        while (shakeTimer >= 0)
+        {
+            yield return null;
+            Camera.main.transform.localPosition = new Vector3(prevPos.x  + Random.insideUnitSphere.x * shakeStrength, prevPos.y, prevPos.z + Random.insideUnitSphere.z * shakeStrength);
+            shakeTimer -= Time.deltaTime;
+        }
+        Camera.main.transform.localPosition = prevPos;
+        yield break;
+    }
+
+
+    void EquipItem(EquipItem item)
+    {
+
+    }
+
+
 }

@@ -29,6 +29,7 @@ public class BaseEnemy : MonoBehaviour
     public bool inAttack;
     public bool playerInAttackRange;
     public Vector3 playerLoc;
+    public LayerMask HitMask;
 
     private int turnsWaiting = 0;
 
@@ -77,6 +78,17 @@ public class BaseEnemy : MonoBehaviour
             enemyName = value;
         }
     }
+
+
+    public virtual void InitStats()
+    {
+        stats = new StatsClass();
+        stats.Strength = 1;
+    }
+
+
+
+
 
     // Possible Max of 6 actions and move. //Or can be set for each enemy instead of defining them here 
     public virtual IEnumerator Move()
@@ -172,7 +184,7 @@ public class BaseEnemy : MonoBehaviour
         RaycastHit playerHit;
         playerInAttackRange = false;
         seenPlayer = false;
-        
+
 
         for (float angle = 0; angle < 360; angle += 15)
         {
@@ -187,7 +199,7 @@ public class BaseEnemy : MonoBehaviour
                     //Debug.Log("PLAYER IN ATTACK RANGE");
                     playerInAttackRange = true;
                     seenPlayer = true;
-                    
+
                     break;
                 }
             if (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)), out playerHit, visionRange))
@@ -298,7 +310,7 @@ public class BaseEnemy : MonoBehaviour
                 yield break;
             }
         }
-        if(transform.position == playerLoc) 
+        if (transform.position == playerLoc)
         {
 
             locReached = true;
@@ -339,7 +351,23 @@ public class BaseEnemy : MonoBehaviour
         {
             foreach (Vector3 a in attackArray)
             {
-               //Later
+                Debug.Log("Doot");
+
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        if (dmg <= 0)
+                            dmg = 1;
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+
+                }
+
+
             }
 
             foreach (Transform child in transform)

@@ -23,12 +23,14 @@ public class GameStateMachine : StateMachine {
     public Inputs actioninput1;
     public float currentTimer;
     public Slider timer;
+    public Image Timer2;
     public Text input;
     public string currstate;
     public List<BaseEnemy> enemyList;
-    public List<GameObject> wallList;
+    public List<MovableWalls> movableWalls;
 
     public static int enemyCount = 0;
+    Color startColor;
     
     
 
@@ -38,11 +40,17 @@ public class GameStateMachine : StateMachine {
 
     void Awake()
     {
+        startColor = Timer2.color;
         if (instance != null)
             Destroy(gameObject);
         else
         {
             instance = this;
+        }
+        foreach(GameObject a in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            if (a.GetComponent<MovableWalls>() != null)
+                movableWalls.Add(a.GetComponent<MovableWalls>());
         }
 
         foreach (BaseEnemy a in enemyList)
@@ -57,9 +65,21 @@ public class GameStateMachine : StateMachine {
 
     void Update()
     {
-        timer.value = currentTimer;
+        //timer.value = currentTimer;
         input.text = moveinput1.ToString();
         currstate = _currentState.ToString();
+        Timer2.fillAmount = currentTimer / timeStep;
+        if (Timer2.fillAmount > .5f)
+            Timer2.CrossFadeColor(startColor, .00001f, false, false);
+        if (Timer2.fillAmount < .5f && Timer2.fillAmount > .2f)
+        {
+            Timer2.CrossFadeColor(new Color(5,5,0, 1), 1f, false, false);
+        }
+        if (Timer2.fillAmount < .2f)
+        {
+            Debug.Log("I am a red boy");
+            Timer2.CrossFadeColor(new Color(255, 0, 0, 1), .1f, false, false);
+        }
     }
 
 

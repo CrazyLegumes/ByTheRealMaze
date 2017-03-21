@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StatsClass {
+public class StatsClass
+{
     [SerializeField]
     int strength;
 
@@ -25,7 +26,10 @@ public class StatsClass {
     [SerializeField]
     bool dead;
 
-    
+    [SerializeField]
+    bool damaged;
+
+
     public int Strength
     {
         get
@@ -117,8 +121,35 @@ public class StatsClass {
         }
     }
 
-    public virtual void Heal(int hp) { }
-    public virtual void Damage(int dmg) { }
+    public bool Damaged
+    {
+        get
+        {
+            return damaged;
+        }
+
+        set
+        {
+            damaged = value;
+        }
+    }
+
+    public virtual void Heal(int hp)
+    {
+        health += hp;
+        if (health > maxhealth)
+            health = maxhealth;
+    }
+    public virtual void Damage(int dmg)
+    {
+        health -= dmg;
+        if(health <= 0)
+        {
+            health = 0;
+        }
+        Damaged = true;
+        
+    }
 
 
 
@@ -133,7 +164,7 @@ public class StatsClass {
     }
 
 
-    
+
 
 
 }
