@@ -25,7 +25,7 @@ public class BaseItem : MonoBehaviour {
 
     protected virtual void Init()
     {
-        image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Fonts and Sprits/" + ItemName + ".png", typeof(Sprite));
+        image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Fonts and Sprits/Items/" + ItemName + ".png", typeof(Sprite));
     }
 
     public int Id
