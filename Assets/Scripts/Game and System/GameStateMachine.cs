@@ -43,6 +43,7 @@ public class GameStateMachine : StateMachine {
         startColor = Timer2.color;
         if (instance != null)
             Destroy(gameObject);
+        
         else
         {
             instance = this;
@@ -77,7 +78,7 @@ public class GameStateMachine : StateMachine {
         }
         if (Timer2.fillAmount < .2f)
         {
-            Debug.Log("I am a red boy");
+            
             Timer2.CrossFadeColor(new Color(255, 0, 0, 1), .1f, false, false);
         }
     }
