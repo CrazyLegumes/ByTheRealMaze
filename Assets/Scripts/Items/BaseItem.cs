@@ -75,26 +75,6 @@ public class BaseItem : MonoBehaviour {
 
 }
 
-[System.Serializable]
-public class EquipItem: BaseItem
-{
-
-
-    StatsClass itemStats;
-
-    public StatsClass ItemStats
-    {
-        get
-        {
-            return itemStats;
-        }
-
-        set
-        {
-            itemStats = value;
-        }
-    }
-}
 
 [System.Serializable]
 public class UseItem: BaseItem

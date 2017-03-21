@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     public PlayerUI myUi;
 
 
-
+    EquipItem[] Equipment= new EquipItem[5];
 
 
 
@@ -37,6 +37,16 @@ public class PlayerScript : MonoBehaviour
     {
         if (col.tag == "Item")
         {
+            BaseItem hit = col.gameObject.GetComponent<BaseItem>();
+            switch (hit.Type)
+            {
+                case BaseItem.Itemtype.equip:
+                    EquipItem(hit.GetComponent<EquipItem>());
+                    break;
+
+                case BaseItem.Itemtype.use:
+                    break;
+            }
             Debug.Log("Hit");
             if (itemCount == 0)
             {
@@ -64,6 +74,7 @@ public class PlayerScript : MonoBehaviour
         mystats = new StatsClass();
         InitBaseStats();
         itemCount = 0;
+        
 
     }
 
@@ -72,7 +83,7 @@ public class PlayerScript : MonoBehaviour
         mystats.Strength = 1;
         mystats.Defense = 1;
         mystats.Movespeed = 1;
-        mystats.Health = mystats.Maxhealth = 12;
+        mystats.Health = mystats.Maxhealth = 40;
         mystats.SightRange = 10;
         mystats.Dead = false;
     }
@@ -105,6 +116,11 @@ public class PlayerScript : MonoBehaviour
         yield break;
     }
 
+
+    void EquipItem(EquipItem item)
+    {
+
+    }
 
 
 }
