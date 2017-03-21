@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[ExecuteInEditMode]
+
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
     public StatsClass mystats;
 
-    [SerializeField]
     public PlayerUI myUi;
+
+    [SerializeField]
+ Camera myShake;
 
 
     EquipItem[] Equipment = new EquipItem[5];
@@ -75,6 +76,7 @@ public class PlayerScript : MonoBehaviour
         activeItem = true;
         mystats = new StatsClass();
         InitBaseStats();
+        
         itemCount = 0;
 
 
@@ -88,35 +90,36 @@ public class PlayerScript : MonoBehaviour
         mystats.Health = mystats.Maxhealth = 3;
         mystats.SightRange = 10;
         mystats.Dead = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         if (activeItem) { }
+
         if (mystats.Damaged)
         {
             mystats.Damaged = false;
-            StartCoroutine(CameraShake());
+            StartCoroutine(ShakeCamera());
         }
-
-
     }
 
-    IEnumerator CameraShake()
+    IEnumerator ShakeCamera()
     {
+        float shakeStr = .3f;
         float shakeTimer = .3f;
-        float shakeStrength = 1f;
         Vector3 prevPos = Camera.main.transform.localPosition;
-        while (shakeTimer >= 0)
+        while(shakeTimer >= 0)
         {
             yield return null;
-            Camera.main.transform.localPosition = new Vector3(prevPos.x + Random.insideUnitSphere.x * shakeStrength, prevPos.y, prevPos.z + Random.insideUnitSphere.z * shakeStrength);
+            Camera.main.transform.localPosition = new Vector3(prevPos.x + Random.insideUnitSphere.x * shakeStr, prevPos.y, prevPos.z + Random.insideUnitSphere.z * shakeStr);
             shakeTimer -= Time.deltaTime;
         }
+
         Camera.main.transform.localPosition = prevPos;
-        yield break;
     }
+    
 
 
     void EquipItem(EquipItem item)
@@ -172,4 +175,6 @@ public class PlayerScript : MonoBehaviour
     void UnEquipIt(EquipItem a) { }
 
 
+    
+        
 }

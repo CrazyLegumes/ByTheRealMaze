@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+
 public class StatsClass
 {
     [SerializeField]
@@ -28,6 +28,8 @@ public class StatsClass
 
     [SerializeField]
     bool damaged;
+
+
 
 
     public int Strength
@@ -134,6 +136,8 @@ public class StatsClass
         }
     }
 
+  
+
     public virtual void Heal(int hp)
     {
         health += hp;
@@ -142,14 +146,22 @@ public class StatsClass
     }
     public virtual void Damage(int dmg)
     {
+        Debug.Log("Hitem");
+        Damaged = true;
         health -= dmg;
-        if(health <= 0)
+        if (health <= 0)
         {
             health = 0;
         }
-        Damaged = true;
-        
+        damaged = true;
     }
+
+
+
+
+
+
+
     public static StatsClass operator +(StatsClass a, StatsClass b)
     {
         a.strength += b.strength;
