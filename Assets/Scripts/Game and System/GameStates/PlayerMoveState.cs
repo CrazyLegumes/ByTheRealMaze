@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMoveState : GameState {
-
+    LayerMask wallMask;
 
     public override void Enter()
     {
+        wallMask = LayerMask.NameToLayer("Wall");
         base.Enter();
         StartCoroutine(MovePlayer1());
         //StartCoroutine(MovePlayer2());
@@ -18,7 +19,7 @@ public class PlayerMoveState : GameState {
     IEnumerator MovePlayer1()
     {
         Vector3 destination = P1.transform.position;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
        
@@ -39,8 +40,21 @@ public class PlayerMoveState : GameState {
             case GameStateMachine.Inputs.Up:
                 destination = P1.transform.position + new Vector3(0, 0, 2);
                 break;
+
+            case GameStateMachine.Inputs.useitem:
+                if (P1.activeItem)
+                {
+                    Debug.Log("Use Item 1: " + P1.Item1.name);
+                }
+                else
+                {
+                    Debug.Log("Use Item 2: " + P1.Item2.name);
+
+                }
+                break;
             case GameStateMachine.Inputs.None:
                 break;
+
         }
         
         
@@ -55,10 +69,14 @@ public class PlayerMoveState : GameState {
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
         if (Physics.Linecast(P1.transform.position, destination,out hit))
         {
-            Debug.Log(hit.transform.name);
-            Debug.Log("Hit Cant Move");
-            gameController.ChangeState<InputState>();
-            yield break;
+            if (hit.transform.gameObject.tag == "Wall") //And movable wall check
+            {
+                Debug.Log(hit.transform.name);
+                Debug.Log("Hit Cant Move");
+                gameController.ChangeState<EnemyMoveState>();
+                yield break;
+
+            }
         }
 
 
@@ -69,8 +87,10 @@ public class PlayerMoveState : GameState {
             yield return null;
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
         }
-        yield return new WaitForSeconds(.5f);
-        gameController.ChangeState<InputState>();
+        //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
+        //yield return new WaitForSeconds(.5f);
+        gameController.ChangeState<EnemyMoveState>();
+        Debug.Log(gameController.currstate);
 
     }
     // Use this for initialization

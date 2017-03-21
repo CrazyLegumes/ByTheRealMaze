@@ -16,6 +16,7 @@ public class BaseItem : MonoBehaviour {
     Itemtype type;
     string itemName;
     string desc;
+    
 
 
 
@@ -70,4 +71,33 @@ public class BaseItem : MonoBehaviour {
             itemName = value;
         }
     }
+
+
+}
+
+[System.Serializable]
+public class EquipItem: BaseItem
+{
+
+
+    StatsClass itemStats;
+
+    public StatsClass ItemStats
+    {
+        get
+        {
+            return itemStats;
+        }
+
+        set
+        {
+            itemStats = value;
+        }
+    }
+}
+
+[System.Serializable]
+public class UseItem: BaseItem
+{
+    protected void OnUse() { }
 }
