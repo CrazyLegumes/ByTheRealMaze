@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class StatsClass {
+
+public class StatsClass
+{
     [SerializeField]
     int strength;
 
@@ -25,7 +26,12 @@ public class StatsClass {
     [SerializeField]
     bool dead;
 
-    
+    [SerializeField]
+    bool damaged;
+
+
+
+
     public int Strength
     {
         get
@@ -117,9 +123,68 @@ public class StatsClass {
         }
     }
 
-    public virtual void Heal(int hp) { }
-    public virtual void Damage(int dmg) { }
+    public bool Damaged
+    {
+        get
+        {
+            return damaged;
+        }
 
+        set
+        {
+            damaged = value;
+        }
+    }
+
+  
+
+    public virtual void Heal(int hp)
+    {
+        health += hp;
+        if (health > maxhealth)
+            health = maxhealth;
+    }
+    public virtual void Damage(int dmg)
+    {
+        Debug.Log("Hitem");
+        Damaged = true;
+        health -= dmg;
+        if (health <= 0)
+        {
+            health = 0;
+        }
+        damaged = true;
+    }
+
+
+
+
+
+
+
+    public static StatsClass operator +(StatsClass a, StatsClass b)
+    {
+        a.strength += b.strength;
+        a.defense += b.defense;
+        a.maxhealth += b.maxhealth;
+        return a;
+
+    }
+    public static StatsClass operator -(StatsClass a, StatsClass b)
+    {
+        StatsClass x = new StatsClass();
+        x.strength = a.strength - b.strength;
+        x.defense = a.defense - b.defense;
+        x.maxhealth = a.maxhealth - b.maxhealth;
+        return x;
+
+    }
+
+
+    public override string ToString()
+    {
+        return string.Format("Strenghth: {0}\n Defense: {1}\n Health: {2} / {3}", strength, defense, health, maxhealth);
+    }
 
 
     public StatsClass()
@@ -133,7 +198,7 @@ public class StatsClass {
     }
 
 
-    
+
 
 
 }
