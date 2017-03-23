@@ -54,13 +54,6 @@ public class GameStateMachine : StateMachine {
                 movableWalls.Add(a.GetComponent<MovableWalls>());
         }
 
-        foreach (BaseEnemy a in enemyList)
-        {
-            a.initialize();
-        }
-
-        ChangeState<InputState>();
-
     }
  
 
@@ -81,6 +74,16 @@ public class GameStateMachine : StateMachine {
             
             Timer2.CrossFadeColor(new Color(255, 0, 0, 1), .1f, false, false);
         }
+    }
+
+    void Start()
+    {
+        foreach (BaseEnemy a in enemyList)
+        {
+            a.initialize();
+        }
+
+        ChangeState<InputState>();
     }
 
 
