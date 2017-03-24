@@ -356,6 +356,7 @@ public class BaseEnemy : MonoBehaviour
                         if (dmg <= 0)
                             dmg = 1;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().mystats.Damaged = true;
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
 

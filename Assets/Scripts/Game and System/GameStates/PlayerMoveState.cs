@@ -19,7 +19,7 @@ public class PlayerMoveState : GameState {
     IEnumerator MovePlayer1()
     {
         Vector3 destination = P1.transform.position;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
        
@@ -69,13 +69,32 @@ public class PlayerMoveState : GameState {
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
         if (Physics.Linecast(P1.transform.position, destination,out hit))
         {
+            
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log("Hit Cant Move");
+                
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
+            }
+            
+            if(hit.transform.gameObject.tag == "Enemy")
+            {
+                Debug.Log(hit.transform.name);
+                
+                    int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
+                    if (dmg <= 0)
+                        dmg = 1;
+                hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Damage(dmg);
+                if (hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Health == 0)
+                {
+                    gameController.enemyList.Remove(hit.transform.gameObject.GetComponent<BaseEnemy>());
+                    GameObject.Destroy(hit.transform.gameObject);
+                }
+                    
 
+                gameController.ChangeState<EnemyMoveState>();
+                yield break;
             }
         }
 
@@ -88,7 +107,7 @@ public class PlayerMoveState : GameState {
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
-        //yield return new WaitForSeconds(.5f);
+        yield return new WaitForEndOfFrame();
         gameController.ChangeState<EnemyMoveState>();
         Debug.Log(gameController.currstate);
 
