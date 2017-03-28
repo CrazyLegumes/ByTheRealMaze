@@ -69,13 +69,42 @@ public class PlayerMoveState : GameState {
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
         if (Physics.Linecast(P1.transform.position, destination,out hit))
         {
+            
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {
                 Debug.Log(hit.transform.name);
                 Debug.Log("Hit Cant Move");
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
+            }
+            
+            if(hit.transform.gameObject.tag == "Enemy")
+            {
+                Debug.Log(hit.transform.name);
+                Debug.Log("Hit Enemy!");
+                /*
+                if (x.transform.name == "Player")
+                {
+                    int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                    if (dmg <= 0)
+                        dmg = 1;
+                    x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                    x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                }
+                */
+                    int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
+                    if (dmg <= 0)
+                        dmg = 1;
+                hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Damage(dmg);
+                if (hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Health == 0)
+                {
+                    gameController.enemyList.Remove(hit.transform.gameObject.GetComponent<BaseEnemy>());
+                    GameObject.Destroy(hit.transform.gameObject);
+                }
+                    
 
+                gameController.ChangeState<EnemyMoveState>();
+                yield break;
             }
         }
 

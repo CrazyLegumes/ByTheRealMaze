@@ -12,6 +12,7 @@ public class DummyEnemy : BaseEnemy {
     // Use this for initialization
     void Start () {
         windup = 1;
+        base.InitStats();
         //Stats.Health = 1;
 	}
 	

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEditor;
 
-[System.Serializable]
+
 public class BaseItem : MonoBehaviour {
 
     public enum Itemtype
@@ -16,9 +18,15 @@ public class BaseItem : MonoBehaviour {
     Itemtype type;
     string itemName;
     string desc;
+    bool dropped;
+    Sprite image;
     
 
 
+    protected virtual void Init()
+    {
+        image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Fonts and Sprits/Items/" + ItemName + ".png", typeof(Sprite));
+    }
 
     public int Id
     {
@@ -72,31 +80,35 @@ public class BaseItem : MonoBehaviour {
         }
     }
 
-
-}
-
-[System.Serializable]
-public class EquipItem: BaseItem
-{
-
-
-    StatsClass itemStats;
-
-    public StatsClass ItemStats
+    public bool Dropped
     {
         get
         {
-            return itemStats;
+            return dropped;
         }
 
         set
         {
-            itemStats = value;
+            dropped = value;
+        }
+    }
+
+    public Sprite vImage
+    {
+        get
+        {
+            return image;
+        }
+
+        set
+        {
+            image = value;
         }
     }
 }
 
-[System.Serializable]
+
+
 public class UseItem: BaseItem
 {
     protected void OnUse() { }
