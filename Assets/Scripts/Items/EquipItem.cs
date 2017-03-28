@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class EquipItem : BaseItem
 {
@@ -13,11 +14,16 @@ public class EquipItem : BaseItem
         righth,
         legs
     }
+
+
     [SerializeField]
     int id;
 
     [SerializeField]
     string itemName;
+
+    [SerializeField]
+    string description;
 
     [SerializeField]
     int str;
@@ -32,8 +38,11 @@ public class EquipItem : BaseItem
 
     public itemPlace equipPlace;
 
+    Vector3 top, bot;
 
 
+    [SerializeField]
+    Sprite img;
     StatsClass itemStats;
 
     public StatsClass ItemStats
@@ -50,15 +59,34 @@ public class EquipItem : BaseItem
     }
 
 
+    void Start()
+    {
+        top = new Vector3(transform.position.x, transform.position.y, transform.position.z + .3f);
+        bot = new Vector3(transform.position.x, transform.position.y, transform.position.z - .3f);
+        InitStats();
+    }
 
     void InitStats()
     {
+        
+        
         ItemName = itemName;
+        base.Init();
+        img = vImage;
+        Desc = description;
         Id = id;
         itemStats = new StatsClass();
         itemStats.Strength = str;
         itemStats.Defense = def;
-        itemStats.Health = hp;
+        itemStats.Maxhealth = hp;
 
+        Dropped = false;
+        Debug.Log("Cmon Dad");
+
+    }
+
+    void Update()
+    {
+        
     }
 }
