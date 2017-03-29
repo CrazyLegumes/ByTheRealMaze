@@ -48,6 +48,16 @@ public class GameStateMachine : StateMachine {
         {
             instance = this;
         }
+        foreach(GameObject a in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Debug.Log(a.name);
+
+            if(a.GetComponent<BaseEnemy>() != null){
+               
+                enemyList.Add(a.GetComponent<BaseEnemy>());
+
+            }
+        }
         foreach(GameObject a in GameObject.FindGameObjectsWithTag("Wall"))
         {
             if (a.GetComponent<MovableWalls>() != null)

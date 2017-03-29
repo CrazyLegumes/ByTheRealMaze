@@ -19,7 +19,7 @@ public class PlayerMoveState : GameState {
     IEnumerator MovePlayer1()
     {
         Vector3 destination = P1.transform.position;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
        
@@ -73,7 +73,7 @@ public class PlayerMoveState : GameState {
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log("Hit Cant Move");
+                
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
             }
@@ -81,17 +81,7 @@ public class PlayerMoveState : GameState {
             if(hit.transform.gameObject.tag == "Enemy")
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log("Hit Enemy!");
-                /*
-                if (x.transform.name == "Player")
-                {
-                    int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
-                    if (dmg <= 0)
-                        dmg = 1;
-                    x.GetComponent<PlayerScript>().mystats.Damage(dmg);
-                    x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
-                }
-                */
+                
                     int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
                     if (dmg <= 0)
                         dmg = 1;
@@ -117,7 +107,7 @@ public class PlayerMoveState : GameState {
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
-        //yield return new WaitForSeconds(.5f);
+        yield return new WaitForEndOfFrame();
         gameController.ChangeState<EnemyMoveState>();
         Debug.Log(gameController.currstate);
 
