@@ -21,8 +21,8 @@ public class PlayerScript : MonoBehaviour
     public bool activeItem = true;
 
 
-    public BaseItem Item1;
-    public BaseItem Item2;
+    public UseItem Item1;
+    public UseItem Item2;
 
     // Use this for initialization
     [SerializeField]
@@ -49,17 +49,7 @@ public class PlayerScript : MonoBehaviour
 
                     case BaseItem.Itemtype.use:
                         Debug.Log("Hit");
-                        if (itemCount == 0)
-                        {
-                            Item1 = col.GetComponent<BaseItem>();
-
-
-
-                        }
-                        else if (itemCount == 1)
-                        {
-                            Item2 = col.GetComponent<BaseItem>();
-                        }
+                        EquipUseItem(hit.GetComponent<UseItem>());
                         break;
                 }
 
@@ -132,6 +122,28 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    void EquipUseItem(UseItem used)
+    {
+        if(Item1 == null)
+        {
+            Item1 = used;
+            myUi.InsertUseItem(0, used);
+            used.GetComponent<Renderer>().enabled = false;
+            used.GetComponent<Collider>().enabled = false;
+            Item1.owner = gameObject.GetComponent<PlayerScript>();
+
+        }
+        else
+        {
+            Item2 = used;
+            myUi.InsertUseItem(1, used);
+            used.GetComponent<Renderer>().enabled = false;
+            used.GetComponent<Collider>().enabled = false;
+            Item2.owner = gameObject.GetComponent<PlayerScript>();
+        }
+        
+
+    }
 
     void EquipItems(EquipItem item)
     {
@@ -202,13 +214,40 @@ public class PlayerScript : MonoBehaviour
 
     void DropItem(EquipItem old)
     {
-        old.Dropped = true;
-        old.transform.parent.position = transform.position;
-        old.GetComponent<Renderer>().enabled = true;
-        old.GetComponent<Collider>().enabled = true;
+        GameStateMachine.instance.itemToDrop = old;
+        //old.Dropped = true;
+        //old.transform.parent.position = transform.position;
+        //old.GetComponent<Renderer>().enabled = true;
+        //old.GetComponent<Collider>().enabled = true;
         UnEquipIt(old);
 
     }
 
+    public void DestroyUseItem(UseItem item)
+    {
+        if (item == Item1)
+        {
+            myUi.RemoveUseItem(0);
+            Destroy(item.gameObject);
+            if(Item2 != null)
+            {
+                Item1 = Item2;
+                Item2 = null;
+                myUi.SwapUsables();
+            }
+        }
+        else if(item == Item2)
+        {
+            myUi.RemoveUseItem(1);
+            Destroy(item.gameObject);
+        }
+    }
 
+    public void SwapItems()
+    {
+        UseItem temp = Item1;
+        Item1 = Item2;
+        Item2 = temp;
+        myUi.SwapUsables();
+    }
 }

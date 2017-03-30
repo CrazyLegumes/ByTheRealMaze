@@ -28,6 +28,7 @@ public class GameStateMachine : StateMachine {
     public string currstate;
     public List<BaseEnemy> enemyList;
     public List<MovableWalls> movableWalls;
+    public BaseItem itemToDrop;
 
     public static int enemyCount = 0;
     Color startColor;
