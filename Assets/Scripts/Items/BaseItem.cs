@@ -108,8 +108,28 @@ public class BaseItem : MonoBehaviour {
 }
 
 
-
-public class UseItem: BaseItem
+public class UseItem : BaseItem
 {
-    protected void OnUse() { }
+
+    [SerializeField]
+    protected int idx;
+
+    [SerializeField]
+    protected string itemNamex;
+
+    [SerializeField]
+    protected string description;
+
+    [SerializeField]
+    protected int uses;
+
+    [SerializeField]
+    protected Sprite img;
+
+    public PlayerScript owner;
+    protected virtual void OnUse() { }
+    public virtual void Use()
+    {
+        OnUse();
+    }
 }

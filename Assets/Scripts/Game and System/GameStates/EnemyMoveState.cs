@@ -44,6 +44,7 @@ public class EnemyMoveState : GameState {
             yield return null;
             if (GameStateMachine.enemyCount == gameController.enemyList.Count)
             {
+
                 yield return new WaitForSeconds(.5f);
 
                 if (GameStateMachine.over == true)      //GAME OVER
@@ -51,10 +52,10 @@ public class EnemyMoveState : GameState {
                     Time.timeScale = 0;
                 }
 
-                else
-                {
-                    gameController.ChangeState<WallMoveState>();
-                }
+           
+                //yield return new WaitForSeconds(.001f);
+                gameController.ChangeState<WallMoveState>();
+
                 Debug.Log(gameController.currstate);
                 yield break;
             }

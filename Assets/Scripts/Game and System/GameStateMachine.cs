@@ -29,6 +29,7 @@ public class GameStateMachine : StateMachine {
     public string currstate;
     public List<BaseEnemy> enemyList;
     public List<MovableWalls> movableWalls;
+    public BaseItem itemToDrop;
 
     [SerializeField]
     public Canvas done;
@@ -60,6 +61,16 @@ public class GameStateMachine : StateMachine {
         else
         {
             instance = this;
+        }
+        foreach(GameObject a in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Debug.Log(a.name);
+
+            if(a.GetComponent<BaseEnemy>() != null){
+               
+                enemyList.Add(a.GetComponent<BaseEnemy>());
+
+            }
         }
         foreach(GameObject a in GameObject.FindGameObjectsWithTag("Wall"))
         {

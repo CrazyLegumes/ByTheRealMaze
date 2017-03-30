@@ -19,7 +19,7 @@ public class PlayerMoveState : GameState {
     IEnumerator MovePlayer1()
     {
         Vector3 destination = P1.transform.position;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
        
@@ -42,15 +42,12 @@ public class PlayerMoveState : GameState {
                 break;
 
             case GameStateMachine.Inputs.useitem:
-                if (P1.activeItem)
+                if (P1.Item1 != null)
                 {
                     Debug.Log("Use Item 1: " + P1.Item1.name);
+                    P1.Item1.Use();
                 }
-                else
-                {
-                    Debug.Log("Use Item 2: " + P1.Item2.name);
-
-                }
+                
                 break;
             case GameStateMachine.Inputs.None:
                 break;
@@ -73,7 +70,7 @@ public class PlayerMoveState : GameState {
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log("Hit Cant Move");
+                
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
             }
@@ -81,17 +78,7 @@ public class PlayerMoveState : GameState {
             if(hit.transform.gameObject.tag == "Enemy")
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log("Hit Enemy!");
-                /*
-                if (x.transform.name == "Player")
-                {
-                    int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
-                    if (dmg <= 0)
-                        dmg = 1;
-                    x.GetComponent<PlayerScript>().mystats.Damage(dmg);
-                    x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
-                }
-                */
+                
                     int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
                     if (dmg <= 0)
                         dmg = 1;
@@ -114,9 +101,10 @@ public class PlayerMoveState : GameState {
         while(P1.transform.position != destination)
         {
             yield return null;
-            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
+            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 15 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
+
         //yield return new WaitForSeconds(.5f);
 
 
@@ -125,11 +113,18 @@ public class PlayerMoveState : GameState {
             Time.timeScale = 0;
         }
 
-
-        else
+       // yield return new WaitForEndOfFrame();
+        if(gameController.itemToDrop != null)
         {
-            gameController.ChangeState<EnemyMoveState>();
+            gameController.itemToDrop.Dropped = true;
+            gameController.itemToDrop.transform.parent.position = P1.transform.position;
+            gameController.itemToDrop.GetComponent<Renderer>().enabled = true;
+            gameController.itemToDrop.GetComponent<Collider>().enabled = true;
+            gameController.itemToDrop = null;
+            
         }
+        gameController.ChangeState<EnemyMoveState>();
+
         Debug.Log(gameController.currstate);
 
     }

@@ -430,8 +430,10 @@ public class BaseEnemy : MonoBehaviour
                 Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
                 foreach (Collider x in hitobjects)
                 {
+                    
                     if (x.transform.name == "Player")
                     {
+                        
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;

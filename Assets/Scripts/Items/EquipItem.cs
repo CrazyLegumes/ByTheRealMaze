@@ -17,10 +17,10 @@ public class EquipItem : BaseItem
 
 
     [SerializeField]
-    int id;
+    int idx;
 
     [SerializeField]
-    string itemName;
+    string itemNamex;
 
     [SerializeField]
     string description;
@@ -70,15 +70,16 @@ public class EquipItem : BaseItem
     {
         
         
-        ItemName = itemName;
+        ItemName = itemNamex;
         base.Init();
         img = vImage;
         Desc = description;
-        Id = id;
+        Id = idx;
         itemStats = new StatsClass();
         itemStats.Strength = str;
         itemStats.Defense = def;
         itemStats.Maxhealth = hp;
+        Dropped = false;
 
         Dropped = false;
         Debug.Log("Cmon Dad");
