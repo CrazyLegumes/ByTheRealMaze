@@ -36,6 +36,12 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        if (col.gameObject.tag == "Finish")
+        {
+            GameStateMachine.won = true;
+            Debug.Log("YOU WON!");
+        }
+
         if (col.tag == "Item")
         {
             BaseItem hit = col.gameObject.GetComponent<BaseItem>();
@@ -209,7 +215,6 @@ public class PlayerScript : MonoBehaviour
         Debug.Log(mystats);
         mystats -= a.ItemStats;
         Debug.Log(mystats);
-
     }
 
     void DropItem(EquipItem old)
@@ -250,4 +255,5 @@ public class PlayerScript : MonoBehaviour
         Item2 = temp;
         myUi.SwapUsables();
     }
+
 }

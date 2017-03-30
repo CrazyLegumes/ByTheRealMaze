@@ -104,6 +104,15 @@ public class PlayerMoveState : GameState {
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 15 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
+
+        //yield return new WaitForSeconds(.5f);
+
+
+        if (GameStateMachine.won == true)       //WON THE GAME
+        {
+            Time.timeScale = 0;
+        }
+
        // yield return new WaitForEndOfFrame();
         if(gameController.itemToDrop != null)
         {
@@ -115,6 +124,7 @@ public class PlayerMoveState : GameState {
             
         }
         gameController.ChangeState<EnemyMoveState>();
+
         Debug.Log(gameController.currstate);
 
     }
