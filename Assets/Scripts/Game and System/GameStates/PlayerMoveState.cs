@@ -118,7 +118,18 @@ public class PlayerMoveState : GameState {
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
         //yield return new WaitForSeconds(.5f);
-        gameController.ChangeState<EnemyMoveState>();
+
+
+        if (GameStateMachine.won == true)       //WON THE GAME
+        {
+            Time.timeScale = 0;
+        }
+
+
+        else
+        {
+            gameController.ChangeState<EnemyMoveState>();
+        }
         Debug.Log(gameController.currstate);
 
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -29,6 +30,14 @@ public class GameStateMachine : StateMachine {
     public List<BaseEnemy> enemyList;
     public List<MovableWalls> movableWalls;
 
+    [SerializeField]
+    public Canvas done;
+
+    [SerializeField]
+    public Text overState;
+
+    public static bool won;
+    public static bool over;
     public static int enemyCount = 0;
     Color startColor;
     
@@ -40,6 +49,10 @@ public class GameStateMachine : StateMachine {
 
     void Awake()
     {
+        done.enabled = false;
+        won = false;
+        over = false;
+
         startColor = Timer2.color;
         if (instance != null)
             Destroy(gameObject);
@@ -60,6 +73,8 @@ public class GameStateMachine : StateMachine {
     void Update()
     {
         //timer.value = currentTimer;
+        over = player1.GetComponent<PlayerScript>().mystats.Dead;
+        gameOver();
         input.text = moveinput1.ToString();
         currstate = _currentState.ToString();
         Timer2.fillAmount = currentTimer / timeStep;
@@ -74,6 +89,7 @@ public class GameStateMachine : StateMachine {
             
             Timer2.CrossFadeColor(new Color(255, 0, 0, 1), .1f, false, false);
         }
+        
     }
 
     void Start()
@@ -86,9 +102,24 @@ public class GameStateMachine : StateMachine {
         ChangeState<InputState>();
     }
 
-
-
-
-
-
+    void gameOver()
+    {
+        
+        if (over == true)
+        {
+            done.enabled = true;
+            if (Input.GetKeyDown(KeyCode.Return)){
+                SceneManager.LoadScene(0, LoadSceneMode.Single);
+            }
+            overState.text = "GAME OVER!";
+        }
+        if (won == true)
+        {
+            done.enabled = true;
+            if (Input.GetKeyDown(KeyCode.Return)){
+                SceneManager.LoadScene(0, LoadSceneMode.Single);
+            }
+            overState.text = "YOU WON!";
+        }
+    }
 }
