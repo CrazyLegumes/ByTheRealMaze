@@ -33,7 +33,7 @@ public class HealthPotion : UseItem {
     {
         ItemName = itemNamex;
         base.Init();
-        img = vImage;
+        //img = vImage;
         Desc = description;
         Id = idx;
         uses = 1;

@@ -169,7 +169,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 123212522}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 8, y: 1, z: 0.9}
@@ -689,11 +689,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 212563520228081648, guid: afe092205f885e14bb12a7ce5b22ee85,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afe092205f885e14bb12a7ce5b22ee85, type: 2}
   m_IsPrefabParent: 0
@@ -736,6 +731,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1533228905749144, guid: 32288a4d340532143bc3e344b7b1240c, type: 2}
+      propertyPath: m_Name
+      value: Katana
+      objectReference: {fileID: 0}
     - target: {fileID: 212815447369455826, guid: 32288a4d340532143bc3e344b7b1240c,
         type: 2}
       propertyPath: m_Sprite
@@ -744,62 +743,19 @@ Prefab:
         type: 3}
     - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
         type: 2}
+      propertyPath: itemNamex
+      value: Katana-San
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
+        type: 2}
       propertyPath: description
       value: Blessed Katana
-      objectReference: {fileID: 0}
-    - target: {fileID: 1533228905749144, guid: 32288a4d340532143bc3e344b7b1240c, type: 2}
-      propertyPath: m_Name
-      value: Katana
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: id
-      value: 2004
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: itemName
-      value: Katana-San
       objectReference: {fileID: 0}
     - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
         type: 2}
       propertyPath: str
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 4950497667081750, guid: 32288a4d340532143bc3e344b7b1240c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: idx
-      value: 3003
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: itemNamex
-      value: Katana-San
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 212815447369455826, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32288a4d340532143bc3e344b7b1240c, type: 2}
   m_IsPrefabParent: 0
@@ -2553,65 +2509,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 947e38f94336b6b48aea3b751ed7fba7,
-        type: 3}
-    - target: {fileID: 4356026774085546, guid: d3c12f462430a0c43bc8659229840d72, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4356026774085546, guid: d3c12f462430a0c43bc8659229840d72, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114586818856770722, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: idx
-      value: 3002
-      objectReference: {fileID: 0}
-    - target: {fileID: 114586818856770722, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: itemNamex
-      value: Buckler
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212051729166731452, guid: d3c12f462430a0c43bc8659229840d72,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3c12f462430a0c43bc8659229840d72, type: 2}
   m_IsPrefabParent: 0
@@ -2986,47 +2883,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 212815447369455826, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1ffa2816f3027aa4f88002772107ffd9,
-        type: 3}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: description
-      value: Some Dagger. Good enough to fight with.
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: idx
-      value: 3001
-      objectReference: {fileID: 0}
-    - target: {fileID: 114351547270539582, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: itemNamex
-      value: DaggerChan
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 65719787945572240, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Size.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 212815447369455826, guid: 32288a4d340532143bc3e344b7b1240c,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32288a4d340532143bc3e344b7b1240c, type: 2}
   m_IsPrefabParent: 0
@@ -3134,7 +2990,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1082082731054296, guid: 1ac0a38f489251540be4149fe1ded27f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ac0a38f489251540be4149fe1ded27f, type: 2}
