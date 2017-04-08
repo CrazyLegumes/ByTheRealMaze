@@ -15,6 +15,7 @@ public class PlayerUI : MonoBehaviour
     GameObject heartPrefab;
 
     public Image[] Equipment;
+    public Image[] Usables;
 
 
 
@@ -24,6 +25,8 @@ public class PlayerUI : MonoBehaviour
         
         if (myPlayer != null)
             UpdateTotalHealth();
+        UpdateUsables();
+        UpdateEquipment();
 
     }
 
@@ -95,6 +98,24 @@ public class PlayerUI : MonoBehaviour
         UpdateEquipment();
         
     }
+    public void InsertUseItem(int slot, BaseItem item)
+    {
+        Usables[slot].sprite = item.vImage;
+        UpdateUsables();
+
+    }
+
+
+    public void UpdateUsables()
+    {
+        foreach(Image a in Usables)
+        {
+            if (a.sprite == null)
+                a.GetComponent<Graphic>().enabled = false;
+            else
+                a.GetComponent<Graphic>().enabled = true;
+        }
+    }
     public void UpdateEquipment()
     {
         foreach (Image a in Equipment)
@@ -104,5 +125,19 @@ public class PlayerUI : MonoBehaviour
             else
                 a.GetComponent<Graphic>().enabled = true;
         }
+    }
+
+    public void RemoveUseItem(int slotm)
+    {
+        Usables[slotm].sprite = null;
+        UpdateUsables();
+    }
+    
+    public void SwapUsables()
+    {
+        Sprite temp = Usables[0].sprite;
+        Usables[0].sprite = Usables[1].sprite;
+        Usables[1].sprite = temp;
+        UpdateUsables();
     }
 }

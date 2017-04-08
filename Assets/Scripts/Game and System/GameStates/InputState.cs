@@ -28,7 +28,7 @@ public class InputState : GameState {
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            P1.activeItem = !P1.activeItem;
+            P1.SwapItems();
         }
         if (counting)
         {

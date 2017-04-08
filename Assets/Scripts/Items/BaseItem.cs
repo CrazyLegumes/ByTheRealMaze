@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
+
 
 
 public class BaseItem : MonoBehaviour {
@@ -25,7 +25,8 @@ public class BaseItem : MonoBehaviour {
 
     protected virtual void Init()
     {
-        image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Fonts and Sprits/Items/" + ItemName + ".png", typeof(Sprite));
+        string path = "Fonts and Sprits/Items/" + itemName;
+        image = Resources.Load<Sprite>(path);
     }
 
     public int Id
@@ -108,8 +109,28 @@ public class BaseItem : MonoBehaviour {
 }
 
 
-
-public class UseItem: BaseItem
+public class UseItem : BaseItem
 {
-    protected void OnUse() { }
+
+    [SerializeField]
+    protected int idx;
+
+    [SerializeField]
+    protected string itemNamex;
+
+    [SerializeField]
+    protected string description;
+
+    [SerializeField]
+    protected int uses;
+
+    [SerializeField]
+    protected Sprite img;
+
+    public PlayerScript owner;
+    protected virtual void OnUse() { }
+    public virtual void Use()
+    {
+        OnUse();
+    }
 }

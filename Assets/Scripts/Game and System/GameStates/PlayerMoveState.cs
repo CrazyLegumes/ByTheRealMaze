@@ -42,15 +42,12 @@ public class PlayerMoveState : GameState {
                 break;
 
             case GameStateMachine.Inputs.useitem:
-                if (P1.activeItem)
+                if (P1.Item1 != null)
                 {
                     Debug.Log("Use Item 1: " + P1.Item1.name);
+                    P1.Item1.Use();
                 }
-                else
-                {
-                    Debug.Log("Use Item 2: " + P1.Item2.name);
-
-                }
+                
                 break;
             case GameStateMachine.Inputs.None:
                 break;
@@ -104,11 +101,30 @@ public class PlayerMoveState : GameState {
         while(P1.transform.position != destination)
         {
             yield return null;
-            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 10 * Time.deltaTime);
+            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 15 * Time.deltaTime);
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
-        yield return new WaitForEndOfFrame();
+
+        //yield return new WaitForSeconds(.5f);
+
+
+        if (GameStateMachine.won == true)       //WON THE GAME
+        {
+            Time.timeScale = 0;
+        }
+
+       // yield return new WaitForEndOfFrame();
+        if(gameController.itemToDrop != null)
+        {
+            gameController.itemToDrop.Dropped = true;
+            gameController.itemToDrop.transform.parent.position = P1.transform.position;
+            gameController.itemToDrop.GetComponent<Renderer>().enabled = true;
+            gameController.itemToDrop.GetComponent<Collider>().enabled = true;
+            gameController.itemToDrop = null;
+            
+        }
         gameController.ChangeState<EnemyMoveState>();
+
         Debug.Log(gameController.currstate);
 
     }

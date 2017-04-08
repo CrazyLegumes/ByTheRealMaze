@@ -152,6 +152,7 @@ public class StatsClass
         if (health <= 0)
         {
             health = 0;
+            dead = true;
         }
         damaged = true;
     }
