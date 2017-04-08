@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public StatsClass mystats;
 
     public PlayerUI myUi;
+    public List<Buffs> buffList;
 
     [SerializeField]
     Camera myShake;
@@ -66,6 +67,33 @@ public class PlayerScript : MonoBehaviour
 
 
         }
+
+        if (col.tag == "Trap")
+        {
+
+            Traps activation = col.GetComponent<Traps>();
+            if (!activation.Activated)
+            {
+                activation.Activator = this;
+                activation.Activated = true;
+
+                switch (activation.MyEffect)
+                {
+                    case Traps.effect.debuff:
+                        {
+                            buffList.Add(activation.Debuff);
+                            
+                            break;
+                        }
+                    case Traps.effect.instant:
+
+                        break;
+                }
+            }
+
+
+            
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -83,6 +111,7 @@ public class PlayerScript : MonoBehaviour
         activeItem = true;
         mystats = new StatsClass();
         InitBaseStats();
+        buffList = new List<Buffs>();
 
         itemCount = 0;
 
