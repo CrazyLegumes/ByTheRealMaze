@@ -15,7 +15,7 @@ public class EnemyMoveState : GameState {
                 a.ChooseAttack();
                 continue;
             }
-
+            
             a.playerScan();
 
             if (a.playerInAttackRange) //or winding up
@@ -24,7 +24,6 @@ public class EnemyMoveState : GameState {
             }
             else if (a.seenPlayer || (a.chasing  && !a.locReached))
             {
-                
                 StartCoroutine(a.Chase());
             }
             else
@@ -55,8 +54,6 @@ public class EnemyMoveState : GameState {
            
                 //yield return new WaitForSeconds(.001f);
                 gameController.ChangeState<WallMoveState>();
-
-                Debug.Log(gameController.currstate);
                 yield break;
             }
         }

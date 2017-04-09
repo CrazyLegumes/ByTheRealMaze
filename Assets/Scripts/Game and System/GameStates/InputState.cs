@@ -48,7 +48,6 @@ public class InputState : GameState {
     {
         timesUp = false;
         gameController.ChangeState<PlayerMoveState>();
-        Debug.Log(gameController.currstate);
     }
 
     void GrabMoveInput()
