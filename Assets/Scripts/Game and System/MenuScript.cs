@@ -13,6 +13,7 @@ public class MenuScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Resources.UnloadUnusedAssets();
+        Time.timeScale = 1;
         state = 1;
         main.enabled = true;
         credits.enabled = false;

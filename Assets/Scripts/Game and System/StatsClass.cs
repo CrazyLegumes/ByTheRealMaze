@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class StatsClass
 {
+    public ParticleSystem blood;
+
     [SerializeField]
     int strength;
 
@@ -178,7 +180,6 @@ public class StatsClass
         x.defense = a.defense - b.defense;
         x.maxhealth = a.maxhealth - b.maxhealth;
         return x;
-
     }
 
 
@@ -196,6 +197,8 @@ public class StatsClass
         health = maxhealth = 0;
         sightRange = 0;
         dead = false;
+        string path = "BloodParticles";
+        blood = Resources.Load<ParticleSystem>(path);
     }
 
 

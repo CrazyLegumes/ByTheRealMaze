@@ -23,6 +23,7 @@ public class BaseEnemy : MonoBehaviour
     public Vector3 playerLoc;
     public LayerMask HitMask;
     public string attackDirection = null;
+    private Quaternion attackAngle;
     private int turnsWaiting = 0;
 
     public virtual void initialize()
@@ -182,13 +183,30 @@ public class BaseEnemy : MonoBehaviour
 
                     //determines what direction the enemy is in
                     if (angle <= 45 || angle >= 315)
+                    {
                         attackDirection = "up";
+                        attackAngle = Quaternion.identity;
+                    }
                     else if (angle <= 135)
+                    {
                         attackDirection = "right";
+                        attackAngle = Quaternion.identity;
+                        attackAngle.eulerAngles = new Vector3(0, 90, 0);
+                    }
                     else if (angle <= 225)
+                    {
                         attackDirection = "down";
+                        attackAngle = Quaternion.identity;
+                        attackAngle.eulerAngles = new Vector3(0, 180, 0);
+                    }
                     else if (angle <= 315)
+                    {
                         attackDirection = "left";
+                        attackAngle = Quaternion.identity;
+                        attackAngle.eulerAngles = new Vector3(0, 270, 0);
+                    }
+
+                    Debug.Log(attackDirection);
 
 
 
@@ -355,7 +373,18 @@ public class BaseEnemy : MonoBehaviour
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.Euler(90,0,0), x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
                         x.GetComponent<PlayerScript>().mystats.Damaged = true;
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
@@ -433,11 +462,21 @@ public class BaseEnemy : MonoBehaviour
                     
                     if (x.transform.name == "Player")
                     {
-                        
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.identity, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
                 }
@@ -509,7 +548,18 @@ public class BaseEnemy : MonoBehaviour
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.identity, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
                 }
@@ -589,7 +639,18 @@ public class BaseEnemy : MonoBehaviour
 
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.identity, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
                 }
@@ -654,13 +715,25 @@ public class BaseEnemy : MonoBehaviour
                 {
                     if (x.transform.name == "Player")
                     {
+
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         Debug.Log("enemy str" + stats.Strength);
                         Debug.Log("player def" + x.GetComponent<PlayerScript>().mystats.Defense);
 
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.identity, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
                 }

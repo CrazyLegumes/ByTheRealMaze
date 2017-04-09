@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 
 
 public class BaseItem : MonoBehaviour {
@@ -25,7 +24,8 @@ public class BaseItem : MonoBehaviour {
 
     protected virtual void Init()
     {
-        image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Fonts and Sprits/Items/" + ItemName + ".png", typeof(Sprite));
+        string path = "Fonts and Sprits/Items/" + itemName;
+        image = Resources.Load<Sprite>(path);
     }
 
     public int Id

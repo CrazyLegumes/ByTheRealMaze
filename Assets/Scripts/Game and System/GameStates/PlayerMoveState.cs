@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : GameState {
+public class PlayerMoveState : GameState
+{
     LayerMask wallMask;
 
     public override void Enter()
     {
+        ScoreManager.turnsTaken++;
         wallMask = LayerMask.NameToLayer("Wall");
         base.Enter();
         StartCoroutine(MovePlayer1());
@@ -18,27 +20,33 @@ public class PlayerMoveState : GameState {
 
     IEnumerator MovePlayer1()
     {
+
         Vector3 destination = P1.transform.position;
+        Quaternion attackAngle = Quaternion.identity;
         yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
-       
+
         switch (gameController.moveinput1)
         {
             case GameStateMachine.Inputs.Down:
                 destination = P1.transform.position + new Vector3(0, 0, -1);
+                attackAngle.eulerAngles = new Vector3(0, 180, 0);
                 break;
 
             case GameStateMachine.Inputs.Left:
                 destination = P1.transform.position + new Vector3(-1, 0, 0);
+                attackAngle.eulerAngles = new Vector3(0, 270, 0);
                 break;
 
             case GameStateMachine.Inputs.Right:
-               destination = P1.transform.position + new Vector3(1, 0, 0);
+                destination = P1.transform.position + new Vector3(1, 0, 0);
+                attackAngle.eulerAngles = new Vector3(0, 90, 0);
                 break;
 
             case GameStateMachine.Inputs.Up:
                 destination = P1.transform.position + new Vector3(0, 0, 1);
+                attackAngle.eulerAngles = new Vector3(0, 0, 0);
                 break;
 
             case GameStateMachine.Inputs.useitem:
@@ -47,14 +55,14 @@ public class PlayerMoveState : GameState {
                     Debug.Log("Use Item 1: " + P1.Item1.name);
                     P1.Item1.Use();
                 }
-                
+
                 break;
             case GameStateMachine.Inputs.None:
                 break;
 
         }
-        
-        
+
+
 
         /*
                 Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.forward, Color.red, 3);
@@ -64,31 +72,39 @@ public class PlayerMoveState : GameState {
                 */
 
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
-        if (Physics.Linecast(P1.transform.position, destination,out hit))
+        if (Physics.Linecast(P1.transform.position, destination, out hit))
         {
-            
+
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {
                 Debug.Log(hit.transform.name);
-                
+
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
             }
-            
-            if(hit.transform.gameObject.tag == "Enemy")
+
+            if (hit.transform.gameObject.tag == "Enemy")
             {
                 Debug.Log(hit.transform.name);
-                
-                    int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
-                    if (dmg <= 0)
-                        dmg = 1;
+                int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
+                if (dmg <= 0)
+                    dmg = 1;
                 hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Damage(dmg);
                 if (hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Health == 0)
                 {
+                    ParticleSystem blood = gameController.player1.GetComponent<PlayerScript>().enemyKill;
+                    ParticleSystem temp = Instantiate(blood, hit.transform.position, Quaternion.identity);
+                    Destroy(temp, temp.duration);
+                    ScoreManager.enemiesKilled++;
                     gameController.enemyList.Remove(hit.transform.gameObject.GetComponent<BaseEnemy>());
                     GameObject.Destroy(hit.transform.gameObject);
                 }
-                    
+                else
+                {
+                    ParticleSystem blood = gameController.player1.GetComponent<PlayerScript>().blood;
+                    ParticleSystem temp = Instantiate(blood, hit.transform.position, attackAngle);
+                    Destroy(temp, temp.duration);
+                }
 
                 gameController.ChangeState<EnemyMoveState>();
                 yield break;
@@ -98,7 +114,7 @@ public class PlayerMoveState : GameState {
 
 
 
-        while(P1.transform.position != destination)
+        while (P1.transform.position != destination)
         {
             yield return null;
             P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 15 * Time.deltaTime);
@@ -113,15 +129,15 @@ public class PlayerMoveState : GameState {
             Time.timeScale = 0;
         }
 
-       // yield return new WaitForEndOfFrame();
-        if(gameController.itemToDrop != null)
+        // yield return new WaitForEndOfFrame();
+        if (gameController.itemToDrop != null)
         {
             gameController.itemToDrop.Dropped = true;
             gameController.itemToDrop.transform.parent.position = P1.transform.position;
             gameController.itemToDrop.GetComponent<Renderer>().enabled = true;
             gameController.itemToDrop.GetComponent<Collider>().enabled = true;
             gameController.itemToDrop = null;
-            
+
         }
         gameController.ChangeState<EnemyMoveState>();
 
@@ -129,12 +145,14 @@ public class PlayerMoveState : GameState {
 
     }
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
