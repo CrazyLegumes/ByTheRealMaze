@@ -12,7 +12,7 @@ public class BaseEnemy : MonoBehaviour
     protected GameObject attackWarning;
     protected int windup = 1;
     public int attackSize = 1;
-    protected float visionRange = 3;
+    public float visionRange = 3;
     public float attackRange = 1;
     public Vector3[] attackArray;
     public bool seenPlayer;
@@ -169,9 +169,10 @@ public class BaseEnemy : MonoBehaviour
         for (float angle = 0; angle < 360; angle += 15)
         {
 
-            Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 5f);
+            //Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * visionRange, Color.cyan, 2f);
 
             if (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)), out playerHit, attackRange))
+            {
                 if (playerHit.transform.gameObject.tag == "Player" && angle % 90 == 0)
                 {
                     playerLoc = playerHit.transform.position;
@@ -195,6 +196,7 @@ public class BaseEnemy : MonoBehaviour
 
                     break;
                 }
+            }
             if (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)), out playerHit, visionRange))
                 if (playerHit.transform.gameObject.tag == "Player")
                 {
@@ -210,9 +212,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     public virtual IEnumerator Chase()
-    {
-        Debug.Log("///////////////////////////////////////////////////////////////");
-
+    { 
         float x = playerLoc.x;
         float z = playerLoc.z;
         RaycastHit hit;
@@ -590,7 +590,7 @@ public class BaseEnemy : MonoBehaviour
                 else if (hit.transform.gameObject.tag == "Player")
                 {
                     int newDes = (int)Mathf.Floor(hit.distance);
-                    goingToGetHit = false;
+                    goingToGetHit = true;
                     StartCoroutine(chargeMove(newDes));
 
                 }
@@ -598,7 +598,6 @@ public class BaseEnemy : MonoBehaviour
             }
             else
             {
-                Debug.Log("**********************************************why not charge");
                 int newDes = 4;
                 StartCoroutine(chargeMove(newDes));
             }

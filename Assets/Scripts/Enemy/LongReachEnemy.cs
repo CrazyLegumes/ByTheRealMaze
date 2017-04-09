@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class LongReachEnemy : BaseEnemy {
 
-    public override IEnumerator Move()
-    {
-        StartCoroutine(base.Move());
-        yield return null;
-    }
     public override void ChooseAttack()
     {
         base.Act3();
         GameStateMachine.enemyCount++;
     }
+
     public override void InitStats()
     {
         stats = new StatsClass();
@@ -25,6 +21,7 @@ public class LongReachEnemy : BaseEnemy {
         InitStats();
         attackSize = 2;
         attackRange = 2;
+        visionRange = 4;
         base.initialize();
 	}
 	
