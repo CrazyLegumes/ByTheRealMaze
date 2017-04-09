@@ -4,8 +4,13 @@ using UnityEngine;
 
 [System.Serializable]
 
+
+
 public class PlayerScript : MonoBehaviour
 {
+    public OnTurnEnd myDel; 
+
+
     public StatsClass mystats;
 
     public PlayerUI myUi;
@@ -32,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     int itemCount = 0;
 
 
-
+    
 
 
 
@@ -74,20 +79,29 @@ public class PlayerScript : MonoBehaviour
         {
 
             Traps activation = col.GetComponent<Traps>();
+            Debug.Log(activation.gameObject.name);
             if (!activation.Activated)
             {
-                activation.Activator = this;
+                activation.Activator = gameObject.GetComponent<PlayerScript>();
                 activation.Activated = true;
 
                 switch (activation.MyEffect)
                 {
                     case Traps.effect.debuff:
                         {
-                            buffList.Add(activation.Debuff);
+                            activation.Debuff.owner = this;
+                            myDel += new OnTurnEnd(activation.Debuff.Activate);
+                            Debug.Log("POISONED");
+                            
                             
                             break;
                         }
                     case Traps.effect.instant:
+                        activation.InstantActivation();
+                        
+                        //myDel += new OnTurnEnd(activation.InstantActivation);
+                        Debug.Log(activation.Activator.mystats);
+                        Debug.Log("EndMyLife");
 
                         break;
                 }

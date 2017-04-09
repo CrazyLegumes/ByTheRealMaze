@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void OnTurnEnd();
 public class PlayerMoveState : GameState {
     LayerMask wallMask;
 
@@ -10,6 +12,7 @@ public class PlayerMoveState : GameState {
         wallMask = LayerMask.NameToLayer("Wall");
         base.Enter();
         StartCoroutine(MovePlayer1());
+        
         //StartCoroutine(MovePlayer2());
         //StartCoroutine(MovePlayer3());
         //StartCoroutine(MovePlayer4());
@@ -95,6 +98,7 @@ Move:
                     gameController.enemyList.Remove(hit.transform.gameObject.GetComponent<BaseEnemy>());
                     GameObject.Destroy(hit.transform.gameObject);
                 }
+                
                     
 
                 gameController.ChangeState<EnemyMoveState>();
@@ -130,6 +134,13 @@ Move:
             gameController.itemToDrop = null;
             
         }
+
+        if (P1.myDel != null)
+            P1.myDel();
+
+
+
+        P1.myUi.UpdateCurrentHealth();
         gameController.ChangeState<EnemyMoveState>();
 
         Debug.Log(gameController.currstate);

@@ -25,7 +25,9 @@ public class SpikeTrap :Traps {
         if(Activator != null)
         {
             Activator.mystats.Damage(1);
+            Activator.myUi.UpdateCurrentHealth();
         }
+       
     }
     // Use this for initialization
     void Start () {
