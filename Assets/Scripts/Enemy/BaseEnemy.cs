@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class BaseEnemy : MonoBehaviour
 {
-
-
     protected StatsClass stats;
     protected string enemyName;
     protected GameObject attackWarning;
@@ -23,9 +21,9 @@ public class BaseEnemy : MonoBehaviour
     public Vector3 playerLoc;
     public LayerMask HitMask;
     public string attackDirection = null;
-    private int turnsWaiting = 0;
-    private Vector3 chargeDirection;
-    private bool goingToGetHit = false;
+    protected int turnsWaiting = 0;
+    protected Vector3 chargeDirection;
+    protected bool goingToGetHit = false;
 
     public virtual void initialize()
     {
@@ -310,14 +308,15 @@ public class BaseEnemy : MonoBehaviour
         yield return null;
     }
 
-    public virtual void ChooseAttack()
+    //this became useless after I moved all of the Attacks to their child-classes
+    /*public virtual void ChooseAttack()
     {
         Act1();
         GameStateMachine.enemyCount++;
-    }
+    }*/
 
     public virtual void Act1()
-    {        //1 Space in front hit 1 dmg
+    {   //1 Space in front hit 1 dmg
 
         inAttack = true;
 
@@ -374,7 +373,8 @@ public class BaseEnemy : MonoBehaviour
         }
     }
 
-    public virtual void Act2()
+    //I moved all of these to their respective child-classes, but kept them here as comment Just In-Case(TM)
+    /*public virtual void Act2()
     {
         //"T" attack 1 dmg
         inAttack = true;
@@ -454,9 +454,9 @@ public class BaseEnemy : MonoBehaviour
         }
 
 
-    }
+    }*/
 
-    public virtual void Act3()
+    /* public virtual void Act3()
     {
         //2 in front
         inAttack = true;
@@ -524,9 +524,9 @@ public class BaseEnemy : MonoBehaviour
             locReached = true;
             turnsWaiting = 0;
         }
-    }
+    }*/
 
-    public virtual void Act4()
+    /*public virtual void Act4()
     {
         //charge attack, 4 tiles in front, 4 dmg
         inAttack = true;
@@ -613,29 +613,13 @@ public class BaseEnemy : MonoBehaviour
             locReached = true;
         }
         
-    }
+    }*/
 
-    public virtual void Act5()
+    /*public virtual void Act5()
     {
         //ranged attack
         inAttack = true;
         attackArray[0] = new Vector3(playerLoc.x, .05f, playerLoc.z);
-        //if (attackDirection == "up")
-        //{
-        //   
-        //}
-        //else if (attackDirection == "right")
-        //{
-        //    attackArray[0] = new Vector3(transform.position.x + 3, 0.05f, transform.position.z);
-        //}
-        //else if (attackDirection == "down")
-        //{
-        //    attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z - 3);
-        //}
-        //else if (attackDirection == "left")
-        //{
-        //    attackArray[0] = new Vector3(transform.position.x - 3, 0.05f, transform.position.z);
-        //}
         if (turnsWaiting == 0)
         {
             foreach (Vector3 a in attackArray)
@@ -649,9 +633,6 @@ public class BaseEnemy : MonoBehaviour
             }
             turnsWaiting++;
         }
-
-
-
         else if (turnsWaiting == windup)
         {
             foreach (Vector3 a in attackArray)
@@ -664,7 +645,6 @@ public class BaseEnemy : MonoBehaviour
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         Debug.Log("enemy str" + stats.Strength);
                         Debug.Log("player def" + x.GetComponent<PlayerScript>().mystats.Defense);
-
                         if (dmg <= 0)
                         {
                             dmg = 1;
@@ -674,7 +654,6 @@ public class BaseEnemy : MonoBehaviour
                     }
                 }
             }
-
             foreach (Transform child in transform)
             {
                 if (child.gameObject.tag == "Warning")
@@ -682,15 +661,14 @@ public class BaseEnemy : MonoBehaviour
                     Destroy(child.gameObject);
                 }
             }
-
             Debug.Log("Attack 5");
             inAttack = false;
             locReached = true;
             turnsWaiting = 0;
         }
-    }
+    }*/
 
-    public virtual IEnumerator chargeMove(int newDes)
+    /*public virtual IEnumerator chargeMove(int newDes)
     {
         Vector3 destination = transform.position + (chargeDirection * newDes);
 
@@ -709,5 +687,5 @@ public class BaseEnemy : MonoBehaviour
             FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
         }
         yield return null;
-    }
+    }*/
 }

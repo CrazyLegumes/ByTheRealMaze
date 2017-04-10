@@ -4,7 +4,70 @@ using UnityEngine;
 
 public class RangedAttack : BaseEnemy
 {
+    public override void InitStats()
+    {
+        stats = new StatsClass();
+        stats.Strength = 2;
+    }
+    
+    /*public override void ChooseAttack()
+    {
+        base.Act5();
+        GameStateMachine.enemyCount++;
+    }*/
 
+    public override void Act1()
+    {
+        //ranged attack
+        inAttack = true;
+        attackArray[0] = new Vector3(playerLoc.x, .05f, playerLoc.z);
+        if (turnsWaiting == 0)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Debug.Log("WARNING");
+                GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
+                b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
+                    b.transform.localScale.y / transform.localScale.y,
+                    b.transform.localScale.z / transform.localScale.z);
+                b.transform.position = new Vector3(b.transform.position.x, 0.05f, b.transform.position.z);
+            }
+            turnsWaiting++;
+        }
+        else if (turnsWaiting == windup)
+        {
+            foreach (Vector3 a in attackArray)
+            {
+                Collider[] hitobjects = Physics.OverlapBox(a, new Vector3(0.5f, .5f, .5f), Quaternion.identity, HitMask);
+                foreach (Collider x in hitobjects)
+                {
+                    if (x.transform.name == "Player")
+                    {
+                        int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
+                        Debug.Log("enemy str" + stats.Strength);
+                        Debug.Log("player def" + x.GetComponent<PlayerScript>().mystats.Defense);
+                        if (dmg <= 0)
+                        {
+                            dmg = 1;
+                        }
+                        x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
+                    }
+                }
+            }
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.tag == "Warning")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            Debug.Log("Attack 5");
+            inAttack = false;
+            locReached = true;
+            turnsWaiting = 0;
+        }
+    }
 
     public override void playerScan()
     {
@@ -43,18 +106,6 @@ public class RangedAttack : BaseEnemy
         }
     }
 
-    public override void ChooseAttack()
-    {
-        base.Act5();
-        GameStateMachine.enemyCount++;
-    }
-
-    public override void InitStats()
-    {
-        stats = new StatsClass();
-        stats.Strength = 2;
-    }
-
     void Start()
     {
         windup = 1;
@@ -63,11 +114,5 @@ public class RangedAttack : BaseEnemy
         attackRange = 3;
         visionRange = 6;
         base.initialize();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
