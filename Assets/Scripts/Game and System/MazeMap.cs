@@ -326,6 +326,43 @@ public class MazeMap : MonoBehaviour{
 
     }
 
+    public class TilePosition
+    {
+        int _x;
+        int _y;
+        bool _Valid;
+
+
+        public int x
+        {
+            get { return _x; }
+            set { }
+        }
+        public int y
+        {
+            get { return _y; }
+            set { }
+        }
+        public bool Valid
+        {
+            get
+            {
+                if (x != -1 && y != -1)
+                    return true;
+                return false;
+            }
+            set { }
+        }
+
+
+        public TilePosition(int x = -1, int y = -1)
+        {
+            this._x = x;
+            this._y = y;
+        }
+
+    }
+
     private Player player;
 
     private List<Enemy> Enemies = new List<Enemy>();
@@ -478,7 +515,6 @@ public class MazeMap : MonoBehaviour{
                 return false;
             }
 
-
         try
         {
             Enemy enemy = new Enemy(x, y, EnemyID);
@@ -491,6 +527,28 @@ public class MazeMap : MonoBehaviour{
             Debug.Log("ERROR: MazeMap, SpawnEnemy: Failed to create enemy!");
             return false;
         }
+    }
+
+    /// <summary>
+    /// Attempts to delete an enemy.
+    /// </summary>
+    /// <param name="EnemyID">The unique identifier for the enemy to delete.</param>
+    /// <returns>True if successfully deleted, false if not.</returns>
+    public bool DeleteEnemy(string EnemyID)
+    {
+        for(int i = 0; i < Enemies.Count; i++)
+        {
+            Enemy enemy = Enemies[i];
+            if (enemy.ID == EnemyID)
+            {
+                TileMap[enemy.y][enemy.x].RemoveEnemy();
+                Enemies.RemoveAt(i);
+                return true;
+            }
+        }   
+
+        Debug.Log("ERROR: MazeMap, DeleteEnemy: Enemy with ID \"" + EnemyID + "\" could not be found!");
+        return false;
     }
 
     /// <summary>
@@ -1002,6 +1060,40 @@ public class MazeMap : MonoBehaviour{
                 return;
         }
     }
+
+    /// <summary>
+    /// Gets the position of a tile in a certain direction from current tile. Useful if traversing down a path.
+    /// </summary>
+    /// <param name="x">The position of the tile in the width (x) spectrum.</param>
+    /// <param name="y">The position of the tile in the height (y) spectrum.</param>
+    /// <param name="direction">The direction to check. Valid values are "Up", "Down", "Left", "Right"</param>
+    /// <returns></returns>
+    public TilePosition GetPosition(int x, int y, string direction)
+    {
+        switch (direction)
+        {
+            case "Up":
+                if (y + 1 < height)
+                    return new TilePosition(x, y + 1);
+                return new TilePosition();
+            case "Down":
+                if (y - 1 >= 0)
+                    return new TilePosition(x, y - 1);
+                return new TilePosition();
+            case "Left":
+                if (x + 1 < width)
+                    return new TilePosition(x + 1, y);
+                return new TilePosition();
+            case "Right":
+                if (x - 1 >= 0)
+                    return new TilePosition(x - 1, y);
+                return new TilePosition();
+        }
+
+        Debug.Log("ERROR: MazeMap, GetPosition: Attempting to get position in direction \"" + direction + "\" is invalid. Valid values are \"Up\", \"Down\", \"Left\", \"Right\"");
+        return new TilePosition();
+    }
+
 
 }
 
