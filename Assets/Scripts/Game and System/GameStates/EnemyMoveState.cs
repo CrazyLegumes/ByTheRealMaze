@@ -12,7 +12,8 @@ public class EnemyMoveState : GameState {
         {
             if (a.inAttack)
             {
-                a.ChooseAttack();
+                a.Act1();
+                GameStateMachine.enemyCount++;
                 continue;
             }
             
@@ -20,7 +21,8 @@ public class EnemyMoveState : GameState {
 
             if (a.playerInAttackRange) //or winding up
             {
-                a.ChooseAttack();
+                a.Act1();
+                GameStateMachine.enemyCount++;
             }
             else if (a.seenPlayer || (a.chasing  && !a.locReached))
             {
