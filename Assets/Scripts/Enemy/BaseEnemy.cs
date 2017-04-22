@@ -21,10 +21,7 @@ public class BaseEnemy : MonoBehaviour
     public Vector3 playerLoc;
     public LayerMask HitMask;
     public string attackDirection = null;
-    private Quaternion attackAngle;
-    private int turnsWaiting = 0;
-    private Vector3 chargeDirection;
-    private bool goingToGetHit = false;
+    protected Quaternion attackAngle;
     protected int turnsWaiting = 0;
     protected Vector3 chargeDirection;
     protected bool goingToGetHit = false;

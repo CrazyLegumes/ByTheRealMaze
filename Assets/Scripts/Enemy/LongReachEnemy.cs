@@ -66,7 +66,19 @@ public class LongReachEnemy : BaseEnemy
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;
+                        ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+                        if (x.GetComponent<PlayerScript>().mystats.Health == 0)
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.Euler(90, 0, 0), x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        else
+                        {
+                            ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().blood, x.transform.position, attackAngle, x.gameObject.transform);
+                            Destroy(temp, temp.duration);
+                        }
+                        x.GetComponent<PlayerScript>().mystats.Damaged = true;
                         x.GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
                     }
                 }

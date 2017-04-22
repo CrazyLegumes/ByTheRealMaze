@@ -114,9 +114,22 @@ public class ChargeEnemy : BaseEnemy
         }
         if (goingToGetHit)
         {
-            int dmg = stats.Strength - FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Defense;
-            if (dmg <= 0)
-                dmg = 1;
+                int dmg = stats.Strength - FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Defense;
+                if (dmg <= 0)
+                    dmg = 1;
+                ScoreManager.damageTaken += dmg;
+                FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Damage(dmg);
+                if (FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Health == 0)
+                {
+                    ParticleSystem temp = Instantiate(FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().playerKill, FindObjectOfType<PlayerScript>().transform.position, Quaternion.Euler(90, 0, 0), FindObjectOfType<PlayerScript>().gameObject.transform);
+                    Destroy(temp, temp.duration);
+                }
+                else
+                {
+                    ParticleSystem temp = Instantiate(FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().blood, FindObjectOfType<PlayerScript>().transform.position, attackAngle, FindObjectOfType<PlayerScript>().gameObject.transform);
+                    Destroy(temp, temp.duration);
+                }
+
             FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Damage(dmg);
             FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
         }
