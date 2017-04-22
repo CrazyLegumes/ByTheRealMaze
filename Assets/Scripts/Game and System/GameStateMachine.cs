@@ -87,6 +87,7 @@ public class GameStateMachine : StateMachine {
         over = player1.GetComponent<PlayerScript>().mystats.Dead;
         gameOver();
         input.text = moveinput1.ToString();
+        
         currstate = _currentState.ToString();
         Timer2.fillAmount = currentTimer / timeStep;
         if (Timer2.fillAmount > .5f)
@@ -100,6 +101,12 @@ public class GameStateMachine : StateMachine {
             
             Timer2.CrossFadeColor(new Color(255, 0, 0, 1), .1f, false, false);
         }
+
+
+        if (player1.GetComponent<PlayerScript>().useItem)
+            input.color = Color.red;
+        if (!player1.GetComponent<PlayerScript>().useItem)
+            input.color = Color.white;
         
     }
 

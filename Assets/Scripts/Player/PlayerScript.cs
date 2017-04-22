@@ -20,6 +20,8 @@ public class PlayerScript : MonoBehaviour
 
 
     public bool activeItem = true;
+    public bool useItem = false;
+    public string dir = "";
 
 
     public UseItem Item1;
@@ -54,7 +56,7 @@ public class PlayerScript : MonoBehaviour
                         EquipItems(hit.GetComponent<EquipItem>());
                         break;
 
-                    case BaseItem.Itemtype.use:
+                    case BaseItem.Itemtype.use: case BaseItem.Itemtype.spell:
                         Debug.Log("Hit");
                         EquipUseItem(hit.GetComponent<UseItem>());
                         break;

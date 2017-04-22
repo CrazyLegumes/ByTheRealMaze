@@ -781,6 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myUi: {fileID: 1022035708}
+  buffList: []
   myShake: {fileID: 407826418}
   activeItem: 1
   Item1: {fileID: 0}
@@ -1097,6 +1098,16 @@ Prefab:
       propertyPath: myPlayer
       value: 
       objectReference: {fileID: 179587706}
+    - target: {fileID: 114079707576751674, guid: 815ef843092fe6047ae4451aa2ec9e42,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114079707576751674, guid: 815ef843092fe6047ae4451aa2ec9e42,
+        type: 2}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 815ef843092fe6047ae4451aa2ec9e42, type: 2}
   m_IsPrefabParent: 0

@@ -11,6 +11,7 @@ public class BaseItem : MonoBehaviour {
     {
         equip,
         use,
+        spell
         
     }
     

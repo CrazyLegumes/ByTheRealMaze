@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestMazeMap : MonoBehaviour {
+public class TestMazeMap : MonoBehaviour
+{
 
     MazeMap map = new MazeMap();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         ExampleMethod();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+       // map.ExampleTestMethod();
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+
+    }
 
     public void ExampleMethod()
     {
@@ -35,16 +37,16 @@ public class TestMazeMap : MonoBehaviour {
         ///         Maze  displayed would be a height of 4 and a width of 5
 
         ///This call demonstrates how to create the map. This must be called first before any other calls.
-        ///map.CreateMap(10, 5, 312);
+        map.CreateMap(40, 40, 3212);
 
         int x = 1; int y = 1;
 
         ///These calls will delete the walls of a specific tile, opening up paths.
         ///------------------------------------------------------------------------------------------------------
-        ///map.DeleteWall(x, y, "Top");
-        ///map.DeleteWall(x, y, "Bottom");
-        ///map.DeleteWall(x, y, "Left");
-        ///map.DeleteWall(x, y, "Right");
+         map.DeleteWall(x, y, "Top");
+         map.DeleteWall(x, y, "Bottom");
+         map.DeleteWall(x, y, "Left");
+         map.DeleteWall(x, y, "Right");
 
         ///These calls will determine whether you can move in a specific direction from the specified tile.
         ///------------------------------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ public class TestMazeMap : MonoBehaviour {
         ///These calls demonstrate how to move the player object and other related functions.
         ///Note: CreatePlayer() method must be called for these to work!
         ///------------------------------------------------------------------------------------------------------
-        ///map.CreatePlayer(x, y);
+        map.CreatePlayer(x, y);
         ///Debug.Log("Player position: (x: " + map.GetPlayerX() +", y: " + map.GetPlayerY() + ")");
         ///Debug.Log("Attemting to move player down. Successful: " + map.MovePlayer("Down"));
         ///Debug.Log("Attemting to move player up. Successful: " + map.MovePlayer("Up"));
@@ -74,7 +76,7 @@ public class TestMazeMap : MonoBehaviour {
 
         ///These calls demonstrate how to move enemy objects and other related functions.
         ///------------------------------------------------------------------------------------------------------
-        ///map.SpawnEnemy("Enemy01", 1, 1);
+        map.SpawnEnemy("Enemy01", 1, 1);
         ///Debug.Log("Enemy position: (x: " + map.GetEnemyX("Enemy01") +", y: " + map.GetEnemyY("Enemy01") + ")");
         ///Debug.Log("Attemting to move enemy down. Successful: " + map.MoveEnemy("Down", "Enemy01"));
         ///Debug.Log("Attemting to move enemy up. Successful: " + map.MoveEnemy("Up", "Enemy01"));
@@ -92,10 +94,10 @@ public class TestMazeMap : MonoBehaviour {
         ///Debug.Log("Enemy exists to the south: " + map.HasEnemy(1, 2, "Down"));
 
         ///These calls demonstrate how to lower and raise walls.
-        ///map.LowerSide(1, 1, "Top");
-        ///map.LowerSide(1, 1, "Bottom");
-        ///map.LowerSide(1, 1, "Left");
-        ///map.LowerSide(1, 1, "Right");
+        map.LowerSide(1, 1, "Top");
+        map.LowerSide(1, 1, "Bottom");
+        map.LowerSide(1, 1, "Left");
+        map.LowerSide(1, 1, "Right");
         ///Debug.Log("Can move up: " + map.CanMove(1, 1, "Up"));
         ///Debug.Log("Can move down: " + map.CanMove(1, 1, "Down"));
         ///Debug.Log("Can move left: " + map.CanMove(1, 1, "Left"));

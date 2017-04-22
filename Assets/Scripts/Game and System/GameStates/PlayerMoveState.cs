@@ -22,7 +22,18 @@ public class PlayerMoveState : GameState {
         yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
         Debug.Log("Moving to " + gameController.moveinput1.ToString());
-       
+
+        if (P1.useItem)
+        {
+            if (P1.Item1 != null)
+            {
+                Debug.Log("Use Item 1: " + P1.Item1.name);
+                P1.Item1.Use();
+            }
+            gameController.moveinput1 = GameStateMachine.Inputs.None;
+        }
+
+
         switch (gameController.moveinput1)
         {
             case GameStateMachine.Inputs.Down:
@@ -42,19 +53,15 @@ public class PlayerMoveState : GameState {
                 break;
 
             case GameStateMachine.Inputs.useitem:
-                if (P1.Item1 != null)
-                {
-                    Debug.Log("Use Item 1: " + P1.Item1.name);
-                    P1.Item1.Use();
-                }
+                
                 
                 break;
             case GameStateMachine.Inputs.None:
                 break;
 
         }
-        
-        
+
+
 
         /*
                 Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.forward, Color.red, 3);
@@ -62,7 +69,7 @@ public class PlayerMoveState : GameState {
                 Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.right, Color.red, 3);
                 Debug.DrawLine(P1.transform.position, P1.transform.position + Vector3.back, Color.red, 3);
                 */
-
+Move:
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
         if (Physics.Linecast(P1.transform.position, destination,out hit))
         {
