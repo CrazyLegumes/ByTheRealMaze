@@ -61,6 +61,7 @@ public class GameStateMachine : StateMachine {
         cheater = false;
         done.enabled = false;
         lighting.enabled = false;
+        done.enabled = false;
         won = false;
         over = false;
 
@@ -74,8 +75,6 @@ public class GameStateMachine : StateMachine {
         }
         foreach(GameObject a in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            Debug.Log(a.name);
-
             if(a.GetComponent<BaseEnemy>() != null){
                
                 enemyList.Add(a.GetComponent<BaseEnemy>());

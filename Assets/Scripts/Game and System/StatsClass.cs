@@ -147,8 +147,7 @@ public class StatsClass
             health = maxhealth;
     }
     public virtual void Damage(int dmg)
-    {
-        Debug.Log("Hitem");
+    { 
         Damaged = true;
         health -= dmg;
         if (health <= 0)

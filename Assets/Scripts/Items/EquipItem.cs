@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class EquipItem : BaseItem
 {
     public enum itemPlace
@@ -81,7 +82,6 @@ public class EquipItem : BaseItem
         Dropped = false;
 
         Dropped = false;
-        Debug.Log("Cmon Dad");
 
     }
 

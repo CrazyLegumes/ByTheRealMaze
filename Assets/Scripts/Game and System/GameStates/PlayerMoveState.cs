@@ -25,8 +25,6 @@ public class PlayerMoveState : GameState
         Quaternion attackAngle = Quaternion.identity;
         yield return new WaitForEndOfFrame();
         RaycastHit hit = new RaycastHit();
-        Debug.Log("Moving to " + gameController.moveinput1.ToString());
-
         switch (gameController.moveinput1)
         {
             case GameStateMachine.Inputs.Down:
@@ -41,7 +39,9 @@ public class PlayerMoveState : GameState
 
             case GameStateMachine.Inputs.Right:
                 destination = P1.transform.position + new Vector3(1, 0, 0);
+
                 attackAngle.eulerAngles = new Vector3(0, 90, 0);
+
                 break;
 
             case GameStateMachine.Inputs.Up:
@@ -85,7 +85,6 @@ public class PlayerMoveState : GameState
 
             if (hit.transform.gameObject.tag == "Enemy")
             {
-                Debug.Log(hit.transform.name);
                 int dmg = gameController.player1.GetComponent<PlayerScript>().mystats.Strength - hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Defense;
                 if (dmg <= 0)
                     dmg = 1;
@@ -99,6 +98,7 @@ public class PlayerMoveState : GameState
                     gameController.enemyList.Remove(hit.transform.gameObject.GetComponent<BaseEnemy>());
                     GameObject.Destroy(hit.transform.gameObject);
                 }
+
                 else
                 {
                     ParticleSystem blood = gameController.player1.GetComponent<PlayerScript>().blood;
@@ -140,8 +140,6 @@ public class PlayerMoveState : GameState
 
         }
         gameController.ChangeState<EnemyMoveState>();
-
-        Debug.Log(gameController.currstate);
 
     }
     // Use this for initialization
