@@ -7,16 +7,20 @@ public class BossEnemy : BaseEnemy
     public override void InitStats()
     {
         stats = new StatsClass();
-        stats.Strength = 4;
+        stats.Strength = 3;
+        stats.Defense = 2;
+        stats.Health = 6;
     }
 
 
 
     public override void Act1()
     {
+        inAttack = true;
         GameObject player = FindObjectOfType<PlayerScript>().gameObject;
         int attackType = 0;
-        if (Vector3.Distance(player.transform.position, transform.position) > 3)
+        Debug.Log(Vector3.Distance(player.transform.position, transform.position));
+        if (Vector3.Distance(player.transform.position, transform.position) < 3)
         {
             attackType = 1; // do the close range attack
         }
@@ -24,10 +28,9 @@ public class BossEnemy : BaseEnemy
         {
             attackType = 0; // do the far away attack
         }
-
         if (attackType == 1)
         {
-            inAttack = true;
+           
             if (attackDirection == "up")
             {
                 attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
@@ -71,7 +74,7 @@ public class BossEnemy : BaseEnemy
                 attackArray[6] = new Vector3(transform.position.x - 3, 0.05f, transform.position.z - 1);
             }
         }
-        else if (attackType == 1)
+        else if (attackType == 0)
         {
             if (attackDirection == "up")
             {
@@ -129,33 +132,40 @@ public class BossEnemy : BaseEnemy
                         int dmg = stats.Strength - x.GetComponent<PlayerScript>().mystats.Defense;
                         if (dmg <= 0)
                             dmg = 1;
-                        if (attackType == 0)
+                        if (attackType == 1)
                         {
+                            Debug.Log("double dmg?");
                             if (attackDirection == "up")
                             {
-                                if (player.transform.position.z - transform.position.z == 3)
+                                Debug.Log("up?");
+                                Debug.Log(player.transform.position.z - transform.position.z);
+                                if (player.transform.position.z - transform.position.z > 2.9f)
                                 {
+                                    Debug.Log("double dmg");
                                     dmg = dmg * 2;
                                 }
                             }
                             if(attackDirection == "right")
                             {
-                                if(player.transform.position.x - transform.position.x == 3)
+                                if(player.transform.position.x - transform.position.x > 2.9f)
                                 {
+                                    Debug.Log("double dmg");
                                     dmg = dmg * 2;
                                 }
                             }
                             if (attackDirection == "down")
                             {
-                                if (player.transform.position.z - transform.position.z == -3)
+                                if (player.transform.position.z - transform.position.z < -2.9f)
                                 {
+                                    Debug.Log("double dmg");
                                     dmg = dmg * 2;
                                 }
                             }
                             if (attackDirection == "left")
                             {
-                                if (player.transform.position.x - transform.position.x == -3)
+                                if (player.transform.position.x - transform.position.x < -2.9f)
                                 {
+                                    Debug.Log("double dmg");
                                     dmg = dmg * 2;
                                 }
                             }
