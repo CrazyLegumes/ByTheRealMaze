@@ -42,10 +42,14 @@ public class GameStateMachine : StateMachine {
     public Canvas done;
 
     [SerializeField]
+    public Canvas pause;
+
+    [SerializeField]
     public Text overState;
 
     public static bool won;
     public static bool over;
+    private bool paused;
     public static int enemyCount = 0;
     Color startColor;
 
@@ -58,10 +62,11 @@ public class GameStateMachine : StateMachine {
 
     void Awake()
     {
+        paused = false;
         cheater = false;
         done.enabled = false;
+        pause.enabled = false;
         lighting.enabled = false;
-        done.enabled = false;
         won = false;
         over = false;
 
@@ -92,6 +97,7 @@ public class GameStateMachine : StateMachine {
 
     void Update()
     {
+        Pause();
         if (Input.GetKeyDown(KeyCode.RightControl) && cheater == false)
         {
             cheater = true;
@@ -163,6 +169,42 @@ public class GameStateMachine : StateMachine {
                 SceneManager.LoadScene(2, LoadSceneMode.Single);
             }
             overState.text = "YOU WON!";
+        }
+    }
+
+    void Pause()
+    {
+        if (over != true && won != true)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (paused == false)
+                {
+                    pause.enabled = true;
+                    paused = true;
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    paused = false;
+                    Time.timeScale = 1;
+                    pause.enabled = false;
+                    SceneManager.LoadScene(0, LoadSceneMode.Single);
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Return) && paused == true)
+            {
+                paused = false;
+                Time.timeScale = 1;
+                pause.enabled = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.R) && paused == true)
+            {
+                paused = false;
+                Time.timeScale = 1;
+                pause.enabled = false;
+                SceneManager.LoadScene(1, LoadSceneMode.Single);
+            }
         }
     }
 }
