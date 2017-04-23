@@ -9,9 +9,8 @@ public class NewLighting : MonoBehaviour {
     {
         GameObject obj;
         Vector3 endpoints;
-        Vector3 hitpoint 
-
-        [Range(0, 360)]
+        Vector3 hitpoint;
+        //[Range(0, 360)]
         float angle;
         
     }
