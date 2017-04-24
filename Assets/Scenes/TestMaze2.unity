@@ -380,6 +380,8 @@ MonoBehaviour:
   myUi: {fileID: 1031836822}
   myShake: {fileID: 407826418}
   activeItem: 1
+  useItem: 0
+  dir: 
   Item1: {fileID: 0}
   Item2: {fileID: 0}
   blood: {fileID: 0}
@@ -414,6 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibleArea: []
   hitters: []
+  prefab: {fileID: 0}
 --- !u!1001 &223391282
 Prefab:
   m_ObjectHideFlags: 0

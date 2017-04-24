@@ -149,10 +149,12 @@ public class BaseEnemy : MonoBehaviour
                 break;
         }
 
-        while (transform.position != destination)
+        Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+
+        while (Vector3.Distance(destination, transform.position) > .1f)
         {
             yield return null;
-            transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+            transform.position += desire;
         }
 
         GameStateMachine.enemyCount++;
