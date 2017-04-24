@@ -107,12 +107,13 @@ Move:
         }
 
 
+        Vector3 desire = Vector3.Normalize(destination - P1.transform.position) * 5 * Time.deltaTime;
 
-
-        while(P1.transform.position != destination)
+        while (Vector3.Distance(destination, P1.transform.position) > .1f)
         {
+            
             yield return null;
-            P1.transform.position = Vector3.Lerp(P1.transform.position, destination, 15 * Time.deltaTime);
+            P1.transform.position += desire;
         }
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
 
