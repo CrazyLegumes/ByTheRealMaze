@@ -38,7 +38,6 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(10, 2, "Left");
         map.DeleteWall(10, 2, "Right");
         map.DeleteWall(10, 3, "Left");
-        //map.DeleteWall(10, 3, "Right");
         map.DeleteWall(11, 3, "Left");
         map.DeleteWall(12, 3, "Left");
         map.DeleteWall(12, 3, "Bottom");
@@ -70,7 +69,6 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(20, 0, "Top");
         map.DeleteWall(18, 1, "Left");
         map.DeleteWall(19, 1, "Bottom");
-        map.AddShiftableWall(20, 1, "Top");     //Shifting Wall
         map.DeleteWall(20, 2, "Top");
         map.DeleteWall(20, 3, "Top");
         map.DeleteWall(20, 4, "Top");
@@ -103,15 +101,12 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(14, 4, "Left");
         map.DeleteWall(15, 4, "Left");
         map.DeleteWall(16, 4, "Bottom");
-        map.AddShiftableWall(16, 3, "Bottom"); //Shifting wall
         map.DeleteWall(16, 3, "Right");
         map.DeleteWall(15, 3, "Right");
         map.DeleteWall(14, 3, "Right");
-        map.AddShiftableWall(16, 3, "Left"); //Shifting Wall
         map.DeleteWall(17, 3, "Left");
         map.DeleteWall(18, 3, "Left");
         map.DeleteWall(19, 3, "Top");
-        map.AddShiftableWall(19, 3, "Bottom"); //Shifting Wall
         map.DeleteWall(19, 4, "Top");
         map.DeleteWall(19, 5, "Right");
         map.DeleteWall(18, 5, "Bottom");
@@ -279,7 +274,6 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(13, 11, "Right");
         map.DeleteWall(12, 11, "Bottom");
         map.DeleteWall(12, 10, "Left");
-        map.AddShiftableWall(17, 8, "Right"); //Shiftable wall
         map.DeleteWall(17, 9, "Right");
         map.DeleteWall(16, 9, "Bottom");
         map.DeleteWall(16, 9, "Top");
@@ -316,7 +310,6 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(16, 19, "Right");
         map.DeleteWall(15, 19, "Bottom");
         map.DeleteWall(15, 18, "Bottom");
-        map.AddShiftableWall(15, 16, "Top"); //Shiftable wall
         map.DeleteWall(16, 19, "Left");
         map.DeleteWall(17, 19, "Left");
         map.DeleteWall(18, 19, "Left");
@@ -327,10 +320,8 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(19, 17, "Right");
         map.DeleteWall(20, 17, "Right");
         map.DeleteWall(18, 17, "Right");
-        map.AddShiftableWall(14, 15, "Top"); //shiftable wall
         map.DeleteWall(14, 15, "Bottom");
         map.DeleteWall(14, 14, "Bottom");
-        map.AddShiftableWall(15, 12, "Right"); //shiftable wall
         map.DeleteWall(15, 13, "Left");
         map.DeleteWall(16, 13, "Top");
         map.DeleteWall(16, 14, "Right");
@@ -340,24 +331,237 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(17, 15, "Top");
         map.DeleteWall(17, 15, "Bottom");
         map.DeleteWall(17, 16, "Left");
-        map.AddShiftableWall(17, 14, "Left"); //Shifable wall
         map.DeleteWall(18, 14, "Top");
         map.DeleteWall(18, 15, "Left");
         map.DeleteWall(19, 15, "Top");
         map.DeleteWall(19, 14, "Top");
+        map.DeleteWall(4, 13, "Top");
+        map.DeleteWall(4, 14, "Top");
+        map.DeleteWall(4, 15, "Right");
+        map.DeleteWall(3, 15, "Top");
+        map.DeleteWall(4, 14, "Left");
+        map.DeleteWall(5, 14, "Top");
+        map.DeleteWall(5, 15, "Top");
+        map.DeleteWall(5, 16, "Top");
+        map.DeleteWall(5, 16, "Right");
+        map.DeleteWall(5, 17, "Top");
+        map.DeleteWall(5, 18, "Top");
+        map.DeleteWall(5, 19, "Top");
+        map.DeleteWall(5, 20, "Right");
+        map.DeleteWall(4, 20, "Right");
+        map.DeleteWall(3, 20, "Right");
+        map.DeleteWall(1, 20, "Right");
+        map.DeleteWall(1, 20, "Bottom");
+        map.DeleteWall(0, 20, "Bottom");
+        map.DeleteWall(0, 19, "Bottom");
+        map.DeleteWall(0, 18, "Bottom");
+        map.DeleteWall(0, 17, "Bottom");
+        map.DeleteWall(1, 19, "Bottom");
+        map.DeleteWall(1, 18, "Bottom");
+        map.DeleteWall(1, 17, "Left");
+        map.DeleteWall(2, 17, "Left");
+        map.DeleteWall(3, 17, "Bottom");
+        map.DeleteWall(2, 20, "Bottom");
+        map.DeleteWall(2, 19, "Bottom");
+        map.DeleteWall(2, 18, "Left");
+        map.DeleteWall(3, 18, "Left");
+        map.DeleteWall(4, 18, "Top");
+        map.DeleteWall(4, 19, "Right");
+        map.DeleteWall(4, 18, "Bottom");
+        map.DeleteWall(0, 16, "Left");
+        map.DeleteWall(1, 16, "Left");
+        map.DeleteWall(2, 16, "Bottom");
+        map.DeleteWall(2, 15, "Bottom");
+        map.DeleteWall(2, 14, "Bottom");
+        map.DeleteWall(2, 14, "Left");
+        map.DeleteWall(3, 14, "Bottom");
+        map.DeleteWall(1, 14, "Top");
+        map.DeleteWall(1, 14, "Bottom");
+        map.DeleteWall(1, 15, "Right");
+        map.DeleteWall(0, 15, "Bottom");
+        map.DeleteWall(0, 14, "Bottom");
+        map.DeleteWall(3, 13, "Bottom");
+        map.DeleteWall(3, 12, "Left");
+        map.DeleteWall(4, 12, "Bottom");
+        map.DeleteWall(4, 11, "Right");
+        map.DeleteWall(3, 11, "Right");
+        map.DeleteWall(2, 11, "Right");
+        map.DeleteWall(2, 11, "Top");
+        map.DeleteWall(2, 12, "Right");
+        map.DeleteWall(1, 12, "Top");
+        map.DeleteWall(0, 11, "Left");
+        map.DeleteWall(0, 11, "Top");
+        map.DeleteWall(0, 11, "Bottom");
+        map.DeleteWall(5, 12, "Left");
+        map.DeleteWall(6, 12, "Left");
+        map.DeleteWall(7, 12, "Left");
+        map.DeleteWall(9, 12, "Left");
+        map.DeleteWall(9, 12, "Bottom");
+        map.DeleteWall(10, 12, "Bottom");
+        map.DeleteWall(8, 12, "Bottom");
+        map.DeleteWall(8, 11, "Right");
+        map.DeleteWall(7, 11, "Right");
+        map.DeleteWall(6, 11, "Bottom");
+        map.DeleteWall(5, 11, "Bottom");
+        map.DeleteWall(5, 10, "Bottom");
+        map.DeleteWall(5, 9, "Bottom");     
+        map.DeleteWall(6, 10, "Left");
+        map.DeleteWall(7, 10, "Left");
+        map.DeleteWall(8, 10, "Left");
+        map.DeleteWall(9, 10, "Top");
+        map.DeleteWall(10, 10, "Top");
+        map.DeleteWall(5, 10, "Right");
+        map.DeleteWall(4, 10, "Right");
+        map.DeleteWall(3, 10, "Bottom");
+        map.DeleteWall(3, 9, "Right");
+        map.DeleteWall(2, 9, "Top");
+        map.DeleteWall(2, 10, "Right");
+        map.DeleteWall(1, 10, "Right");
+        map.DeleteWall(0, 10, "Bottom");
+        map.DeleteWall(0, 9, "Left");
+        map.DeleteWall(1, 9, "Bottom");
+        map.DeleteWall(1, 8, "Right");
+        map.DeleteWall(1, 8, "Left");
+        map.DeleteWall(2, 8, "Bottom");
+        map.DeleteWall(2, 8, "Left");
+        map.DeleteWall(3, 8, "Left");
+        map.DeleteWall(4, 8, "Bottom");
+        map.DeleteWall(4, 7, "Bottom");
+        map.DeleteWall(4, 6, "Right");
+        map.DeleteWall(3, 6, "Top");
+        map.DeleteWall(2, 6, "Top");
+        map.DeleteWall(2, 6, "Right");
+        map.DeleteWall(1, 6, "Top");
+        map.DeleteWall(1, 7, "Right");
+        map.DeleteWall(0, 7, "Bottom");
+        map.DeleteWall(0, 6, "Bottom");
+        map.DeleteWall(0, 5, "Bottom");
+        map.DeleteWall(0, 4, "Left");
+        map.DeleteWall(1, 4, "Left");
+        map.DeleteWall(1, 4, "Top");
+        map.DeleteWall(1, 5, "Left");
+        map.DeleteWall(2, 4, "Left");
+        map.DeleteWall(3, 4, "Left");
+        map.DeleteWall(4, 4, "Left");
+        map.DeleteWall(5, 4, "Top");
+        map.DeleteWall(0, 0, "Left");
+        map.DeleteWall(0, 0, "Top");
+        map.DeleteWall(0, 1, "Top");
+        map.DeleteWall(0, 2, "Top");
+        map.DeleteWall(0, 3, "Left");
+        map.DeleteWall(1, 3, "Left");
+        map.DeleteWall(2, 3, "Left");
+        map.DeleteWall(3, 3, "Bottom");
+        map.DeleteWall(3, 2, "Right");
+        map.DeleteWall(2, 2, "Right");
+        map.DeleteWall(1, 2, "Bottom");
+        map.DeleteWall(3, 2, "Left");
+        map.DeleteWall(4, 1, "Left");
+        map.DeleteWall(4, 2, "Left");
+        map.DeleteWall(4, 3, "Left");
+        map.DeleteWall(5, 1, "Left");
+        map.DeleteWall(5, 2, "Left");
+        map.DeleteWall(5, 3, "Left");
+        map.DeleteWall(4, 2, "Top");
+        map.DeleteWall(4, 2, "Bottom");
+        map.DeleteWall(5, 2, "Top");
+        map.DeleteWall(5, 2, "Bottom");
+        map.DeleteWall(6, 2, "Top");
+        map.DeleteWall(6, 2, "Bottom");
+        map.DeleteWall(6, 2, "Left");
+        map.DeleteWall(7, 2, "Top");
+        map.DeleteWall(7, 2, "Bottom");
+        map.DeleteWall(7, 1, "Bottom");
+        map.DeleteWall(7, 0, "Right");
+        map.DeleteWall(6, 0, "Right");
+        map.DeleteWall(3, 1, "Top");
+        map.DeleteWall(3, 1, "Right");
+        map.DeleteWall(2, 1, "Bottom");
+        map.DeleteWall(2, 0, "Left");
+        map.DeleteWall(2, 0, "Right");
+        map.DeleteWall(3, 0, "Left");
+        map.DeleteWall(8, 0, "Right");
+        map.DeleteWall(8, 0, "Top");
+        map.DeleteWall(8, 1, "Top");
+        map.DeleteWall(8, 2, "Top");
+        map.DeleteWall(8, 3, "Left");
+        map.DeleteWall(9, 3, "Left");
+        map.DeleteWall(5, 5, "Right");
+        map.DeleteWall(4, 5, "Right");
+        map.DeleteWall(7, 3, "Top");
+        map.DeleteWall(7, 4, "Top");
+        map.DeleteWall(7, 4, "Left");
+        map.DeleteWall(8, 4, "Left");
+        map.DeleteWall(9, 4, "Left");
+        map.DeleteWall(10, 4, "Top");
+        map.DeleteWall(10, 5, "Left");
+        map.DeleteWall(11, 5, "Bottom");
+        map.DeleteWall(11, 4, "Left");
+        map.DeleteWall(12, 4, "Top");
+        map.DeleteWall(12, 5, "Top");
+        map.DeleteWall(12, 6, "Top");
+        map.DeleteWall(12, 7, "Top");
+        map.DeleteWall(12, 8, "Right");
+        map.DeleteWall(11, 8, "Right");
+        map.DeleteWall(10, 8, "Top");
+        map.DeleteWall(10, 8, "Right");
+        map.DeleteWall(10, 8, "Bottom");
+        map.DeleteWall(9, 8, "Top");
+        map.DeleteWall(9, 8, "Right");
+        map.DeleteWall(9, 8, "Bottom");
+        map.DeleteWall(8, 8, "Top");
+        map.DeleteWall(8, 8, "Bottom");
+        map.DeleteWall(10, 9, "Right");
+        map.DeleteWall(9, 9, "Right");
+        map.DeleteWall(10, 7, "Right");
+        map.DeleteWall(9, 7, "Right");
+        map.DeleteWall(10, 7, "Left");
+        map.DeleteWall(11, 5, "Top");
+        map.DeleteWall(11, 6, "Right");
+        map.DeleteWall(10, 6, "Right");
+        map.DeleteWall(9, 6, "Bottom");
+        map.DeleteWall(8, 5, "Top");
+        map.DeleteWall(8, 6, "Right");
+        map.DeleteWall(7, 6, "Right");
+        map.DeleteWall(12, 7, "Left");
+        map.DeleteWall(6, 6, "Bottom");
+        map.DeleteWall(6, 5, "Bottom");
+        map.DeleteWall(6, 4, "Right");
+        map.DeleteWall(6, 6, "Right");
+        map.DeleteWall(5, 6, "Top");
+        map.DeleteWall(5, 7, "Left");
+        map.DeleteWall(6, 7, "Top");
+        map.DeleteWall(6, 8, "Top");
+        map.DeleteWall(6, 9, "Left");
+        map.DeleteWall(7, 9, "Bottom");
+        map.DeleteWall(7, 8, "Bottom");
+        map.DeleteWall(7, 8, "Left");
+        
 
 
 
 
-
-
-
-
-
-
-
-
-
+        //Shiftable walls
+        map.AddShiftableWall(5, 0, "Right");
+        map.AddShiftableWall(1, 3, "Top"); 
+        map.AddShiftableWall(4, 8, "Top");
+        map.AddShiftableWall(20, 1, "Top");   
+        map.AddShiftableWall(16, 3, "Bottom");
+        map.AddShiftableWall(16, 3, "Left"); 
+        map.AddShiftableWall(19, 3, "Bottom");
+        map.AddShiftableWall(17, 8, "Right"); 
+        map.AddShiftableWall(15, 16, "Top");
+        map.AddShiftableWall(14, 15, "Top");
+        map.AddShiftableWall(15, 12, "Right"); 
+        map.AddShiftableWall(17, 14, "Left"); 
+        map.AddShiftableWall(4, 16, "Top"); 
+        map.AddShiftableWall(2, 20, "Right"); 
+        map.AddShiftableWall(0, 12, "Top");
+        map.AddShiftableWall(1, 15, "Left"); 
+        map.AddShiftableWall(5, 11, "Left");
+        map.AddShiftableWall(3, 5, "Top");
+        map.AddShiftableWall(7, 7, "Bottom");
+        map.AddShiftableWall(9, 5, "Right");
 
 
     }
