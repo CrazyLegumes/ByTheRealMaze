@@ -31,12 +31,40 @@ public class MovableWalls : MonoBehaviour
 
     }
 
+    public IEnumerator superCheat()
+    {
+        Vector3 tempdest = Vector3.zero;
+        Vector3 dest = Vector3.zero;
+        Vector3 dest2 = Vector3.zero;
+
+        dest = transform.position + new Vector3(0, -1000f, 0);
+        dest2 = dest + Vector3.up + new Vector3(0, 0.5f, 0);
+        while (transform.position != dest)
+        {
+            yield return null;
+            tempdest = new Vector3(transform.position.x, dest.y, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, tempdest, .05f * Time.deltaTime);
+
+            foreach (GameObject go in ConnectedWalls)
+            {
+                tempdest = new Vector3(go.transform.position.x, dest.y, go.transform.position.z);
+                go.transform.position = Vector3.Lerp(go.transform.position, tempdest, .05f * Time.deltaTime);
+            }
+            foreach (GameObject go in OppositeWalls)
+            {
+                tempdest = new Vector3(go.transform.position.x, dest2.y, go.transform.position.z);
+                go.transform.position = Vector3.Lerp(go.transform.position, tempdest, .05f * Time.deltaTime);
+            }
+
+        }
+        yield return null;
+    }
 
     public IEnumerator MoveWall()
     {
         if (!waiting)
         {
-            turnsTillmove = Random.Range(1, 1);
+            turnsTillmove = Random.Range(1, 6);
             waiting = true;
             turnsWaited = 0;
             yield break;

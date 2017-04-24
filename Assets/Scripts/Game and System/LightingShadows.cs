@@ -14,6 +14,8 @@ public class LightingShadows : MonoBehaviour
     [SerializeField]
     List<GameObject> hitters = new List<GameObject>();
 
+    [SerializeField]
+    GameObject prefab;
 
     // Use this for initialization
     void Start()
@@ -45,17 +47,17 @@ public class LightingShadows : MonoBehaviour
 
             }
 
-            angle += 15;
+            angle += 30;
             
             
 
-            //Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 100f);
+          //  Debug.DrawRay(transform.position, new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * 2f, Color.red, 100f);
             
 
 
 
         }
-        //DrawRays();
+        DrawRays();
 
         //Debug.Log(hitObjs.Count);
         yield break;
@@ -66,29 +68,39 @@ public class LightingShadows : MonoBehaviour
     {
         Vector3[] points = new Vector3[4];
 
-        foreach (RaycastHit a in hitObjs)
+        foreach (GameObject a in hitters)
         {
-            Vector3 b1 = a.collider.bounds.max;
-            Vector3 b2 = a.collider.bounds.min;
+            Vector3 b1 = a.GetComponent<Collider>().bounds.max;
+            Vector3 b2 = a.GetComponent<Collider>().bounds.min;
             points[0] = new Vector3(b1.x, .5f, b1.z);
             points[1] = new Vector3(b1.x, .5f, b2.z);
             points[2] = new Vector3(b2.x, .5f, b1.z);
             points[3] = new Vector3(b2.x, .5f, b2.z);
 
-            Debug.DrawLine(transform.position, points[0], Color.green, 100f);
-            Debug.DrawLine(transform.position, points[1], Color.green, 100f);
-            Debug.DrawLine(transform.position, points[2], Color.green, 100f);
-            Debug.DrawLine(transform.position, points[3], Color.green, 100f);
-            GetPoints(points, a);
+            //Debug.DrawLine(transform.position, points[0], Color.green, 100f);
+            //Debug.DrawLine(transform.position, points[1], Color.green, 100f);
+            //Debug.DrawLine(transform.position, points[2], Color.green, 100f);
+            //Debug.DrawLine(transform.position, points[3], Color.green, 100f);
+            GetPoints(points, transform.position);
         }
+        int count = 0;
         foreach(Vector3 a in visibleArea)
         {
+            
             Debug.DrawLine(transform.position, a, Color.magenta, 100);
+           GameObject x =  Instantiate(prefab, a, Quaternion.identity);
+            x.name = count.ToString();
+            count++;
+            
+            
         }
+
+
+        
 
     }
 
-    void GetPoints(Vector3[] points, RaycastHit hitpoint)
+    void GetPoints(Vector3[] points, Vector3 hitpoint)
     {
         SortVector3(points, hitpoint);
         for(int i = 0; i < points.Length; i++)
@@ -103,14 +115,14 @@ public class LightingShadows : MonoBehaviour
         
     }
 
-    void SortVector3(Vector3[] points, RaycastHit hitpoint)
+    void SortVector3(Vector3[] points, Vector3 hitpoint)
     {
         Vector3 temp;
         for(int i = 1; i < points.Length; i++)
         {
             for(int j = 0; j < points.Length-1; j++)
             {
-                if(Vector3.Distance(points[j], hitpoint.point) > Vector3.Distance(points[j + 1], hitpoint.point))
+                if(Vector3.Distance(points[j], hitpoint) > Vector3.Distance(points[j + 1], hitpoint))
                 {
                     temp = points[j];
                     points[j] = points[j+1];
