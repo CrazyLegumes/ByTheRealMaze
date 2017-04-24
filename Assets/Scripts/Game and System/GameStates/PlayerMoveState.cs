@@ -137,12 +137,15 @@ Move:
 
 
         Vector3 desire = Vector3.Normalize(destination - P1.transform.position) * 5 * Time.deltaTime;
+        P1.anim.SetBool("Jump", true);
         while (Vector3.Distance(destination, P1.transform.position) > .1f)
         {
             
             yield return null;
             P1.transform.position += desire;
         }
+        P1.transform.position = destination;
+        P1.anim.SetBool("Jump", false);
         //StartCoroutine(P1.GetComponent<LightingShadows>().SweepArea());
 
         //yield return new WaitForSeconds(.5f);
@@ -170,6 +173,7 @@ Move:
 
 
         P1.myUi.UpdateCurrentHealth();
+        yield return new WaitForSeconds(.2f);
         gameController.ChangeState<EnemyMoveState>();
 
     }
