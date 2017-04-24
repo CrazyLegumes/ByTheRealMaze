@@ -32,6 +32,10 @@ public class PlayerScript : MonoBehaviour
     public UseItem Item1;
     public UseItem Item2;
 
+    public ParticleSystem blood;
+    public ParticleSystem enemyKill;
+    public ParticleSystem playerKill;
+
     // Use this for initialization
     [SerializeField]
     int itemCount = 0;
@@ -127,11 +131,15 @@ public class PlayerScript : MonoBehaviour
         activeItem = true;
         mystats = new StatsClass();
         InitBaseStats();
+
         buffList = new List<Buffs>();
 
+
+        blood = mystats.blood;
+        enemyKill = Resources.Load<ParticleSystem>("BloodParticles2");
+        playerKill = Resources.Load<ParticleSystem>("BloodParticles3");
+
         itemCount = 0;
-
-
     }
 
     void InitBaseStats()

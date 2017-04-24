@@ -18,7 +18,6 @@ public class WallMoveState : GameState {
     {
         yield return new WaitForEndOfFrame();
         gameController.ChangeState<InputState>();
-        Debug.Log(gameController.currstate);
         yield break;
     }
 

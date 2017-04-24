@@ -82,7 +82,6 @@ public class EquipItem : BaseItem
         Dropped = false;
 
         Dropped = false;
-        Debug.Log("Cmon Dad");
 
     }
 
