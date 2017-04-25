@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Traps : MonoBehaviour
 {
+    public OnTurnEnd function;
     public enum effect
     {
         instant,

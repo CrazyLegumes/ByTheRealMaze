@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class SpikeTrap :Traps {
 
-
+    [SerializeField]
+    Animator[] Spikes;
+    
 
     void Awake()
     {
         MyEffect = effect.instant;
         Activated = false;
-        Activator = null; 
+        Activator = null;
+        function = InstantActivation; 
         
         
     }
@@ -24,10 +27,31 @@ public class SpikeTrap :Traps {
     {
         if(Activator != null)
         {
+            
             Activator.mystats.Damage(1);
             Activator.myUi.UpdateCurrentHealth();
+            foreach (Animator e in Spikes)
+            {
+                e.SetBool("Hit Spike", true);
+                
+            }
+
+            
         }
+
        
+       
+    }
+
+
+    public void Reset()
+    {
+        foreach (Animator e in Spikes)
+        {
+            e.SetBool("Hit Spike", false);
+
+        }
+        Activated = false;
     }
     // Use this for initialization
     void Start () {

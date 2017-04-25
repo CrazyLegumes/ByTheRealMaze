@@ -169,6 +169,7 @@ public class StatsClass
         a.strength += b.strength;
         a.defense += b.defense;
         a.maxhealth += b.maxhealth;
+        
         return a;
 
     }

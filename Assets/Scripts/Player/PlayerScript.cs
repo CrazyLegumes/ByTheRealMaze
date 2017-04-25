@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     public ParticleSystem blood;
     public ParticleSystem enemyKill;
     public ParticleSystem playerKill;
+    public Animator anim;
 
     // Use this for initialization
     [SerializeField]
@@ -103,9 +104,11 @@ public class PlayerScript : MonoBehaviour
                     case Traps.effect.instant:
                         activation.InstantActivation();
                         
-                        //myDel += new OnTurnEnd(activation.InstantActivation);
+                        //myDel += activation.function;
+                        
                         Debug.Log(activation.Activator.mystats);
                         Debug.Log("EndMyLife");
+                        
 
                         break;
                 }
@@ -123,6 +126,11 @@ public class PlayerScript : MonoBehaviour
             BaseItem hit = col.GetComponent<BaseItem>();
             hit.Dropped = false;
         }
+        if(col.tag == "Trap" && col.GetComponent<SpikeTrap>() != null)
+        {
+            col.GetComponent<SpikeTrap>().Reset();
+        }
+
     }
 
     void Awake()
@@ -133,6 +141,7 @@ public class PlayerScript : MonoBehaviour
         InitBaseStats();
 
         buffList = new List<Buffs>();
+        anim = GetComponentInChildren<Animator>();
 
 
         blood = mystats.blood;
@@ -261,12 +270,19 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log(mystats);
         mystats += a.ItemStats;
+        mystats.Health += a.ItemStats.Maxhealth;
+
         Debug.Log(mystats);
+        
+        myUi.UpdateTotalHealth();
     }
 
     void UnEquipIt(EquipItem a) {
         Debug.Log(mystats);
+        mystats.Health -= a.ItemStats.Maxhealth;
+
         mystats -= a.ItemStats;
+        myUi.UpdateTotalHealth();
         Debug.Log(mystats);
     }
 
