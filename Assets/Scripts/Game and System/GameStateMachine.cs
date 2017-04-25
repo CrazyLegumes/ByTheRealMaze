@@ -25,10 +25,11 @@ public class GameStateMachine : StateMachine {
     public float currentTimer;
     public Slider timer;
     public Image Timer2;
-    public Text input;
+    public UIController ui;
     public string currstate;
     public List<BaseEnemy> enemyList;
     public List<MovableWalls> movableWalls;
+    public int spellCount;
     public BaseItem itemToDrop;
 
 
@@ -67,9 +68,10 @@ public class GameStateMachine : StateMachine {
         done.enabled = false;
         pause.enabled = false;
         lighting.enabled = false;
+        spellCount = 0;
         won = false;
         over = false;
-
+        ui = FindObjectOfType<UIController>();
         startColor = Timer2.color;
         if (instance != null)
             Destroy(gameObject);
@@ -98,6 +100,8 @@ public class GameStateMachine : StateMachine {
     void Update()
     {
         Pause();
+        UpdateUI();
+        spellCount = Mathf.Clamp(spellCount, 0, 100);
         if (Input.GetKeyDown(KeyCode.RightControl) && cheater == false)
         {
             cheater = true;
@@ -123,7 +127,7 @@ public class GameStateMachine : StateMachine {
         //timer.value = currentTimer;
         over = player1.GetComponent<PlayerScript>().mystats.Dead;
         gameOver();
-        input.text = moveinput1.ToString();
+        
         
         currstate = _currentState.ToString();
         Timer2.fillAmount = currentTimer / timeStep;
@@ -140,10 +144,7 @@ public class GameStateMachine : StateMachine {
         }
 
 
-        if (player1.GetComponent<PlayerScript>().useItem)
-            input.color = Color.red;
-        if (!player1.GetComponent<PlayerScript>().useItem)
-            input.color = Color.white;
+        
         
     }
 
@@ -176,6 +177,47 @@ public class GameStateMachine : StateMachine {
                 SceneManager.LoadScene(2, LoadSceneMode.Single);
             }
             overState.text = "YOU WON!";
+        }
+    }
+
+    void UpdateUI()
+    {
+        switch (moveinput1)
+        {
+            case Inputs.Down:
+                if (!player1.GetComponent<PlayerScript>().useItem)
+                    ui.input = 4;
+                else
+                    ui.input = 5;
+                break;
+
+            case Inputs.Right:
+                if (!player1.GetComponent<PlayerScript>().useItem)
+                    ui.input = 1;
+                else
+                    ui.input = 8;
+                break;
+
+            case Inputs.Up:
+                if (!player1.GetComponent<PlayerScript>().useItem)
+                    ui.input = 2;
+                else
+                    ui.input = 7;
+                break;
+
+            case Inputs.Left:
+                if (!player1.GetComponent<PlayerScript>().useItem)
+                    ui.input = 3;
+                else
+                    ui.input = 6;
+                break;
+
+            case Inputs.None:
+                if (!player1.GetComponent<PlayerScript>().useItem)
+                    ui.input = 0;
+                else
+                    ui.input = 9;
+                break;
         }
     }
 

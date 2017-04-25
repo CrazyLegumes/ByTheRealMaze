@@ -41,6 +41,7 @@ public class FireTome : UseItem {
 
     void ShootFireBall(string dir)
     {
+        GameStateMachine.instance.spellCount++;
         GameObject fire = Instantiate(fireball, owner.transform.position, Quaternion.identity);
         Physics.IgnoreCollision(fire.GetComponent<Collider>(), owner.GetComponent<Collider>());
         FireBall it = fire.GetComponent<FireBall>();

@@ -118,6 +118,7 @@ MonoBehaviour:
   uses: 1
   img: {fileID: 21300000, guid: e0b85214da14b4b4299801be3ae4c8fd, type: 3}
   owner: {fileID: 0}
+  fireball: {fileID: 1556492302366752, guid: eceeab73d0fe81d46819e92351d0da29, type: 2}
 --- !u!212 &212301318422974036
 SpriteRenderer:
   m_ObjectHideFlags: 1
