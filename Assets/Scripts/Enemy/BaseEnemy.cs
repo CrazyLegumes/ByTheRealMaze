@@ -106,7 +106,12 @@ public class BaseEnemy : MonoBehaviour
             yield return null;
             randMove = Random.Range(1, 5);
             //Debug.Log(randMove + " is the direction");
-            if (up == false && randMove == 1)
+           if (!left && !right && !down && !up)
+            {
+                randMove = 0;
+                break;
+            }
+            else if (up == false && randMove == 1)
             {
                 continue;
             }
@@ -122,6 +127,7 @@ public class BaseEnemy : MonoBehaviour
             {
                 continue;
             }
+            
             break;
         }
         //Debug.Log(randMove + " is the FINAL direction");
@@ -294,6 +300,13 @@ public class BaseEnemy : MonoBehaviour
                 GameStateMachine.enemyCount++;
                 yield break;
             }
+            if (!left && !right)
+            {
+
+                chasing = false;
+
+
+            }
 
 
         }
@@ -327,18 +340,28 @@ public class BaseEnemy : MonoBehaviour
                 GameStateMachine.enemyCount++;
                 yield break;
             }
+
+            if (!up && !down)
+            {
+                
+                chasing = false;
+                
+
+            }
         }
         if (transform.position == playerLoc)
         {
 
             locReached = true;
             chasing = false;
+
         }
         else
         {
             GameStateMachine.enemyCount++;
             yield break;
         }
+        
 
 
         yield return null;
