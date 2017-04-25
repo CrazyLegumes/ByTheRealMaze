@@ -60,24 +60,28 @@ public class InputState : GameState {
 
                 gameController.moveinput1 = GameStateMachine.Inputs.Up;
                 gameController.player1.GetComponent<PlayerScript>().dir = "North";
+                
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                
                 gameController.moveinput1 = GameStateMachine.Inputs.Down;
                 gameController.player1.GetComponent<PlayerScript>().dir = "South";
+                
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 
                 gameController.moveinput1 = GameStateMachine.Inputs.Right;
                 gameController.player1.GetComponent<PlayerScript>().dir = "East";
+                
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 
                 gameController.moveinput1 = GameStateMachine.Inputs.Left;
                 gameController.player1.GetComponent<PlayerScript>().dir = "West";
+                
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
