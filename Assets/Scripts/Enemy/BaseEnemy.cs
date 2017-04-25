@@ -25,12 +25,14 @@ public class BaseEnemy : MonoBehaviour
     protected int turnsWaiting = 0;
     protected Vector3 chargeDirection;
     protected bool goingToGetHit = false;
+    protected Animator anim;
 
     public virtual void initialize()
     {
         attackArray = new Vector3[attackSize];
         attackWarning = (GameObject)Resources.Load("Prefabs/AttackWarning", typeof(GameObject));
         chasing = false;
+        anim = GetComponentInChildren<Animator>();
     }
 
     public StatsClass Stats
@@ -156,12 +158,13 @@ public class BaseEnemy : MonoBehaviour
         }
 
         Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
-
+        anim.SetBool("MOVE", true);
         while (Vector3.Distance(destination, transform.position) > .1f)
         {
             yield return null;
             transform.position += desire;
         }
+        anim.SetBool("MOVE", false);
         transform.position = destination;
 
         GameStateMachine.enemyCount++;
@@ -276,12 +279,14 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
                 }
                 transform.position = destination;
+                anim.SetBool("MOVE", false);
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -291,12 +296,14 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
                 }
                 transform.position = destination;
+                anim.SetBool("MOVE", false);
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -317,12 +324,14 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
                 }
                 transform.position = destination;
+                anim.SetBool("MOVE", false);
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -331,12 +340,14 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
                 }
                 transform.position = destination;
+                anim.SetBool("MOVE", false);
                 GameStateMachine.enemyCount++;
                 yield break;
             }
