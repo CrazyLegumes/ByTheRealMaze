@@ -129,6 +129,143 @@ public class MazeMap : MonoBehaviour{
         }
 
         /// <summary>
+        /// Disables a specific corner if it exists for the tile.
+        /// </summary>
+        /// <param name="corner">>The corner to delete. Valid values are "TopLeft", "TopRight", "BottomLeft", "BottomRight"</param>
+        public void DeleteCorner(string corner)
+        {
+            try
+            {
+                foreach (Transform child in reference.transform)
+                {
+                    if (child.gameObject.name == "Corners")
+                        foreach (Transform corners in child.gameObject.transform)
+                        {
+                            if (corners.gameObject.name == corner + "Corner")
+                            {
+                                corners.gameObject.SetActive(false);
+                                return;
+                            }
+                        }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Adds the moveable wall script to a specific side of the tile.
+        /// </summary>
+        /// <param name="side">The wall to add the script to. Valid values are "Top", "Bottom", "Left", "Right"</param>
+        public MovableWalls MoveAbleWall(string side)
+        {
+            try
+            {
+                foreach (Transform child in reference.transform)
+                {
+                    if (child.gameObject.name == "Walls")
+                        foreach (Transform walls in child.gameObject.transform)
+                        {
+                            if (walls.gameObject.name == side + "Wall")
+                            {
+                                switch (side)
+                                {
+                                    case "Top":
+                                        if (CornerWallTopBottom != "Top")
+                                        {
+                                            walls.gameObject.AddComponent<MovableWalls>();
+                                        }
+                                        return walls.gameObject.GetComponent<MovableWalls>();
+                                    case "Bottom":
+                                        if (CornerWallTopBottom != "Bottom")
+                                        {
+                                            walls.gameObject.AddComponent<MovableWalls>();
+                                        }
+                                        return walls.gameObject.GetComponent<MovableWalls>();
+                                    case "Left":
+                                        if (CornerWallLeftRight != "Left")
+                                        {
+                                            walls.gameObject.AddComponent<MovableWalls>();
+                                        }
+                                        return walls.gameObject.GetComponent<MovableWalls>();
+                                    case "Right":
+                                        if (CornerWallLeftRight != "Right")
+                                        {
+                                            walls.gameObject.AddComponent<MovableWalls>();
+                                        }
+                                        return walls.gameObject.GetComponent<MovableWalls>();
+                                }
+                                return walls.gameObject.GetComponent<MovableWalls>();
+                            }
+                        }
+                }
+            }
+            catch
+            {
+
+            }
+            return new MovableWalls();
+        }
+
+        /// <summary>
+        /// Gets the wall gameobject of a specific side.
+        /// </summary>
+        /// <param name="side">The wall to return. Valid values are "Top", "Bottom", "Left", "Right"</param>
+        /// <returns>The wall gameobject</returns>
+        public GameObject GetWallObject(string side)
+        {
+            try
+            {
+                foreach (Transform child in reference.transform)
+                {
+                    if (child.gameObject.name == "Walls")
+                        foreach (Transform walls in child.gameObject.transform)
+                        {
+                            if (walls.gameObject.name == side + "Wall")
+                            {
+                                switch (side)
+                                {
+                                    case "Top":
+                                        if (CornerWallTopBottom != "Top")
+                                        {
+                                            return walls.gameObject;
+                                        }
+                                        break;
+                                    case "Bottom":
+                                        if (CornerWallTopBottom != "Bottom")
+                                        {
+                                            return walls.gameObject;
+                                        }
+                                        break;
+                                    case "Left":
+                                        if (CornerWallLeftRight != "Left")
+                                        {
+                                            return walls.gameObject;
+                                        }
+                                        break;
+                                    case "Right":
+                                        if (CornerWallLeftRight != "Right")
+                                        {
+                                            return walls.gameObject;
+                                        }
+                                        break;
+                                }
+                                return new GameObject();
+                            }
+                        }
+                }
+            }
+            catch
+            {
+                
+            }
+
+            return new GameObject();
+        }
+
+        /// <summary>
         /// Raises a specific wall for the tile.
         /// </summary>
         /// <param name="side">The wall to raise. Valid values are "Top", "Bottom", "Left", "Right"</param>
@@ -291,6 +428,8 @@ public class MazeMap : MonoBehaviour{
             return false;
         }
 
+
+
     }
 
     //Represents the player's position
@@ -379,6 +518,26 @@ public class MazeMap : MonoBehaviour{
     //Height and Width of map in tile units
     private int height = 20;
     private int width = 20;
+
+    /// <summary>
+    /// The height of the maze.
+    /// </summary>
+    public int Height
+    {
+        get { return height; }
+        set { }
+    }
+
+    /// <summary>
+    /// The width of the maze.
+    /// </summary>
+    public int Width
+    {
+        get { return width; }
+        set { }
+    }
+
+
 
     private System.Random Random;
 
@@ -673,20 +832,284 @@ public class MazeMap : MonoBehaviour{
         switch (side)
         {
             case "Top":
+                //Deletes the bottom of the tile above
                 if(y + 1 < height)
                     TileMap[y + 1][x].DeleteWall("Bottom");
+
+                //Checks if all walls have been deleted, if so, deletes the top right corner tiles.
+                while(true)
+                {
+                    //Top wall deleted.
+
+                    //Checks Right wall
+                    if(!TileMap[y][x].CanMove("Right"))
+                        break;
+
+                    //Checks Top->Right Wall
+                    TilePosition pos = GetPosition(x, y, "Up");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Right"))
+                        break;
+
+                    
+
+                    //Checks Right->Top Wall
+                    pos = GetPosition(x, y, "Right");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Up"))
+                        break;
+
+
+                    TileMap[y][x].DeleteCorner("TopRight");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    pos = GetPosition(x, y, "Up");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    pos = GetPosition(pos.x, pos.y, "Right");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    break;
+                }
+
+                //Checks if all walls have been deleted, if so, deletes the top left corner tiles.
+                while (true)
+                {
+                    //Top wall deleted.
+
+                    //Checks Left wall
+                    if (!TileMap[y][x].CanMove("Left"))
+                        break;
+
+                    //Checks Top->Left Wall
+                    TilePosition pos = GetPosition(x, y, "Up");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Left"))
+                        break;
+
+                    //Checks Left->Top Wall
+                    pos = GetPosition(x, y, "Left");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Up"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("TopLeft");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    pos = GetPosition(x, y, "Up");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    pos = GetPosition(pos.x, pos.y, "Left");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    break;
+                }
                 return;
             case "Bottom":
+                //Deletes the top of the tile below
                 if(y - 1 >= 0)
                     TileMap[y - 1][x].DeleteWall("Top");
+
+                //Checks if all walls have been deleted, if so, deletes the bottom right corner tiles.
+                while (true)
+                {
+                    //Bottom wall deleted.
+
+                    //Checks Right wall
+                    if (!TileMap[y][x].CanMove("Right"))
+                        break;
+
+                    //Checks Bottom->Right Wall
+                    TilePosition pos = GetPosition(x, y, "Down");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Right"))
+                        break;
+
+                    //Checks Right->Bottom Wall
+                    pos = GetPosition(x, y, "Right");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Down"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("BottomRight");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    pos = GetPosition(x, y, "Down");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    pos = GetPosition(pos.x, pos.y, "Right");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    break;
+                }
+
+                //Checks if all walls have been deleted, if so, deletes the bottom left corner tiles.
+                while (true)
+                {
+                    //Bottom wall deleted.
+
+                    //Checks Left wall
+                    if (!TileMap[y][x].CanMove("Left"))
+                        break;
+
+                    //Checks Bottom->Left Wall
+                    TilePosition pos = GetPosition(x, y, "Down");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Left"))
+                        break;
+
+                    //Checks Left->Bottom Wall
+                    pos = GetPosition(x, y, "Left");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Down"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("BottomLeft");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    pos = GetPosition(x, y, "Down");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    pos = GetPosition(pos.x, pos.y, "Left");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    break;
+                }
+
                 return;
             case "Left":
+                //Deletes the right side of the tile to the left
                 if (x + 1 < width)
                     TileMap[y][x + 1].DeleteWall("Right");
+
+                //Checks if all walls have been deleted, if so, deletes the top left corner tiles.
+                while (true)
+                {
+                    //Left wall deleted.
+
+                    //Checks Top wall
+                    if (!TileMap[y][x].CanMove("Up"))
+                        break;
+
+                    //Checks Top->Left Wall
+                    TilePosition pos = GetPosition(x, y, "Up");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Left"))
+                        break;
+
+                    //Checks Left->Top Wall
+                    pos = GetPosition(x, y, "Left");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Up"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("TopLeft");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    pos = GetPosition(x, y, "Up");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    pos = GetPosition(pos.x, pos.y, "Left");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    break;
+                }
+
+                //Checks if all walls have been deleted, if so, deletes the bottom left corner tiles.
+                while (true)
+                {
+                    //Left wall deleted.
+
+                    //Checks Bottom wall
+                    if (!TileMap[y][x].CanMove("Down"))
+                        break;
+
+                    //Checks Bottom->Left Wall
+                    TilePosition pos = GetPosition(x, y, "Down");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Left"))
+                        break;
+
+                    //Checks Left->Bottom Wall
+                    pos = GetPosition(x, y, "Left");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Down"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("BottomLeft");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    pos = GetPosition(x, y, "Down");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    pos = GetPosition(pos.x, pos.y, "Left");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    break;
+                }
                 return;
             case "Right":
+                //Deletes the left side of the tile to the right
                 if (x - 1 >= 0)
                     TileMap[y][x - 1].DeleteWall("Left");
+
+                //Checks if all walls have been deleted, if so, deletes the top right corner tiles.
+                while (true)
+                {
+                    //Right wall deleted.
+
+                    //Checks Top wall
+                    if (!TileMap[y][x].CanMove("Up"))
+                        break;
+
+                    //Checks Top->Right Wall
+                    TilePosition pos = GetPosition(x, y, "Up");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Right"))
+                        break;
+
+                    //Checks Right->Top Wall
+                    pos = GetPosition(x, y, "Right");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Up"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("TopRight");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    pos = GetPosition(x, y, "Up");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomRight");
+                    pos = GetPosition(pos.x, pos.y, "Right");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    break;
+                }
+
+                //Checks if all walls have been deleted, if so, deletes the bottom right corner tiles.
+                while (true)
+                {
+                    //Right wall deleted.
+
+                    //Checks Bottom wall
+                    if (!TileMap[y][x].CanMove("Down"))
+                        break;
+
+                    //Checks Bottom->Right Wall
+                    TilePosition pos = GetPosition(x, y, "Down");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Right"))
+                        break;
+
+                    //Checks Right->Bottom Wall
+                    pos = GetPosition(x, y, "Right");
+                    if (!pos.Valid)
+                        break;
+                    if (!TileMap[pos.y][pos.x].CanMove("Down"))
+                        break;
+
+                    TileMap[y][x].DeleteCorner("BottomRight");
+                    TileMap[pos.y][pos.x].DeleteCorner("BottomLeft");
+                    pos = GetPosition(x, y, "Down");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopRight");
+                    pos = GetPosition(pos.x, pos.y, "Right");
+                    TileMap[pos.y][pos.x].DeleteCorner("TopLeft");
+                    break;
+                }
                 return;
         }
     }
@@ -1093,6 +1516,42 @@ public class MazeMap : MonoBehaviour{
         Debug.Log("ERROR: MazeMap, GetPosition: Attempting to get position in direction \"" + direction + "\" is invalid. Valid values are \"Up\", \"Down\", \"Left\", \"Right\"");
         return new TilePosition();
     }
+
+    public void AddShiftableWall(int x, int y, string side)
+    {
+        if (x < 0 || x >= width || y < 0 || y >= height)
+        {
+            Debug.Log("ERROR: MazeMap, AddShiftableWall: Index (x: " + x + ", y: " + y + ") is out of range!");
+            return;
+        }
+
+        if (side != "Top" && side != "Bottom" && side != "Right" && side != "Left")
+            Debug.Log("ERROR: MazeMap, AddShiftableWall: Attempting to attach to side \"" + side + "\" is invalid. Valid values are \"Top\", \"Bottom\", \"Left\", \"Right\"");
+
+        MovableWalls script = TileMap[y][x].MoveAbleWall(side);
+
+        switch (side)
+        {
+            case "Top":
+                if (y + 1 < height)
+                    script.ConnectedWalls.Add(TileMap[y + 1][x].GetWallObject("Bottom"));         
+                return;
+            case "Bottom":
+                if (y - 1 >= 0)
+                    script.ConnectedWalls.Add(TileMap[y - 1][x].GetWallObject("Top"));         
+                return;
+            case "Left":
+                if (x + 1 < width)
+                    script.ConnectedWalls.Add(TileMap[y][x + 1].GetWallObject("Right"));         
+                return;
+            case "Right":
+                if (x - 1 >= 0)
+                    script.ConnectedWalls.Add(TileMap[y][x - 1].GetWallObject("Left"));           
+                return;
+        }
+
+    }
+
 
 
 }

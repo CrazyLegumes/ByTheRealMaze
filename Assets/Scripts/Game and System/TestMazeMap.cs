@@ -98,10 +98,10 @@ public class TestMazeMap : MonoBehaviour
         ///Debug.Log("Enemy exists to the south: " + map.HasEnemy(1, 2, "Down"));
 
         ///These calls demonstrate how to lower and raise walls.
-        map.LowerSide(1, 1, "Top");
-        map.LowerSide(1, 1, "Bottom");
-        map.LowerSide(1, 1, "Left");
-        map.LowerSide(1, 1, "Right");
+        ///map.LowerSide(1, 1, "Top");
+        ///map.LowerSide(1, 1, "Bottom");
+        ///map.LowerSide(1, 1, "Left");
+        ///map.LowerSide(1, 1, "Right");
         ///Debug.Log("Can move up: " + map.CanMove(1, 1, "Up"));
         ///Debug.Log("Can move down: " + map.CanMove(1, 1, "Down"));
         ///Debug.Log("Can move left: " + map.CanMove(1, 1, "Left"));
