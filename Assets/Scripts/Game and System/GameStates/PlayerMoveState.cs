@@ -39,6 +39,8 @@ public class PlayerMoveState : GameState {
                 P1.Item1.Use();
             }
             gameController.moveinput1 = GameStateMachine.Inputs.None;
+            P1.useItem = false;
+
         }
 
 

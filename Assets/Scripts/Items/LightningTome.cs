@@ -60,6 +60,7 @@ public class LightningTome : UseItem{
 
     void CallLightning()
     {
+        GameStateMachine.instance.spellCount++;
         foreach (Vector3 a in positions)
         {
             GameObject light =  Instantiate(lightning, a, Quaternion.identity);

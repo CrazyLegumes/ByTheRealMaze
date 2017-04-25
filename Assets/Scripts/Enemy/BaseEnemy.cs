@@ -156,6 +156,7 @@ public class BaseEnemy : MonoBehaviour
             yield return null;
             transform.position += desire;
         }
+        transform.position = destination;
 
         GameStateMachine.enemyCount++;
     }
@@ -259,6 +260,8 @@ public class BaseEnemy : MonoBehaviour
             if (hit.transform.gameObject.tag == "Wall")
                 down = false;
         }
+
+        
         if (Mathf.Abs(transform.position.x - x) > .01f)
         {
 
@@ -266,11 +269,13 @@ public class BaseEnemy : MonoBehaviour
             if (transform.position.x < x && right)
             {
                 destination = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
-                while (transform.position != destination)
+                Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
-                    transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+                    transform.position += desire;
                 }
+                transform.position = destination;
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -279,11 +284,13 @@ public class BaseEnemy : MonoBehaviour
             if (transform.position.x > x && left)
             {
                 destination = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
-                while (transform.position != destination)
+                Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
-                    transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+                    transform.position += desire;
                 }
+                transform.position = destination;
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -296,11 +303,13 @@ public class BaseEnemy : MonoBehaviour
             if (transform.position.z < z && up)
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
-                while (transform.position != destination)
+                Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
-                    transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+                    transform.position += desire;
                 }
+                transform.position = destination;
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -308,11 +317,13 @@ public class BaseEnemy : MonoBehaviour
             if (transform.position.z > z && down)
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-                while (transform.position != destination)
+                Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+                while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
-                    transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+                    transform.position += desire;
                 }
+                transform.position = destination;
                 GameStateMachine.enemyCount++;
                 yield break;
             }
@@ -322,6 +333,11 @@ public class BaseEnemy : MonoBehaviour
 
             locReached = true;
             chasing = false;
+        }
+        else
+        {
+            GameStateMachine.enemyCount++;
+            yield break;
         }
 
 
