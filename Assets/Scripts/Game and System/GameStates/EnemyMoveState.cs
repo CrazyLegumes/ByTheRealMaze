@@ -12,19 +12,20 @@ public class EnemyMoveState : GameState {
         {
             if (a.inAttack)
             {
-                a.ChooseAttack();
+                a.Act1();
+                GameStateMachine.enemyCount++;
                 continue;
             }
-
+            
             a.playerScan();
 
             if (a.playerInAttackRange) //or winding up
             {
-                a.ChooseAttack();
+                a.Act1();
+                GameStateMachine.enemyCount++;
             }
             else if (a.seenPlayer || (a.chasing  && !a.locReached))
             {
-                
                 StartCoroutine(a.Chase());
             }
             else
@@ -55,8 +56,6 @@ public class EnemyMoveState : GameState {
            
                 //yield return new WaitForSeconds(.001f);
                 gameController.ChangeState<WallMoveState>();
-
-                Debug.Log(gameController.currstate);
                 yield break;
             }
         }

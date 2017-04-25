@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Traps : MonoBehaviour {
+public class Traps : MonoBehaviour
+{
+    public OnTurnEnd function;
     public enum effect
     {
         instant,
@@ -15,9 +17,17 @@ public class Traps : MonoBehaviour {
     Buffs debuff;
     PlayerScript activator;
 
-    public virtual void InstantActivation() { }
 
-    public virtual void DebuffActivation() { }
+
+    public virtual void InstantActivation()
+    {
+        
+    }
+
+    public virtual void DebuffActivation()
+    {
+        
+    }
 
     public effect MyEffect
     {

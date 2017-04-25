@@ -4,8 +4,13 @@ using UnityEngine;
 
 [System.Serializable]
 
+
+
 public class PlayerScript : MonoBehaviour
 {
+    public OnTurnEnd myDel; 
+
+
     public StatsClass mystats;
 
     public PlayerUI myUi;
@@ -27,12 +32,17 @@ public class PlayerScript : MonoBehaviour
     public UseItem Item1;
     public UseItem Item2;
 
+    public ParticleSystem blood;
+    public ParticleSystem enemyKill;
+    public ParticleSystem playerKill;
+    public Animator anim;
+
     // Use this for initialization
     [SerializeField]
     int itemCount = 0;
 
 
-
+    
 
 
 
@@ -74,20 +84,31 @@ public class PlayerScript : MonoBehaviour
         {
 
             Traps activation = col.GetComponent<Traps>();
+            Debug.Log(activation.gameObject.name);
             if (!activation.Activated)
             {
-                activation.Activator = this;
+                activation.Activator = gameObject.GetComponent<PlayerScript>();
                 activation.Activated = true;
 
                 switch (activation.MyEffect)
                 {
                     case Traps.effect.debuff:
                         {
-                            buffList.Add(activation.Debuff);
+                            activation.Debuff.owner = this;
+                            myDel += new OnTurnEnd(activation.Debuff.Activate);
+                            Debug.Log("POISONED");
+                            
                             
                             break;
                         }
                     case Traps.effect.instant:
+                        activation.InstantActivation();
+                        
+                        //myDel += activation.function;
+                        
+                        Debug.Log(activation.Activator.mystats);
+                        Debug.Log("EndMyLife");
+                        
 
                         break;
                 }
@@ -105,6 +126,11 @@ public class PlayerScript : MonoBehaviour
             BaseItem hit = col.GetComponent<BaseItem>();
             hit.Dropped = false;
         }
+        if(col.tag == "Trap" && col.GetComponent<SpikeTrap>() != null)
+        {
+            col.GetComponent<SpikeTrap>().Reset();
+        }
+
     }
 
     void Awake()
@@ -113,11 +139,16 @@ public class PlayerScript : MonoBehaviour
         activeItem = true;
         mystats = new StatsClass();
         InitBaseStats();
+
         buffList = new List<Buffs>();
+        anim = GetComponentInChildren<Animator>();
+
+
+        blood = mystats.blood;
+        enemyKill = Resources.Load<ParticleSystem>("BloodParticles2");
+        playerKill = Resources.Load<ParticleSystem>("BloodParticles3");
 
         itemCount = 0;
-
-
     }
 
     void InitBaseStats()
@@ -239,12 +270,19 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log(mystats);
         mystats += a.ItemStats;
+        mystats.Health += a.ItemStats.Maxhealth;
+
         Debug.Log(mystats);
+        
+        myUi.UpdateTotalHealth();
     }
 
     void UnEquipIt(EquipItem a) {
         Debug.Log(mystats);
+        mystats.Health -= a.ItemStats.Maxhealth;
+
         mystats -= a.ItemStats;
+        myUi.UpdateTotalHealth();
         Debug.Log(mystats);
     }
 

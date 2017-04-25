@@ -76,13 +76,17 @@ public class TestMazeMap : MonoBehaviour
 
         ///These calls demonstrate how to move enemy objects and other related functions.
         ///------------------------------------------------------------------------------------------------------
-        map.SpawnEnemy("Enemy01", 1, 1);
+
+        ///map.SpawnEnemy("Enemy01", 0, 0);
+
         ///Debug.Log("Enemy position: (x: " + map.GetEnemyX("Enemy01") +", y: " + map.GetEnemyY("Enemy01") + ")");
         ///Debug.Log("Attemting to move enemy down. Successful: " + map.MoveEnemy("Down", "Enemy01"));
         ///Debug.Log("Attemting to move enemy up. Successful: " + map.MoveEnemy("Up", "Enemy01"));
         ///Debug.Log("Attemting to move enemy right. Successful: " + map.MoveEnemy("Right", "Enemy01"));
         ///Debug.Log("Attemting to move enemy left. Successful: " + map.MoveEnemy("Left", "Enemy01"));
         ///Debug.Log("Enemy position: (x: " + map.GetEnemyX("Enemy01") + ", y: " + map.GetEnemyY("Enemy01") + ")");
+        ///Debug.Log("Successfully deleted enemy: " + map.DeleteEnemy("Enemy01"));
+        ///Debug.Log("Successfully deleted enemy: " + map.DeleteEnemy("Enemy02"));
 
         ///These calls demonstrate how to detect whether or not an enemy exist on a tile.
         ///------------------------------------------------------------------------------------------------------
@@ -114,6 +118,24 @@ public class TestMazeMap : MonoBehaviour
         ///Debug.Log("Can move down: " + map.CanMove(1, 2, "Down"));
         ///Debug.Log("Can move left: " + map.CanMove(0, 1, "Left"));
         ///Debug.Log("Can move right: " + map.CanMove(2, 1, "Right"));
+
+        ///These calls demonstrate how to use the "TilePosition" class for easier traversal of the maze.
+        ///Note: if traversal is not possible (in the case of an edge tile) the values returned will be -1
+        ///for both the x and y values.
+        ///MazeMap.TilePosition pos = new MazeMap.TilePosition();
+        ///pos = map.GetPosition(1, 1, "Up");
+        ///Debug.Log("Tile that is up: (x: " + pos.x + ", y: " + pos.y + ")");
+        ///pos = map.GetPosition(1, 1, "Down");
+        ///Debug.Log("Tile that is down: (x: " + pos.x + ", y: " + pos.y + ")");
+        ///pos = map.GetPosition(1, 1, "Left");
+        ///Debug.Log("Tile that is left: (x: " + pos.x + ", y: " + pos.y + ")");
+        ///pos = map.GetPosition(1, 1, "Right");
+        ///Debug.Log("Tile that is right: (x: " + pos.x + ", y: " + pos.y + ")");
+        ///pos = map.GetPosition(0, 0, "Down");
+        ///Debug.Log("Is position valid: " + pos.Valid);
+        ///pos = map.GetPosition(0, 0, "Up");
+        ///Debug.Log("Is position valid: " + pos.Valid);
+
 
     }
 
