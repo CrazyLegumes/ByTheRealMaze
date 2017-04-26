@@ -64,7 +64,7 @@ public class MovableWalls : MonoBehaviour
     {
         if (!waiting)
         {
-            turnsTillmove = Random.Range(1, 6);
+            turnsTillmove = Random.Range(1, 1);
             waiting = true;
             turnsWaited = 0;
             yield break;

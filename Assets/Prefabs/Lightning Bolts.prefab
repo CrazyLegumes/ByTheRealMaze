@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4064037563139802}
   - component: {fileID: 65290185301719182}
+  - component: {fileID: 114152572004666848}
   m_Layer: 0
   m_Name: Lightning Bolts
   m_TagString: Untagged
@@ -78,7 +79,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954116926501726}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
@@ -100,6 +101,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114152572004666848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954116926501726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4858aa9a7972f43b229c61f5a2f909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212374875057202420
 SpriteRenderer:
   m_ObjectHideFlags: 1
