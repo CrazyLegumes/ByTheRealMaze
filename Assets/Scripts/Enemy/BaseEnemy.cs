@@ -449,6 +449,11 @@ public class BaseEnemy : MonoBehaviour
                             dmg = 1;
                         ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+
+                        GameObject damageSound = x.GetComponent<PlayerScript>().DamagedSound;
+                        if (damageSound != null)
+                            GameObject.Instantiate(damageSound);
+
                         if (x.GetComponent<PlayerScript>().mystats.Health == 0)
                         {
                             ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.Euler(90,0,0), x.gameObject.transform);
