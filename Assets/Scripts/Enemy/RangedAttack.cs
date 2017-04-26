@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RangedAttack : BaseEnemy
 {
+
+    public GameObject AttackSound;
+
     public override void InitStats()
     {
         stats = new StatsClass();
@@ -23,6 +26,9 @@ public class RangedAttack : BaseEnemy
         attackArray[0] = new Vector3(playerLoc.x, .05f, playerLoc.z);
         if (turnsWaiting == 0)
         {
+            if (AttackSound != null)
+                GameObject.Instantiate(AttackSound);
+
             foreach (Vector3 a in attackArray)
             {
                 Debug.Log("WARNING");
@@ -47,6 +53,11 @@ public class RangedAttack : BaseEnemy
                         if (dmg <= 0)
                             dmg = 1;
                         ScoreManager.damageTaken += dmg;
+
+                        GameObject damageSound = x.GetComponent<PlayerScript>().DamagedSound;
+                        if (damageSound != null)
+                            GameObject.Instantiate(damageSound);
+
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
                         if (x.GetComponent<PlayerScript>().mystats.Health == 0)
                         {

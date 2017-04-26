@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LongReachEnemy : BaseEnemy
 {
+    public GameObject AttackSound;
+
     public override void InitStats()
     {
         stats = new StatsClass();
@@ -43,6 +45,9 @@ public class LongReachEnemy : BaseEnemy
 
         if (turnsWaiting == 0)
         {
+            if (AttackSound != null)
+                GameObject.Instantiate(AttackSound);
+
             foreach (Vector3 a in attackArray)
             {
                 Debug.Log("WARNING");
@@ -68,6 +73,11 @@ public class LongReachEnemy : BaseEnemy
                             dmg = 1;
                         ScoreManager.damageTaken += dmg;
                         x.GetComponent<PlayerScript>().mystats.Damage(dmg);
+
+                        GameObject damageSound = x.GetComponent<PlayerScript>().DamagedSound;
+                        if (damageSound != null)
+                            GameObject.Instantiate(damageSound);
+
                         if (x.GetComponent<PlayerScript>().mystats.Health == 0)
                         {
                             ParticleSystem temp = Instantiate(x.GetComponent<PlayerScript>().playerKill, x.transform.position, Quaternion.Euler(90, 0, 0), x.gameObject.transform);

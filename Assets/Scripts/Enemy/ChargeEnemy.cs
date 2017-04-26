@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ChargeEnemy : BaseEnemy
 {
+
+    public GameObject WarningSound;
+    public GameObject DeathSound;
+
     public override void InitStats()
     {
         stats = new StatsClass();
@@ -54,6 +58,9 @@ public class ChargeEnemy : BaseEnemy
         }
         if (turnsWaiting == 0)
         {
+            if (WarningSound != null)
+                GameObject.Instantiate(WarningSound);
+
             foreach (Vector3 a in attackArray)
             {
                 GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
@@ -119,7 +126,12 @@ public class ChargeEnemy : BaseEnemy
                     dmg = 1;
                 ScoreManager.damageTaken += dmg;
                 FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Damage(dmg);
-                if (FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Health == 0)
+
+            GameObject damageSound = FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().DamagedSound;
+            if (damageSound != null)
+                GameObject.Instantiate(damageSound);
+
+            if (FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Health == 0)
                 {
                     ParticleSystem temp = Instantiate(FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().playerKill, FindObjectOfType<PlayerScript>().transform.position, Quaternion.Euler(90, 0, 0), FindObjectOfType<PlayerScript>().gameObject.transform);
                     Destroy(temp, temp.duration);
@@ -144,4 +156,12 @@ public class ChargeEnemy : BaseEnemy
         visionRange = 6;
         base.initialize();
     }
+
+    private void OnDestroy()
+    {
+        if (DeathSound != null)
+            GameObject.Instantiate(DeathSound);
+    }
+
+
 }

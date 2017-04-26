@@ -115,6 +115,11 @@ Move:
                 hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Damage(dmg);
                 if (hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Health == 0)
                 {
+                    GameObject attackSound = gameController.player1.GetComponent<PlayerScript>().AttackSound;
+
+                    if(attackSound != null)
+                        GameObject.Instantiate(attackSound);
+
                     ParticleSystem blood = gameController.player1.GetComponent<PlayerScript>().enemyKill;
                     ParticleSystem temp = Instantiate(blood, hit.transform.position, Quaternion.identity);
                     Destroy(temp, temp.duration);

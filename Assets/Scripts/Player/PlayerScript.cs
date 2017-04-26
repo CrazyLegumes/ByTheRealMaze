@@ -42,8 +42,9 @@ public class PlayerScript : MonoBehaviour
     int itemCount = 0;
 
 
-    
 
+    public GameObject DamagedSound;
+    public GameObject AttackSound;
 
 
 
