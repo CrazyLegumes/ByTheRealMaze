@@ -158,11 +158,18 @@ public class BaseEnemy : MonoBehaviour
         }
 
         Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+        //Preventes desire values from being HUGE values
+        desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
         anim.SetBool("MOVE", true);
         while (Vector3.Distance(destination, transform.position) > .1f)
         {
             yield return null;
+
             transform.position += desire;
+            //Prevents enemy from moving indefinitly, flying off the screen
+            if(Vector3.Distance(destination, transform.position) > 1)
+                transform.position = destination;
         }
         anim.SetBool("MOVE", false);
         transform.position = destination;
@@ -256,17 +263,18 @@ public class BaseEnemy : MonoBehaviour
         }
         if (Physics.Linecast(transform.position, transform.position + Vector3.left, out hit))
         {
-            if (hit.transform.gameObject.tag == "Wall")
+            if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 left = false;
         }
         if (Physics.Linecast(transform.position, transform.position + Vector3.up, out hit))
         {
-            if (hit.transform.gameObject.tag == "Wall")
+            if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 up = false;
+
         }
         if (Physics.Linecast(transform.position, transform.position + Vector3.down, out hit))
         {
-            if (hit.transform.gameObject.tag == "Wall")
+            if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 down = false;
         }
 
@@ -279,11 +287,19 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+
+                //Preventes desire values from being HUGE values
+                desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
                 anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
+
+                    if (Vector3.Distance(destination, transform.position) > 1)
+                        transform.position = destination;
+
                 }
                 transform.position = destination;
                 anim.SetBool("MOVE", false);
@@ -296,11 +312,18 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+
+                //Preventes desire values from being HUGE values
+                desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
                 anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
+
+                    if (Vector3.Distance(destination, transform.position) > 1)
+                        transform.position = destination;
                 }
                 transform.position = destination;
                 anim.SetBool("MOVE", false);
@@ -309,10 +332,7 @@ public class BaseEnemy : MonoBehaviour
             }
             if (!left && !right)
             {
-
                 chasing = false;
-
-
             }
 
 
@@ -324,11 +344,19 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+
+                //Preventes desire values from being HUGE values
+                desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
                 anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
+
+                    if (Vector3.Distance(destination, transform.position) > 1)
+                        transform.position = destination;
+
                 }
                 transform.position = destination;
                 anim.SetBool("MOVE", false);
@@ -340,11 +368,18 @@ public class BaseEnemy : MonoBehaviour
             {
                 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
                 Vector3 desire = Vector3.Normalize(destination - transform.position) * 5 * Time.deltaTime;
+
+                //Preventes desire values from being HUGE values
+                desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
                 anim.SetBool("MOVE", true);
                 while (Vector3.Distance(destination, transform.position) > .1f)
                 {
                     yield return null;
                     transform.position += desire;
+
+                    if (Vector3.Distance(destination, transform.position) > 1)
+                        transform.position = destination;
                 }
                 transform.position = destination;
                 anim.SetBool("MOVE", false);
@@ -353,27 +388,20 @@ public class BaseEnemy : MonoBehaviour
             }
 
             if (!up && !down)
-            {
-                
+            {              
                 chasing = false;
-                
-
             }
         }
         if (transform.position == playerLoc)
         {
-
             locReached = true;
             chasing = false;
-
         }
         else
         {
             GameStateMachine.enemyCount++;
             yield break;
         }
-        
-
 
         yield return null;
     }
