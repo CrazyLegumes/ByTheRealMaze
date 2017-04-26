@@ -11,7 +11,12 @@ public class FirstMap : MonoBehaviour {
     void Start ()
     {
         GenMaze();
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Manager"))
+        {
+            o.GetComponent<GameStateMachine>().GetWalls();
+        }
     }
+            
 	
 	// Update is called once per frame
 	void Update ()
