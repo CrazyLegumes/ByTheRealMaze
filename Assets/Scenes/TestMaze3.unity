@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6614810c15c42fe4d8c0151da41d5416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeStep: 2
+  timeStep: 1
   player1: {fileID: 179587701}
   moveinput1: 0
   actioninput1: 0

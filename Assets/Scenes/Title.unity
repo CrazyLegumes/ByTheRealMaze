@@ -1512,7 +1512,11 @@ MonoBehaviour:
 
 
     Watch out for the ever changing walls in the labyrinth. Make sure to always have
-    a surefire escape route.'
+    a surefire escape route.
+
+
+    Press the right control key to disable moving walls, increate stats, and turn
+    the lights on.'
 --- !u!222 &909623024
 CanvasRenderer:
   m_ObjectHideFlags: 0
