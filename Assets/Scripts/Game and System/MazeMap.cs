@@ -562,6 +562,7 @@ public class MazeMap : MonoBehaviour{
         this.Random = new System.Random(seed);
 
         //Loads tile object from resources
+        List<GameObject> TileObjects = new List<GameObject>();
         GameObject TileObject;
         try
         {
@@ -573,6 +574,8 @@ public class MazeMap : MonoBehaviour{
             TileObject = new GameObject();
         }
 
+        foreach (Transform child in TileObject.GetComponentInChildren<Transform>())
+            TileObjects.Add(child.gameObject);
 
         //Creates lists for default tile objects
         for (int h = 0; h < height; h++)
@@ -580,7 +583,7 @@ public class MazeMap : MonoBehaviour{
             List<Tile> TileRow = new List<Tile>();
             for (int w = 0; w < width; w++)
             {
-                Tile temp = new Tile(TileObject);
+                Tile temp = new Tile(TileObjects[Random.Next(0, TileObjects.Count)]);
 
                 //Sets the corner values if a tile is on the corner
                 if (w == 0)

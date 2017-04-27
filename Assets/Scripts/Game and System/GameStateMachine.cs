@@ -256,4 +256,17 @@ public class GameStateMachine : StateMachine {
             }
         }
     }
+
+    public void GetWalls()
+    {
+        movableWalls.Clear();
+
+        foreach (GameObject a in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            if (a.GetComponent<MovableWalls>() != null)
+                movableWalls.Add(a.GetComponent<MovableWalls>());
+        }
+        
+    }
+
 }

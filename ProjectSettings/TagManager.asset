@@ -9,6 +9,7 @@ TagManager:
   - Warning
   - Enemy
   - Trap
+  - Manager
   layers:
   - Default
   - TransparentFX

@@ -115,6 +115,11 @@ Move:
                 hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Damage(dmg);
                 if (hit.transform.gameObject.GetComponent<BaseEnemy>().Stats.Health == 0)
                 {
+                    GameObject attackSound = gameController.player1.GetComponent<PlayerScript>().AttackSound;
+
+                    if(attackSound != null)
+                        GameObject.Instantiate(attackSound);
+
                     ParticleSystem blood = gameController.player1.GetComponent<PlayerScript>().enemyKill;
                     ParticleSystem temp = Instantiate(blood, hit.transform.position, Quaternion.identity);
                     Destroy(temp, temp.duration);
@@ -139,12 +144,18 @@ Move:
 
 
         Vector3 desire = Vector3.Normalize(destination - P1.transform.position) * 5 * Time.deltaTime;
+        //Preventes desire values from being HUGE values
+        desire = new Vector3(Mathf.Min(desire.x, 1), Mathf.Min(desire.y, 1), Mathf.Min(desire.z, 1));
+
         P1.anim.SetBool("Jump", true);
         while (Vector3.Distance(destination, P1.transform.position) > .1f)
         {
             
             yield return null;
             P1.transform.position += desire;
+
+            if (Vector3.Distance(destination, P1.transform.position) > 1)
+                P1.transform.position = destination;
         }
         P1.transform.position = destination;
         P1.anim.SetBool("Jump", false);
