@@ -9,16 +9,16 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1533228905749144}
+  m_RootGameObject: {fileID: 1570542836666060}
   m_IsPrefabParent: 1
---- !u!1 &1533228905749144
+--- !u!1 &1570542836666060
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4734383855149172}
+  - component: {fileID: 4835664768166652}
   m_Layer: 0
   m_Name: Dagger
   m_TagString: Untagged
@@ -26,18 +26,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1858151627945702
+--- !u!1 &1627576385507440
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4950497667081750}
-  - component: {fileID: 212815447369455826}
-  - component: {fileID: 114351547270539582}
-  - component: {fileID: 65719787945572240}
-  - component: {fileID: 95358618877498868}
+  - component: {fileID: 4650081128047904}
+  - component: {fileID: 212072741656748936}
+  - component: {fileID: 114586480806779268}
+  - component: {fileID: 65793784219692804}
+  - component: {fileID: 95189041935271250}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Item
@@ -45,52 +45,52 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4734383855149172
+--- !u!4 &4650081128047904
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1533228905749144}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4950497667081750}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4950497667081750
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1858151627945702}
+  m_GameObject: {fileID: 1627576385507440}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4734383855149172}
+  m_Father: {fileID: 4835664768166652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!65 &65719787945572240
+--- !u!4 &4835664768166652
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570542836666060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7, y: 0.5, z: 13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4650081128047904}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65793784219692804
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1858151627945702}
+  m_GameObject: {fileID: 1627576385507440}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.05, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95358618877498868
+--- !u!95 &95189041935271250
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1858151627945702}
+  m_GameObject: {fileID: 1627576385507440}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 92113e9b921fd7348903c2731a02d31f, type: 2}
@@ -101,31 +101,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114351547270539582
+--- !u!114 &114586480806779268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1858151627945702}
+  m_GameObject: {fileID: 1627576385507440}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a56a0288c8ddb964c9dcbea9c85da05a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idx: 3003
+  idx: 3001
   itemNamex: DaggerChan
-  description: Dagger basic
+  description: Some stupid ass dagger
   str: 2
   def: 0
   hp: 0
   equipPlace: 3
   img: {fileID: 21300000, guid: 1ffa2816f3027aa4f88002772107ffd9, type: 3}
---- !u!212 &212815447369455826
+--- !u!212 &212072741656748936
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1858151627945702}
+  m_GameObject: {fileID: 1627576385507440}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

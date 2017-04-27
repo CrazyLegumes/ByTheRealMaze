@@ -18,17 +18,19 @@ public class Lightning : MonoBehaviour {
     {
         GameStateMachine.instance.spellCount--;
     }
-    void OnTriggerEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
-        if (col.tag == "Wall")
-            Destroy(gameObject);
+        
 
-        if (col.tag == "Enemy")
+        if (col.collider.tag == "Enemy")
         {
-            BaseEnemy em = col.GetComponent<BaseEnemy>();
+            BaseEnemy em = col.collider.GetComponent<BaseEnemy>();
 
-            em.Stats.Damage(5);
+            em.Stats.Damage(3);
             
         }
     }
+
+
+   
 }

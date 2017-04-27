@@ -10,7 +10,7 @@ public class HealthPotion : UseItem {
         
         if(owner != null)
         {
-            owner.mystats.Heal(1);
+            owner.mystats.Heal(2);
             owner.myUi.UpdateCurrentHealth();
             uses--;
         }

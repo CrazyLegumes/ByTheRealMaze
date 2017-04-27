@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class BossEnemy : BaseEnemy
 {
+
+    int count;
+    [SerializeField]
+    GameObject hoss;
+    [SerializeField]
+    GameObject sound;
     public override void InitStats()
     {
         stats = new StatsClass();
-        stats.Strength = 3;
+        stats.Strength = 5;
         stats.Defense = 2;
-        stats.Health = 6;
+        stats.Health = 10;
+        count = 3;
     }
 
+    public override IEnumerator Chase()
+    {
+        if (seenPlayer)
+        {
+            if (count >= 3)
+            {
+                Vector3 spawnpos = new Vector3((int)Random.Range(-4, 4) + (int)transform.position.x, 0.5f, (int)Random.Range(-4, 4) + (int)transform.position.z);
+                while (spawnpos == playerLoc || spawnpos.x > 20 || spawnpos.z > 20 || spawnpos.x < 0 || spawnpos.z < 0)
+                {
+                    yield return null;
+                    spawnpos = new Vector3((int)Random.Range(-4, 4) + (int)transform.position.x, 0.5f, (int)Random.Range(-4, 4) + (int)transform.position.z);
+                }
+                GameObject mini = Instantiate(hoss, spawnpos, Quaternion.identity);
+                if (sound != null)
+                    Instantiate(sound);
+                mini.GetComponent<BaseEnemy>().initialize();
+                GameStateMachine.instance.enemyList.Add(mini.GetComponent<BaseEnemy>());
+                GameStateMachine.enemyCount++;
+                mini.name = "Hoss";
+                count = 0;
+            }
+            else
+                count++;
+        }
 
+        yield return base.Chase();
+
+    }
 
     public override void Act1()
     {
@@ -23,14 +57,16 @@ public class BossEnemy : BaseEnemy
         if (Vector3.Distance(player.transform.position, transform.position) < 3)
         {
             attackType = 1; // do the close range attack
+            windup = 2;
         }
         else
         {
             attackType = 0; // do the far away attack
+            windup = 1;
         }
         if (attackType == 1)
         {
-           
+
             if (attackDirection == "up")
             {
                 attackArray[0] = new Vector3(transform.position.x, 0.05f, transform.position.z + 1);
@@ -145,9 +181,9 @@ public class BossEnemy : BaseEnemy
                                     dmg = dmg * 2;
                                 }
                             }
-                            if(attackDirection == "right")
+                            if (attackDirection == "right")
                             {
-                                if(player.transform.position.x - transform.position.x > 2.9f)
+                                if (player.transform.position.x - transform.position.x > 2.9f)
                                 {
                                     Debug.Log("double dmg");
                                     dmg = dmg * 2;
@@ -201,13 +237,15 @@ public class BossEnemy : BaseEnemy
             locReached = true;
             turnsWaiting = 0;
         }
+        else
+            turnsWaiting++;
     }
 
 
 
     void Start()
     {
-        windup = 1;
+        windup = 2;
         InitStats();
         attackSize = 7;
         attackRange = 4;

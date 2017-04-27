@@ -100,6 +100,10 @@ public class GameStateMachine : StateMachine {
     void Update()
     {
         Pause();
+        if(Time.timeScale == 0)
+        {
+            
+        }
         UpdateUI();
         spellCount = Mathf.Clamp(spellCount, 0, 100);
         if (Input.GetKeyDown(KeyCode.RightControl) && cheater == false)
@@ -108,7 +112,7 @@ public class GameStateMachine : StateMachine {
             lighting.enabled = true;
             player1.GetComponent<PlayerScript>().mystats.Defense = 9000;
             player1.GetComponent<PlayerScript>().mystats.Strength = 9000;
-            
+           
             foreach(MovableWalls a in movableWalls)
             {
                 foreach(GameObject b in a.ConnectedWalls)
@@ -122,7 +126,9 @@ public class GameStateMachine : StateMachine {
                 Debug.Log(" destroyed " + a);
                 Destroy(a.gameObject);
             }
+            
             movableWalls.Clear();
+            
         }
         //timer.value = currentTimer;
         over = player1.GetComponent<PlayerScript>().mystats.Dead;
@@ -167,7 +173,7 @@ public class GameStateMachine : StateMachine {
             if (Input.GetKeyDown(KeyCode.Return)){
                 SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
-            overState.text = "GAME OVER!";
+            overState.text = "GAME OVER";
         }
         if (won == true)
         {
@@ -176,7 +182,7 @@ public class GameStateMachine : StateMachine {
             if (Input.GetKeyDown(KeyCode.Return)){
                 SceneManager.LoadScene(2, LoadSceneMode.Single);
             }
-            overState.text = "YOU WON!";
+            overState.text = "YOU WON";
         }
     }
 
@@ -232,6 +238,7 @@ public class GameStateMachine : StateMachine {
                     pause.enabled = true;
                     paused = true;
                     Time.timeScale = 0;
+                   
                 }
                 else
                 {

@@ -266,13 +266,13 @@ public class BaseEnemy : MonoBehaviour
             if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 left = false;
         }
-        if (Physics.Linecast(transform.position, transform.position + Vector3.up, out hit))
+        if (Physics.Linecast(transform.position, transform.position + Vector3.forward, out hit))
         {
             if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 up = false;
 
         }
-        if (Physics.Linecast(transform.position, transform.position + Vector3.down, out hit))
+        if (Physics.Linecast(transform.position, transform.position + Vector3.back, out hit))
         {
             if (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Player")
                 down = false;

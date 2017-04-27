@@ -29,6 +29,7 @@ public class SpikeTrap :Traps {
         {
             
             Activator.mystats.Damage(1);
+            ScoreManager.damageTaken++;
             Activator.myUi.UpdateCurrentHealth();
             foreach (Animator e in Spikes)
             {

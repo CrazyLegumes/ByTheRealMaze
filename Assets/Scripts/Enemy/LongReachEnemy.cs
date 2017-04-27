@@ -10,6 +10,7 @@ public class LongReachEnemy : BaseEnemy
     {
         stats = new StatsClass();
         stats.Strength = 3;
+        stats.Health = 2;
     }
 
     /*public override void ChooseAttack()

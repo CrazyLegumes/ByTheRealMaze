@@ -6,16 +6,29 @@ public class WallMoveState : GameState {
 
     public override void Enter()
     {
-        foreach (MovableWalls a in gameController.movableWalls)
-        {
-            StartCoroutine(a.MoveWall());
-        }
+        
+        
 
+        
         StartCoroutine(init());
     }
 
     IEnumerator init()
     {
+        bool started = true;
+        foreach (MovableWalls a in gameController.movableWalls)
+        {
+
+
+
+            StartCoroutine(a.MoveWall());
+            
+
+
+        }
+        started = false;
+
+
         yield return new WaitForEndOfFrame();
         gameController.ChangeState<InputState>();
         yield break;

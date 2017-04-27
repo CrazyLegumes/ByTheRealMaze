@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TEnemy : BaseEnemy
 {
+    public GameObject sound;
+
+
+
     public override void InitStats()
     {
         stats = new StatsClass();
-        stats.Strength = 2;
+        stats.Strength = 3;
+        stats.Health = 1;
     }
 
     /*public override void ChooseAttack()
@@ -53,6 +58,10 @@ public class TEnemy : BaseEnemy
             foreach (Vector3 a in attackArray)
             {
                 Debug.Log("WARNING");
+
+                if (sound != null)
+                    Instantiate(sound);
+
                 GameObject b = Instantiate(attackWarning, a, Quaternion.identity, transform);
                 b.transform.localScale = new Vector3(b.transform.localScale.x / transform.localScale.x,
                     b.transform.localScale.y / transform.localScale.y,

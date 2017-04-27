@@ -28,7 +28,7 @@ public class FireBall : Projectile {
         {
             BaseEnemy em = col.collider.GetComponent<BaseEnemy>();
 
-            em.Stats.Damage(5);
+            em.Stats.Damage(3);
             
             Destroy(gameObject);
             
@@ -38,8 +38,9 @@ public class FireBall : Projectile {
 
     // Use this for initialization
     void Start () {
-       
-		
+
+        if (velocity == Vector3.zero)
+            velocity = new Vector3(0, 0, 1);
 	}
 	
 	// Update is called once per frame

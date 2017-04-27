@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMoveState : GameState {
-    
+    int fixmecount;
 
     public override void Enter()
     {
         base.Enter();
+        fixmecount = 0;
+
         StartCoroutine(MoveUs());
         
     }
@@ -67,8 +69,10 @@ public class EnemyMoveState : GameState {
     {
         while (true)
         {
+            fixmecount++;
             yield return null;
-            if (GameStateMachine.enemyCount == gameController.enemyList.Count)
+            
+            if (GameStateMachine.enemyCount >= gameController.enemyList.Count)
             {
 
                 //yield return new WaitForSeconds(.5f);
@@ -83,6 +87,14 @@ public class EnemyMoveState : GameState {
                 gameController.ChangeState<WallMoveState>();
                 yield break;
             }
+            if (fixmecount >= 70)
+            {
+           
+             
+                gameController.ChangeState<WallMoveState>();
+                yield break;
+            }
+           
         }
     }
 

@@ -106,6 +106,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDirection: 
+  hoss: {fileID: 0}
+  sound: {fileID: 1155281182268780, guid: 06c34529758238e4b8b1fb704bcc984f, type: 2}
 --- !u!136 &136333542831783930
 CapsuleCollider:
   m_ObjectHideFlags: 1

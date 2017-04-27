@@ -154,7 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDirection: 
-  sound: {fileID: 0}
+  sound: {fileID: 1155281182268780, guid: 06c34529758238e4b8b1fb704bcc984f, type: 2}
 --- !u!136 &136521854902285214
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -181,7 +181,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

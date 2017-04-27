@@ -11,7 +11,8 @@ public class ChargeEnemy : BaseEnemy
     public override void InitStats()
     {
         stats = new StatsClass();
-        stats.Strength = 5;
+        stats.Strength = 4;
+        stats.Health = 3;
     }
 
     /*public override void ChooseAttack()
@@ -112,13 +113,19 @@ public class ChargeEnemy : BaseEnemy
     public virtual IEnumerator chargeMove(int newDes)
     {
         Vector3 destination = transform.position + (chargeDirection * newDes);
+        Vector3 desire = Vector3.Normalize(destination - transform.position) * 15 * Time.deltaTime;
+        Vector3 total = Vector3.zero;
 
-        while (transform.position != destination)
+        while (Vector3.Distance(destination, transform.position) > .2f)
         {
-            transform.position = Vector3.Lerp(transform.position, destination, 10 * Time.deltaTime);
+            transform.position += desire;
+            total += desire;
+            if (Mathf.Abs(total.x) > newDes || Mathf.Abs(total.z) > newDes)
+                break;
 
             yield return null;
         }
+        transform.position = destination;
         if (goingToGetHit)
         {
                 int dmg = stats.Strength - FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Defense;
@@ -145,6 +152,8 @@ public class ChargeEnemy : BaseEnemy
             FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().mystats.Damage(dmg);
             FindObjectOfType<PlayerScript>().GetComponent<PlayerScript>().myUi.UpdateCurrentHealth();
         }
+        chasing = false;
+        seenPlayer = false;
         yield return null;
     }
 

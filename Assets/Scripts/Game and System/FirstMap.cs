@@ -557,7 +557,7 @@ public class FirstMap : MonoBehaviour {
         map.AddShiftableWall(17, 8, "Right"); 
         map.AddShiftableWall(15, 16, "Top");
         map.AddShiftableWall(14, 15, "Top");
-        map.AddShiftableWall(15, 12, "Right"); 
+        map.AddShiftableWall(15, 12, "Bottom"); 
         map.AddShiftableWall(17, 14, "Left"); 
         map.AddShiftableWall(4, 16, "Top"); 
         map.AddShiftableWall(2, 20, "Right"); 
