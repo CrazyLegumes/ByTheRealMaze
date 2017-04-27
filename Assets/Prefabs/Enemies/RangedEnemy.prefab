@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4924000550474864}
   - component: {fileID: 212017218109745868}
   - component: {fileID: 95325869420657340}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Archer_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 136343338104503234}
   - component: {fileID: 23463946981153022}
   - component: {fileID: 114659147349714280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -154,6 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDirection: 
+  AttackSound: {fileID: 0}
 --- !u!136 &136343338104503234
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -281,7 +281,9 @@ public class PlayerScript : MonoBehaviour
     void UnEquipIt(EquipItem a) {
         Debug.Log(mystats);
         mystats.Health -= a.ItemStats.Maxhealth;
+        Debug.Log(a.ItemStats.Maxhealth);
 
+        Debug.Log(mystats);
         mystats -= a.ItemStats;
         myUi.UpdateTotalHealth();
         Debug.Log(mystats);

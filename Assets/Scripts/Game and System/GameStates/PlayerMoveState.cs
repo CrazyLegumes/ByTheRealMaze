@@ -8,11 +8,17 @@ public delegate void OnTurnEnd();
 public class PlayerMoveState : GameState {
 
     LayerMask wallMask;
+    [SerializeField]
+    LayerMask layers;
+    LayerMask EnemyMask;
 
     public override void Enter()
     {
         ScoreManager.turnsTaken++;
         wallMask = LayerMask.NameToLayer("Wall");
+        EnemyMask = LayerMask.NameToLayer("Enemy");
+        layers += wallMask;
+        layers += EnemyMask;
         base.Enter();
         StartCoroutine(MovePlayer1());
         
@@ -98,6 +104,7 @@ Move:
         Debug.DrawLine(P1.transform.position, destination, Color.red, 3);
         if (Physics.Linecast(P1.transform.position, destination, out hit))
         {
+            
 
             if (hit.transform.gameObject.tag == "Wall") //And movable wall check
             {

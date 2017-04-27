@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4874949336065068}
   - component: {fileID: 212527246208641606}
   - component: {fileID: 95076555229196818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: batsan_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 136521854902285214}
   - component: {fileID: 23407137450397662}
   - component: {fileID: 114158556965248970}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DummyEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -154,6 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDirection: 
+  sound: {fileID: 0}
 --- !u!136 &136521854902285214
 CapsuleCollider:
   m_ObjectHideFlags: 1

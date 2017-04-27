@@ -138,7 +138,7 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(19, 12, "Left");
         map.DeleteWall(20, 11, "Top");
         map.DeleteWall(20, 11, "Right");
-        //map.DeleteWall(10, 20, "Top"); Opens when boss defeat
+        map.DeleteWall(10, 20, "Top", true); //Opens when boss defeat
         map.DeleteWall(10, 20, "Bottom");
         map.DeleteWall(11, 20, "Bottom");
         map.DeleteWall(12, 20, "Bottom");
@@ -541,9 +541,9 @@ public class FirstMap : MonoBehaviour {
         map.DeleteWall(7, 9, "Bottom");
         map.DeleteWall(7, 8, "Bottom");
         map.DeleteWall(7, 8, "Left");
-        
 
 
+        map.DeleteWall(20, 10, "Top");
 
 
         //Shiftable walls

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136719425273319316}
   - component: {fileID: 23366297296751960}
   - component: {fileID: 114040054825936724}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LongEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4915267153238358}
   - component: {fileID: 212612006654031910}
   - component: {fileID: 95021942528458116}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spearman_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,6 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDirection: 
+  AttackSound: {fileID: 0}
 --- !u!136 &136719425273319316
 CapsuleCollider:
   m_ObjectHideFlags: 1

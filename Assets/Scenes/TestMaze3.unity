@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465791, g: 0.49641293, b: 0.57481766, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -952,58 +952,6 @@ Prefab:
     - target: {fileID: 4573221610665666, guid: 7d4746a66c950994ea685c1cc41beef8, type: 2}
       propertyPath: m_RootOrder
       value: 27
-      objectReference: {fileID: 0}
-    - target: {fileID: 212054788421288718, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212666784768901936, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212332918869176616, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212555896095686282, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212687607700835240, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212381542923828604, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212215249417571850, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 212172749487950210, guid: 7d4746a66c950994ea685c1cc41beef8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c74e22307945f4a8b15c0e0813ab61, type: 2}
-    - target: {fileID: 4573221610665666, guid: 7d4746a66c950994ea685c1cc41beef8, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4573221610665666, guid: 7d4746a66c950994ea685c1cc41beef8, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4573221610665666, guid: 7d4746a66c950994ea685c1cc41beef8, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1881707240379416, guid: 7d4746a66c950994ea685c1cc41beef8, type: 2}
       propertyPath: m_Name
@@ -2589,7 +2537,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4674363533544646, guid: 514c4d6237cefd744bad0477dc002012, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 16
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4674363533544646, guid: 514c4d6237cefd744bad0477dc002012, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5792,7 +5740,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1162379844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.51, y: 0.5, z: 7.95}
+  m_LocalPosition: {x: -1, y: 0.5, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 471181876}
@@ -8059,7 +8007,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4674363533544646, guid: 514c4d6237cefd744bad0477dc002012, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4674363533544646, guid: 514c4d6237cefd744bad0477dc002012, type: 2}
       propertyPath: m_LocalPosition.y
